@@ -6,7 +6,7 @@
 #    By: aperez-m <aperez-m@student.42urduliz.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/02 13:31:05 by aperez-m          #+#    #+#              #
-#    Updated: 2023/04/28 17:28:58 by aperez-m         ###   ########.fr        #
+#    Updated: 2023/05/01 18:41:18 by aperez-m         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -91,7 +91,7 @@ DIR_DUP     = mkdir -p $(@D)
 all: $(NAME)
 
 $(NAME): $(OBJS) $(LIBS_TARGET)
-	$(CC) $(LDFLAGS) $(OBJS) $(LDLIBS) -o $(NAME)
+	$(CC) $(LDFLAGS) $(OBJS) $(LDLIBS) -o $(NAME).out
 	$(info CREATED $(NAME))
 
 $(LIBS_TARGET):
