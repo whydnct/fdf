@@ -6,7 +6,7 @@
 #    By: aperez-m <aperez-m@student.42urduliz.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/02 13:31:05 by aperez-m          #+#    #+#              #
-#    Updated: 2023/04/14 10:53:02 by aperez-m         ###   ########.fr        #
+#    Updated: 2023/05/03 18:57:41 by aperez-m         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,7 +70,9 @@ SRCS        :=  \
     bonus/ft_lstdelone_bonus.c \
     bonus/ft_lstclear_bonus.c \
     bonus/ft_lstiter_bonus.c \
-    bonus/ft_lstmap_bonus.c
+    bonus/ft_lstmap_bonus.c \
+    get_next_line_utils.c \
+    get_next_line.c
 
 SRCS        := $(SRCS:%=$(SRC_DIR)/%)
 

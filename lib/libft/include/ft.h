@@ -6,7 +6,7 @@
 /*   By: aperez-m <aperez-m@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 19:47:04 by aperez-m          #+#    #+#             */
-/*   Updated: 2023/04/28 18:41:08 by aperez-m         ###   ########.fr       */
+/*   Updated: 2023/05/03 18:55:02 by aperez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,10 @@
 
 # include <stdlib.h>
 # include <unistd.h>
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 3
+# endif
 
 typedef struct s_list
 {
@@ -65,4 +69,11 @@ t_list		*ft_lstlast(t_list *lst);
 t_list		*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 t_list		*ft_lstnew(void *content);
 int			ft_lstsize(t_list *lst);
+char		*get_next_line(int fd);
+char		*fill_temp_stash(int fd, char *temp_stash);
+char		*ft_strjoin_gnl(char *temp_stash, char *buff);
+char		*ft_strchr_gnl(char *s, int c);
+char		*fill_ret(char *s);
+char		*trim_temp_stash(char *temp_stash);
+
 #endif
