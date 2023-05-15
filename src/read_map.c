@@ -6,7 +6,7 @@
 /*   By: aperez-m <aperez-m@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:05:23 by aperez-m          #+#    #+#             */
-/*   Updated: 2023/05/15 07:27:02 by aperez-m         ###   ########.fr       */
+/*   Updated: 2023/05/15 10:55:58 by aperez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,24 +26,6 @@ void get_str_map_rows(char *file, t_v_map *v_map)
 	*v_map->rows = temp;
 }
 
-int get_map_cols(int fd, t_map *map)
-{
-    int ret;
-    int i;
-    int temp;
-
-    ret = 0;
-    i = 0;
-	temp = 0;
-    while(i < map->rows)
-    {
-		temp = get_next_line(fd);
-        if (ret < temp)
-			ret = temp;
-    }
-	return (ret);
-}
-
 char	***get_str_map(char *file, t_v_map *v_map)
 {
 	char ***ret;
@@ -52,13 +34,36 @@ char	***get_str_map(char *file, t_v_map *v_map)
 
 	i = -1;
 	fd = open(file, O_READONLY);
-	ret = malloc((1 + *v_map->rows)*sizeof(char **));
+	ret = malloc(*v_map->rows*sizeof(char **));
 	while (++i < *v_map->rows)
 		ret[i] = ft_split(get_next_line(fd), ' ');
 	close(file);
 	return (ret); 
 }
 
+void get_str_map_cols(t_v_map *v_map, char ****str_map)
+{
+	int	cols;
+    int i;
+	int	j;
+    int temp;
+
+    cols = 0;
+    i = 0;
+	j = 0;
+	temp = 0;
+    while(i < *v_map->rows)
+    {
+		while(*str_map[i][j][0])
+			j++;
+		temp = j;
+        if (cols < temp)
+			cols = temp;
+		j = 0;
+		i++;
+    }
+	*v_map->cols = cols;
+}
 unsigned int	get_color(char *str, int offset)
 {
 	unsigned int	ret;
@@ -78,37 +83,33 @@ unsigned int	get_color(char *str, int offset)
 			if (j == 16)
 				error_handler(WRONG_COLOR_CODE);
 		}
-		ret = j * 16 * (1 - i);
+		ret = j * 16 * (2 - i);
 		j = 0;
 		i++;
 	}
 }
 
-//map of chars -> map with heights and colors
-//TODO: free in malloc error
-t_vertex **get_map_int(char ****map_chars, t_map *map)
+void	get_heights_colors(t_v_map *v_map, char ****str_map)
 {
-	t_vertex	**ret;
-    int				i;
-    int				j;
+    int	i;
+	int	j;
 	
 	i = 0;
-    j = 0;
-	ret = malloc(map->rows * sizeof(t_vertex));
+	j = 0;
+	v_map->vertices = malloc(map->rows * sizeof(t_vertex*));
 	while (i < map->rows)
 	{
-		ret[i] = malloc(map->columns * sizeof(t_vertex));
+		v_map->vertices[i] = malloc(*v_map->cols * sizeof(t_vertex));
 		while (j < map->columns)
-        {
-			ret[i][j].height = ft_atoi((**map_chars)[i][j]);
-			ret[i][j].R = get_color(ft_strchr((**map_chars)[i][j], ','), R_OFFSET);
-			ret[i][j].G = get_color(ft_strchr((**map_chars)[i][j], ','), G_OFFSET);
-			ret[i][j].B = get_color(ft_strchr((**map_chars)[i][j], ','), B_OFFSET);
-			ret[i][j].A = get_color(ft_strchr((**map_chars)[i][j], ','), A_OFFSET);
+		{
+			*v_map->vertices[i][j]->height = ft_atoi((*str_map)[i][j]);
+			*v_map->vertices[i][j]->R = get_color(ft_strchr((*str_map)[i][j], ','), R_OFFSET);
+			*v_map->vertices[i][j]->G = get_color(ft_strchr((*str_map)[i][j], ','), G_OFFSET);
+			*v_map->vertices[i][j]->B = get_color(ft_strchr((*str_map)[i][j], ','), B_OFFSET);
+			*v_map->vertices[i][j]->A = get_color(ft_strchr((*str_map)[i][j], ','), A_OFFSET);
 			j++;
-        }
-        j = 0;
-        i++;
+		}
+		j = 0;
+		i++;
 	}
-	return (ret);
 }

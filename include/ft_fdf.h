@@ -6,7 +6,7 @@
 /*   By: aperez-m <aperez-m@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 18:30:39 by aperez-m          #+#    #+#             */
-/*   Updated: 2023/05/15 07:16:21 by aperez-m         ###   ########.fr       */
+/*   Updated: 2023/05/15 10:23:08 by aperez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,10 @@ int get_str_map_rows(char *file)
 //It has to be to be char *** because each row has as
 //many char * as vertices, so each row is a char **.
 char	***get_str_map(char *file)
+//gets the maximum number of columns in the map
+void	get_str_map_cols(t_v_map *v_map, char ****str_map);
+//builds a t_vertex ** and gets height and color for each vertex
+void	get_heights_colors(t_v_map *v_map, char ****str_map);
 
 
 //vertex map transformations
