@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_fdf.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aperez-m <aperez-m@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: aperez-m <aperez-m@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 18:30:39 by aperez-m          #+#    #+#             */
-/*   Updated: 2023/05/15 10:23:08 by aperez-m         ###   ########.fr       */
+/*   Updated: 2023/05/16 20:51:54 by aperez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ void	get_str_map_cols(t_v_map *v_map, char ****str_map);
 void	get_heights_colors(t_v_map *v_map, char ****str_map);
 
 
-//vertex map transformations
+//VERTEX MAP TRANSFORMATIONS
+
 //gets x and y of each vertex in the to the new perspective,
 //doesn't scale, doesnt center the vertices map
 void	to_new_perspective(t_v_map *v_map, t_view *view);
@@ -66,6 +67,12 @@ void	scale_v_map(t_v_map *v_map)
 void	get_offset(t_v_map *v_map, int img_with, int img_height)
 //move the v_map to the center of the window
 void	center_v_map(t_v_map *v_map)
+//draws lines along the axis from one vertex to the next
+void	draw_lines(t_data *data, t_v_map *v_map, int i, int j);
+//gets the value of y along a line as a function of x
+int	get_y(int x, int start_x, int start_y, int end_x, int end_y);
+//gets the color along a line as a function of x
+int	get_color(int x, int start_x, int start_color, int end_x, int end_color);
 //scale v_map_around image_center
 void	rescale_v_map(t_v_map *v_map, double zoom)
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vertex_to_img.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aperez-m <aperez-m@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: aperez-m <aperez-m@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 06:06:44 by aperez-m          #+#    #+#             */
-/*   Updated: 2023/05/15 06:52:20 by aperez-m         ###   ########.fr       */
+/*   Updated: 2023/05/16 20:53:12 by aperez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,30 @@ void	center_v_map(t_v_map *v_map)
 		i[1] = 0;
 		i[0]++;
 	}
+}
+
+void	draw_lines(t_data *data, t_vertex *start, t_vertex *end)
+{
+	
+	int	x;
+	int	y;
+	int color;
+
+	while (++x < *v_map->vertices[i + 1][j]->x)
+	{
+		y = get_y(x, *start->x, *start->y, *end->x, *end->y);
+		color = get_color(*start->x, *end->x, *start->color, *end->color);
+		my_mlx_pixel_put(data, x, y, color);
+	}
+
+}
+
+int	get_y(int x, int start_x, int start_y, int end_x, int end_y)
+{
+	int y;
+	
+	y = (end_y - start_y) / (end_x - start_x) * (x - start_x) + start_y;
+	return (y);
 }
 
 void	re_scale_v_map(t_v_map *v_map, double zoom, int img_width, int img_height)

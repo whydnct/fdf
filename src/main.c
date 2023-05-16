@@ -6,7 +6,7 @@
 /*   By: aperez-m <aperez-m@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 13:26:58 by aperez-m          #+#    #+#             */
-/*   Updated: 2023/05/15 14:04:52 by aperez-m         ###   ########.fr       */
+/*   Updated: 2023/05/16 20:01:44by aperez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,14 @@ void	write_v_map_to_image(t_data *data, t_v_map *v_map)
 	
 	i = 0;
 	j = 0;
-	while (i < v_map->rows)
+	while (i < v_map->rows - 1)
 	{
-		while(j < v_map->cols)
+		while(j < v_map->cols - 1)
 		{
+			draw_lines(data, v_map, i, j);
 			my_mlx_pixel_put(data, v_map->vertices[i][j]->x, /
 				v_map->vertices[i][j]->y, v_map->vertices[i][j]->color);
+				
 			j++;
 		}
 		j = 0;
