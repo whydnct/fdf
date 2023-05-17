@@ -30,38 +30,9 @@ t_v_map *create_v_map(char *file, t_view *view, int w_width, int w_height)
 	get_offset(v_map, w_width, w_height);
 	center_v_map(v_map);
 	
+	
 	return (ret);	
 	
-}
-
-void	write_v_map_to_image(t_data *data, t_v_map *v_map)
-{
-	int i;
-	int j;
-	
-	i = 0;
-	j = 0;
-	while (i < v_map->rows - 1)
-	{
-		while(j < v_map->cols - 1)
-		{
-			draw_lines(data, v_map, i, j);
-			my_mlx_pixel_put(data, v_map->vertices[i][j]->x, /
-				v_map->vertices[i][j]->y, v_map->vertices[i][j]->color);
-				
-			j++;
-		}
-		j = 0;
-		i++;
-	}
-}
-
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
-{
-	char	*dst;
-
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-	*(unsigned int *)dst = color;
 }
 
 int	main(int argc, char **argv)
@@ -87,7 +58,6 @@ int	main(int argc, char **argv)
 			&img.endian); //allocates and returns address of the image. All variables but the address are set by mlx.
 	v_map = create_v_map(file);
 	write_v_map_to_image(&img, v_map);
-	my_mlx_pixel_put(&img, 195, 195, 0x00FF0000);
 	mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0); //pushes the img (t_data) to the window
 	mlx_key_hook(mlx_win, &exit_on_esc, param);
 	mlx_loop(mlx); //renders the window

@@ -6,7 +6,7 @@
 /*   By: aperez-m <aperez-m@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 18:30:39 by aperez-m          #+#    #+#             */
-/*   Updated: 2023/05/16 20:51:54 by aperez-m         ###   ########.fr       */
+/*   Updated: 2023/05/17 20:12:15 by aperez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,11 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 
 //read file into vertex map
 //gets the number of rows in the file
-int get_str_map_rows(char *file)
+int get_str_map_rows(char *file);
 //reads a file into a char ***.
 //It has to be to be char *** because each row has as
 //many char * as vertices, so each row is a char **.
-char	***get_str_map(char *file)
+char	***get_str_map(char *file);
 //gets the maximum number of columns in the map
 void	get_str_map_cols(t_v_map *v_map, char ****str_map);
 //builds a t_vertex ** and gets height and color for each vertex
@@ -57,24 +57,31 @@ void	to_new_perspective(t_v_map *v_map, t_view *view);
 //get the vertical span of the vertices map, unscaled
 void	get_span_v(t_v_map *v_map);
 //get the horizontal span of the vertices map, unscaled
-void	get_span_h(t_v_map *vertex_map, t_view *view)
+void	get_span_h(t_v_map *vertex_map, t_view *view);
 //gets the maximum zoom for the vertices map to be shown completely in the window
 //pps = pixels per grid side
 int	get_max_pps(t_v_map *v_map, int img_width, int img_height);
 //scale v_map_around 0,0
-void	scale_v_map(t_v_map *v_map)
+void	scale_v_map(t_v_map *v_map);
 //get vector from scaled v_map to image center
-void	get_offset(t_v_map *v_map, int img_with, int img_height)
+void	get_offset(t_v_map *v_map, int img_with, int img_height);
 //move the v_map to the center of the window
-void	center_v_map(t_v_map *v_map)
+void	center_v_map(t_v_map *v_map);
 //draws lines along the axis from one vertex to the next
-void	draw_lines(t_data *data, t_v_map *v_map, int i, int j);
-//gets the value of y along a line as a function of x
-int	get_y(int x, int start_x, int start_y, int end_x, int end_y);
-//gets the color along a line as a function of x
-int	get_color(int x, int start_x, int start_color, int end_x, int end_color);
+void	draw_line(t_data *data, t_v_map *v_map, int i, int j);
+
+/**
+ * @brief interpolates the value as f(x).
+ * @param x x for which you want to get the value
+ * @param st_x x value for the beggining of the line
+ * @param st_value value at the beggining of the line
+ * @return value at a point x
+ * @note 
+ */
+int	interpolate(int x, int st_x, int st_value, int end_x, int end_value);
+
 //scale v_map_around image_center
-void	rescale_v_map(t_v_map *v_map, double zoom)
+void	rescale_v_map(t_v_map *v_map, double zoom);
 
 
 //image to push to window

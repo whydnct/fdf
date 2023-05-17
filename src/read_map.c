@@ -6,7 +6,7 @@
 /*   By: aperez-m <aperez-m@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:05:23 by aperez-m          #+#    #+#             */
-/*   Updated: 2023/05/15 13:38:45 by aperez-m         ###   ########.fr       */
+/*   Updated: 2023/05/17 21:57:59 by aperez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ unsigned int	get_color(char *str, int offset)
 			if (j == 16)
 				error_handler(WRONG_COLOR_CODE);
 		}
-		ret = j * 16 * (2 - i);
+		ret = ret * 16 j * 16 * (2 - i);
 		j = 0;
 		i++;
 	}
