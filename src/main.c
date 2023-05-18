@@ -12,27 +12,24 @@
 
 #include "ft_fdf.h"
 
-t_v_map *create_v_map(char *file, t_view *view, int w_width, int w_height)
+t_v_map	*create_v_map(char *file, t_view *view, int w_width, int w_height)
 {
 	t_v_map	*ret;
 	char	***str_map;
-	
+
 	ret = malloc(sizeof(ret));
 	get_str_map_rows(file, ret);
 	str_map = get_str_map(file, ret);
 	get_str_map_cols(ret, &str_map);
 	get_heights_colors(ret, &str_map);
-	to_new_perspective(s_v_map, view);
+	to_new_perspective(ret, view);
 	get_span_v(ret);
 	get_span_h(ret);
-	get_max_pps(v_map, w_width, w_height);
-	scale_v_map(s_v_map);
-	get_offset(v_map, w_width, w_height);
-	center_v_map(v_map);
-	
-	
-	return (ret);	
-	
+	get_max_pps(ret, w_width, w_height);
+	scale_v_map(ret);
+	get_offset(ret, w_width, w_height);
+	center_v_map(ret);
+	return (ret);
 }
 
 int	main(int argc, char **argv)

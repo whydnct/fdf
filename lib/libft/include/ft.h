@@ -6,7 +6,7 @@
 /*   By: aperez-m <aperez-m@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 19:47:04 by aperez-m          #+#    #+#             */
-/*   Updated: 2023/05/03 18:55:02 by aperez-m         ###   ########.fr       */
+/*   Updated: 2023/05/18 19:34:59 by aperez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,10 @@ size_t		ft_strlcpy(char *dst, const char *src, size_t dstsize);
 size_t		ft_strlcat(char *dst, const char *src, size_t size);
 int			ft_toupper(int c);
 int			ft_tolower(int c);
+/**
+ * @brief finds the first occurrence of 'c' in 's'
+ * @return a pointer to the first 'c'. NULL if not found
+*/
 char		*ft_strchr(const char *s, int c);
 char		*ft_strrchr(const char *s, int c);
 int			ft_strncmp(const char *s1, const char *s2, size_t n);
@@ -52,6 +56,12 @@ char		*ft_strdup(const char *s);
 char		*ft_substr(char const *s, unsigned int start, size_t len);
 char		*ft_strjoin(char const *s1, char const *s2);
 char		*ft_strtrim(char const *s1, char const *set);
+/**
+ * @brief splits a string every time it finds one or more
+ * consecutive 'c'. Every resulting string is null terminated.
+ * @return a char** of the chuncks extracted, the last string
+ * is \0.
+ */
 char		**ft_split(char const *s, char c);
 char		*ft_itoa(int n);
 char		*ft_strmapi(char const *s, char (*f)(unsigned int, char));

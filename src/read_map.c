@@ -6,109 +6,118 @@
 /*   By: aperez-m <aperez-m@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:05:23 by aperez-m          #+#    #+#             */
-/*   Updated: 2023/05/17 21:57:59 by aperez-m         ###   ########.fr       */
+/*   Updated: 2023/05/18 20:25:40 by aperez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_fdf.h"
 
-void get_str_map_rows(char *file, t_v_map *v_map)
+void	get_str_map_rows(char *file, t_v_map *v_map)
 {
 	int	fd;
 	int	temp;
-    
-	fd = open(file, O_READONLY);
-    while(get_next_line(fd))
-        temp++;
-    if (!ret)
-        error_handler(EMPTY_FILE);
+
+	fd = open(file, O_RDONLY);
+	if (fd < 0)
+		error_handler(OPEN_FAILED);
+	temp = 0;
+	while (get_next_line(fd))
+		temp++;
+	if (!temp)
+		error_handler(EMPTY_FILE);
 	close(fd);
-	*v_map->rows = temp;
+	v_map->rows = temp;
 }
 
 char	***get_str_map(char *file, t_v_map *v_map)
 {
-	char ***ret;
-	int	fd;
-	int  i;
+	char	***ret;
+	int		fd;
+	int		i;
 
 	i = -1;
-	fd = open(file, O_READONLY);
-	ret = malloc(*v_map->rows*sizeof(char **));
-	while (++i < *v_map->rows)
+	fd = open(file, O_RDONLY);
+	if (fd < 0)
+		error_handler(OPEN_FAILED);
+	ret = malloc(v_map->rows * sizeof(char **));
+	if (!ret)
+		error_handler(MALLOC_FAILED);
+	while (++i < v_map->rows)
 		ret[i] = ft_split(get_next_line(fd), ' ');
 	close(file);
-	return (ret); 
+	return (ret);
 }
 
-void get_str_map_cols(t_v_map *v_map, char ****str_map)
+void	get_str_map_cols(t_v_map *v_map, char ****str_map)
 {
 	int	cols;
-    int i;
+	int	i;
 	int	j;
-    int temp;
+	int	temp;
 
-    cols = 0;
-    i = 0;
+	cols = 0;
+	i = 0;
 	j = 0;
 	temp = 0;
-    while(i < *v_map->rows)
-    {
-		while(*str_map[i][j][0])
+	while (i < v_map->rows)
+	{
+		while (*str_map[i][j][0])
 			j++;
 		temp = j;
-        if (cols < temp)
+		if (cols < temp)
 			cols = temp;
 		j = 0;
 		i++;
-    }
-	*v_map->cols = cols;
+	}
+	v_map->cols = cols;
 }
-unsigned int	get_color(char *str, int offset)
+
+void	get_heights_colors(t_v_map *v_map, char ****str_map)
 {
-	unsigned int	ret;
-	char			*base;
-	int				i;
-	int				j;
-	
-	ret = 0;
-	base = "123456789abcdef";
+	int	i;
+	int	j;
+
 	i = 0;
 	j = 0;
-	while(i < 2)
+	v_map->vertices = malloc(v_map->rows * sizeof(t_vertex *));
+	while (i < v_map->rows)
 	{
-		while(base[j] != ft_tolower(*(str + offset + i)))
+		v_map->vertices[i] = malloc(v_map->cols * sizeof(t_vertex));
+		while (j < v_map->cols)
 		{
+			v_map->vertices[i][j]->height = ft_atoi((*str_map)[i][j]);
+			v_map->vertices[i][j]->color = \
+				hex_to_color(ft_strchr(*str_map[i][j], ','));
 			j++;
-			if (j == 16)
-				error_handler(WRONG_COLOR_CODE);
 		}
-		ret = ret * 16 j * 16 * (2 - i);
 		j = 0;
 		i++;
 	}
 }
 
-void	get_heights_colors(t_v_map *v_map, char ****str_map)
+int	hex_to_color(char *str)
 {
-    int	i;
-	int	j;
-	
+	unsigned int	ret;
+	char			*base;
+	int				i;
+	int				j;
+
+	ret = 0;
+	base = "123456789abcdef";
 	i = 0;
 	j = 0;
-	v_map->vertices = malloc(map->rows * sizeof(t_vertex*));
-	while (i < map->rows)
+	if (!str)
+		return (16777215);
+	str++;
+	while (i < 6 && *(str + i))
 	{
-		v_map->vertices[i] = malloc(*v_map->cols * sizeof(t_vertex));
-		while (j < map->columns)
+		while (base[j] != ft_tolower(*(str + i)))
 		{
-			*v_map->vertices[i][j]->height = ft_atoi((*str_map)[i][j]);
-			*v_map->vertices[i][j]->R = get_color(ft_strchr((*str_map)[i][j], ','), R_OFFSET);
-			*v_map->vertices[i][j]->G = get_color(ft_strchr((*str_map)[i][j], ','), G_OFFSET);
-			*v_map->vertices[i][j]->B = get_color(ft_strchr((*str_map)[i][j], ','), B_OFFSET);
-			*v_map->vertices[i][j]->A = get_color(ft_strchr((*str_map)[i][j], ','), A_OFFSET);
 			j++;
+			if (j == 16)
+				error_handler(WRONG_COLOR_CODE);
 		}
+		ret = ret * 16 + j;
 		j = 0;
 		i++;
 	}
