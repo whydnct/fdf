@@ -3,14 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   perspective.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aperez-m <aperez-m@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: aperez-m <aperez-m@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 06:06:44 by aperez-m          #+#    #+#             */
-/*   Updated: 2023/05/21 19:49:19 by aperez-m         ###   ########.fr       */
+/*   Updated: 2023/05/22 15:17:47 by aperez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_fdf.h"
+
+void	init_persp(t_bundle *bundle)
+{
+	bundle->persp = malloc(sizeof(t_persp));
+	bundle->persp->col_x = COL_2_X;
+	bundle->persp->row_x = ROW_2_X;
+	bundle->persp->col_y = COL_2_Y;
+	bundle->persp->row_y = ROW_2_Y;
+	bundle->persp->height_y = HEIGHT_2_Y;
+}
 
 void	to_new_perspective(t_v_map *v_map, t_view *view)
 {

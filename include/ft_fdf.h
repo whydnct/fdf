@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_fdf.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aperez-m <aperez-m@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: aperez-m <aperez-m@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 18:30:39 by aperez-m          #+#    #+#             */
-/*   Updated: 2023/05/21 19:41:57 by aperez-m         ###   ########.fr       */
+/*   Updated: 2023/05/22 15:12:15 by aperez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@
 #ifndef FT_FDF_H
 # define FT_FDF_H
 
+/**
+ * error macros
+*/
 # define EMPTY_FILE 1
 # define WRONG_COLOR_CODE 2
 # define OPEN_FAILED 3
@@ -25,11 +28,28 @@
 # define G_OFFSET 4
 # define B_OFFSET 6
 # define A_OFFSET 8
-# define COL_2_X 0.75 //cos2(30)
-# define ROW_2_X -0.433012701892//-sen(30)cos(30)
-# define COL_2_Y 0.433012701892//Sen(30)cos(30)
-# define ROW_2_Y 0.25//Sen2(30)
-# define HEIGHT_2_Y -0.866025403785//-cos(30)
+/**
+ * parametres for isometric perspective
+ * col_2_x = cos^2(30)
+ * row_2_x = -sen(30)cos(30)
+ * col_2_y = sen(30)cos(30)
+ * row_2_y = sen^2(30)
+ * height_2_y = -cos(30)
+*/
+# define COL_2_X 0.75
+# define ROW_2_X -0.433012701892
+# define COL_2_Y 0.433012701892
+# define ROW_2_Y 0.25
+# define HEIGHT_2_Y -0.866025403785
+/**
+ * image properties
+*/
+# define WIDTH 1000
+# define HEIGHT 1000
+/**
+ * window title
+*/
+# define WIN_TITLE "FdF"
 
 # include "mlx.h"
 # include "ft.h"
@@ -38,29 +58,35 @@
 # include <fcntl.h>
 # include <limits.h>
 
-typedef struct s_data{
+/**
+ * @brief actual image that is shown on screen
+*/
+typedef struct s_img{
 	void	*img;
 	char	*addr;
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
-}				t_data;
+	int		width;
+	int		height;
+}				t_img;
 
-//map of chars
-typedef struct s_map{
-	int	rows;
-	int	columns;
-}				t_map;
-
-typedef struct s_view{
+/**
+ * @brief holds the factors for the chosen perpective
+ * col_x = factor that translates colum to x coordinate
+ * ...
+*/
+typedef struct s_persp{
 	double	col_x;
 	double	row_x;
 	double	col_y;
 	double	row_y;
 	double	height_y;
-}				t_view;
+}				t_persp;
 
-//vertex of the wireframe
+/**
+ * @brief each of the vertices o the vertex map
+ */
 typedef struct s_vertex{
 	int				col;
 	int				row;
@@ -70,7 +96,9 @@ typedef struct s_vertex{
 	unsigned int	color;
 }				t_vertex;
 
-//vertex map
+/**
+ * @brief holds all the vertices
+ */
 typedef struct s_v_map{
 	t_vertex	***vertices;
 	int			rows;
@@ -81,6 +109,17 @@ typedef struct s_v_map{
 	int			offset_v;
 	int			pps;
 }				t_v_map;
+
+/**
+ * @brief all structs bundled
+*/
+typedef struct s_bundle{
+	void	*mlx;
+	void	*mlx_win;
+	t_persp	*persp;
+	t_img	*img;
+	t_v_map *v_map;
+}				t_bundle;
 
 //READ FILE INTO VERTEX MAP
 
@@ -94,32 +133,52 @@ void	get_str_map_rows(char *file, t_v_map *v_map);
  * @note 
  */
 char	***get_str_map(char *file, t_v_map *v_map);
+
 //gets the maximum number of columns in the map
 void	get_str_map_cols(t_v_map *v_map, char ****str_map);
+
 //builds a t_vertex ** and gets height and color for each vertex
 void	get_heights_colors(t_v_map *v_map, char ****str_map);
+
 //transforms the hexa coded color to int
 int		hex_to_color(char *str);
 
 //GENERATE PERSPECTIVE
 
-//gets x and y of each vertex in the to the new perspective,
-//doesn't scale, doesnt center the vertices map
-void	to_new_perspective(t_v_map *v_map, t_view *view);
+/**
+ * @brief sets the values for all the factors of the
+ * perspective
+*/
+void	init_persp(t_persp *persp);
+
+/**
+ * @brief gets x and y of each vertex in the new perspective
+ * @note doesn't scale or move the vertices map
+*/
+void	to_new_perspective(t_v_map *v_map, t_persp *persp);
+
 //get the vertical span of the vertices map, unscaled
 void	get_span_v(t_v_map *v_map);
+
 //get the horizontal span of the vertices map, unscaled
 void	get_span_h(t_v_map *vertex_map, t_view *view);
-//gets the maximum zoom for the vertices map to be shown
-// completely in the window
-//pps = pixels per grid side
+
+/**
+ * @brief gets the maximum zoom(pps) for the vertices map to be shown
+ * completely in the window
+ * @note pps = pixels per grid side
+*/
 void	get_max_pps(t_v_map *v_map, int img_width, int img_height);
+
 //scale v_map_around 0,0
 void	scale_v_map(t_v_map *v_map);
+
 //get vector from scaled v_map to image center
-void	get_offset(t_v_map *v_map, int img_with, int img_height);
+void	get_offset(t_v_map *v_map, int img_width, int img_height);
+
 //move the v_map to the center of the window
 void	center_v_map(t_v_map *v_map);
+
 //scale v_map_around image_center
 void	rescale_v_map(t_v_map *v_map, double zoom);
 
@@ -143,6 +202,7 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 // EXIT
 void	free_t_vertex(t_v_map *v_map);
 int		exit_on_esc(int keycode, void *data, t_v_map *v_map, void *mlx, void *mlx_win);
+void	quit(t_img)
 /**
  * @brief called on errors, prints diagnostic.
  * @param error Macro for the error.
