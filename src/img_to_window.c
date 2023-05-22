@@ -6,7 +6,7 @@
 /*   By: aperez-m <aperez-m@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 19:44:56 by aperez-m          #+#    #+#             */
-/*   Updated: 2023/05/18 21:05:31 by aperez-m         ###   ########.fr       */
+/*   Updated: 2023/05/21 12:21:58by aperez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,3 +69,84 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
 	*(unsigned int *)dst = color;
 }
+/*void	plot_line(t_data *data, t_vertex *start, t_vertex *end)
+{
+	t_vertex	*swap;
+	int			deltas[2];
+
+	if (start->y > end->y)
+	{
+		swap = start;
+		start = end;
+		end = swap;
+	}
+	deltas[0] = end->x - start->x;
+	deltas[1] = end->y - start->y;
+	if (deltas[0] > 0)
+	{
+		if (deltas[0] > deltas[1])
+			plot_lineH(data, start, deltas, 1);
+		else
+			plot_lineV(data, start, deltas, 1);
+	}
+	else
+	{
+		deltas[0] = -deltas[0];
+		if (deltas[0] > deltas[1])
+			plot_lineH(data, start, deltas, -1);
+		else
+			plot_lineV(data, start, deltas, -1);
+	}
+}
+
+void	plot_lineH(t_data *data, t_vertex *start, int *deltas, int dir)
+{
+	int	pixel[2];
+	int	deltas_x2;
+	int	deltas_y2;
+	int	error;
+
+	pixel[0] = start->x;
+	pixel[1] = start->y;
+	deltas_x2 = deltas[0] * 2;
+	deltas_y2 = deltas[1] * 2;
+	error = deltas_y2 - deltas[0];
+
+	while (deltas[0]--)
+	{
+		if (error >= 0)
+		{
+			pixel[1]++;
+			error -= deltas_x2;
+		}
+		error += deltas_y2;
+		pixel[0] += dir;
+		my_mlx_pixel_put(data, pixel[0], pixel[1], start->color);
+	}
+}
+
+void	plot_lineV(t_data *data, t_vertex *start, int *deltas, int const dir)
+{
+	int	pixel[2];
+	int	deltas_x2;
+	int	deltas_y2;
+	int	error;
+
+	pixel[0] = start->x;
+	pixel[1] = start->y;
+	deltas_x2 = deltas[0] * 2;
+	deltas_y2 = deltas[1] * 2;
+	error = deltas_x2 - deltas[1];
+	while (deltas[1]--)
+	{
+		if (error >= 0)
+		{
+			pixel[0] += dir;
+			error -= deltas_y2;
+		}
+		error += deltas_x2;
+		pixel[1]++;
+		my_mlx_pixel_put(data, pixel[0], pixel[1], start->color);
+	}
+}
+*/

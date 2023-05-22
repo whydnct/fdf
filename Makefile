@@ -6,7 +6,7 @@
 #    By: aperez-m <aperez-m@student.42urduliz.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/02 13:31:05 by aperez-m          #+#    #+#              #
-#    Updated: 2023/05/01 18:41:18 by aperez-m         ###   ########.fr        #
+#    Updated: 2023/05/21 19:25:49 by aperez-m         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,13 @@ endif
 
 SRC_DIR     	:= src
 SRCS			:= \
-				main.c
+				main.c \
+				errors.c \
+				events_handlers.c \
+				free_memory.c \
+				img_to_window.c \
+				perspective.c \
+				read_map.c
 SRCS			:= $(SRCS:%=$(SRC_DIR)/%)
 
 BUILD_DIR   := .build

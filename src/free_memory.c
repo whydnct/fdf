@@ -1,26 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   events_handlers.c                                  :+:      :+:    :+:   */
+/*   free_memory.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aperez-m <aperez-m@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/13 05:50:40 by aperez-m          #+#    #+#             */
-/*   Updated: 2023/05/21 19:39:21 by aperez-m         ###   ########.fr       */
+/*   Created: 2023/05/21 13:03:30 by aperez-m          #+#    #+#             */
+/*   Updated: 2023/05/21 18:50:10 by aperez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_fdf.h"
 
-int exit_on_esc(int keycode, void *data, t_v_map *v_map, void *mlx, void *mlx_win)
+void	free_t_vertex(t_v_map *v_map)
 {
-	if (keycode == 0xff1b)
-	{
-		free_t_vertex(v_map);
-		mlx_destroy_image(mlx, data);
-		mlx_destroy_window(mlx, mlx_win);
-		exit(1);
-	}
-	return (0);
-}
+	int	i;
+	int	j;
 
+	i = 0;
+	j = 0;
+	while (i < v_map->rows)
+	{
+		while (j < v_map->cols)
+			free(&(v_map->vertices[i][j]));
+		free(v_map->vertices[i]);
+	}
+	free(v_map->vertices);
+	free(v_map);
+}

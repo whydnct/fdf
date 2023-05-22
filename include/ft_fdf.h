@@ -6,7 +6,7 @@
 /*   By: aperez-m <aperez-m@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 18:30:39 by aperez-m          #+#    #+#             */
-/*   Updated: 2023/05/18 21:24:05 by aperez-m         ###   ########.fr       */
+/*   Updated: 2023/05/21 19:41:57 by aperez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,11 @@
 # define G_OFFSET 4
 # define B_OFFSET 6
 # define A_OFFSET 8
-# define COL_2_X //cos2(30)
-# define ROW_2_X //-sen(30)cos(30)
-# define COL_2_Y //Sen(30)cos(30)
-# define ROW_2_Y //Sen2(30)
-# define HEIGHT_2_Y //-cos(30)
+# define COL_2_X 0.75 //cos2(30)
+# define ROW_2_X -0.433012701892//-sen(30)cos(30)
+# define COL_2_Y 0.433012701892//Sen(30)cos(30)
+# define ROW_2_Y 0.25//Sen2(30)
+# define HEIGHT_2_Y -0.866025403785//-cos(30)
 
 # include "mlx.h"
 # include "ft.h"
@@ -38,15 +38,49 @@
 # include <fcntl.h>
 # include <limits.h>
 
-/**
- * @brief called on errors, prints diagnostic.
- * @param error Macro for the error.
- * @note 
- */
-void	error_handler(int error);
+typedef struct s_data{
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}				t_data;
 
-//sets the color for the pixel at x, y on image coordinates	 
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
+//map of chars
+typedef struct s_map{
+	int	rows;
+	int	columns;
+}				t_map;
+
+typedef struct s_view{
+	double	col_x;
+	double	row_x;
+	double	col_y;
+	double	row_y;
+	double	height_y;
+}				t_view;
+
+//vertex of the wireframe
+typedef struct s_vertex{
+	int				col;
+	int				row;
+	int				height;
+	int				x;
+	int				y;
+	unsigned int	color;
+}				t_vertex;
+
+//vertex map
+typedef struct s_v_map{
+	t_vertex	***vertices;
+	int			rows;
+	int			cols;
+	int			span_h;
+	int			span_v;
+	int			offset_h;
+	int			offset_v;
+	int			pps;
+}				t_v_map;
 
 //READ FILE INTO VERTEX MAP
 
@@ -86,9 +120,14 @@ void	scale_v_map(t_v_map *v_map);
 void	get_offset(t_v_map *v_map, int img_with, int img_height);
 //move the v_map to the center of the window
 void	center_v_map(t_v_map *v_map);
-//draws lines along the axis from one vertex to the next
-void	draw_line(t_data *data, t_v_map *start, t_v_map *end);
+//scale v_map_around image_center
+void	rescale_v_map(t_v_map *v_map, double zoom);
 
+// IMAGE TO WINDOW
+
+void	write_v_map_to_image(t_data *data, t_v_map *v_map);
+//draws lines along the axis from one vertex to the next
+void	draw_line(t_data *data, t_vertex *start, t_vertex *end);
 /**
  * @brief interpolates the value between two points, bringing the 
  * origin to the first point
@@ -99,52 +138,16 @@ void	draw_line(t_data *data, t_v_map *start, t_v_map *end);
  * @note 
  */
 int		interpolate(int x, int span_x, int span_value);
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 
-//scale v_map_around image_center
-void	rescale_v_map(t_v_map *v_map, double zoom);
+// EXIT
+void	free_t_vertex(t_v_map *v_map);
+int		exit_on_esc(int keycode, void *data, t_v_map *v_map, void *mlx, void *mlx_win);
+/**
+ * @brief called on errors, prints diagnostic.
+ * @param error Macro for the error.
+ * @note 
+ */
+void	error_handler(int error);
 
-//image to push to window
-typedef struct s_data{
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-}				t_data;
-
-//map of chars
-typedef struct s_map{
-	int	rows;
-	int	columns;
-}				t_map;
-
-typedef struct s_view{
-	double	col_x;
-	double	row_x;
-	double	col_y;
-	double	row_y;
-	double	height_y;
-}				t_view;
-
-//vertex map
-typedef struct s_v_map{
-	t_vertex	***vertices;
-	int			rows;
-	int			cols;
-	int			span_h;
-	int			span_v;
-	int			offset_h;
-	int			offset_v;
-	int			pps;
-}				t_v_map;
-
-//vertex of the wireframe
-typedef struct s_vertex{
-	int				col;
-	int				row;
-	int				height;
-	int				x;
-	int				y;
-	unsigned int	color;
-}				t_vertex;
 #endif

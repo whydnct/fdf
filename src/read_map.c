@@ -6,7 +6,7 @@
 /*   By: aperez-m <aperez-m@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:05:23 by aperez-m          #+#    #+#             */
-/*   Updated: 2023/05/18 20:25:40 by aperez-m         ###   ########.fr       */
+/*   Updated: 2023/05/21 19:55:14 by aperez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char	***get_str_map(char *file, t_v_map *v_map)
 		error_handler(MALLOC_FAILED);
 	while (++i < v_map->rows)
 		ret[i] = ft_split(get_next_line(fd), ' ');
-	close(file);
+	close(fd);
 	return (ret);
 }
 
@@ -121,4 +121,5 @@ int	hex_to_color(char *str)
 		j = 0;
 		i++;
 	}
+	return (ret);
 }
