@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   perspective.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aperez-m <aperez-m@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: aperez-m <aperez-m@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 06:06:44 by aperez-m          #+#    #+#             */
-/*   Updated: 2023/05/22 15:17:47 by aperez-m         ###   ########.fr       */
+/*   Updated: 2023/05/22 20:05:53 by aperez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,10 @@ void	init_persp(t_bundle *bundle)
 	bundle->persp->col_y = COL_2_Y;
 	bundle->persp->row_y = ROW_2_Y;
 	bundle->persp->height_y = HEIGHT_2_Y;
+	printf("perspective initiated\n");
 }
 
-void	to_new_perspective(t_v_map *v_map, t_view *view)
+void	to_new_perspective(t_v_map *v_map, t_persp *persp)
 {
 	int	i;
 	int	j;
@@ -34,15 +35,16 @@ void	to_new_perspective(t_v_map *v_map, t_view *view)
 		while (j < v_map->cols)
 		{
 			v_map->vertices[i][j]->x = (v_map->vertices[i][j]->col \
-				* view->col_x + v_map->vertices[i][j]->row * view->row_x);
+				* persp->col_x + v_map->vertices[i][j]->row * persp->row_x);
 			v_map->vertices[i][j]->y = (v_map->vertices[i][j]->col \
-				* view->col_y + v_map->vertices[i][j]->row * view->row_y \
-				+ v_map->vertices[i][j]->height * view->height_y);
+				* persp->col_y + v_map->vertices[i][j]->row * persp->row_y \
+				+ v_map->vertices[i][j]->height * persp->height_y);
 			j++;
 		}
 		j = 0;
 		i++;
 	}
+	printf("transformed to new perspective \n");
 }
 
 void	get_span_v(t_v_map *v_map)
@@ -70,12 +72,14 @@ void	get_span_v(t_v_map *v_map)
 		i++;
 	}
 	v_map->span_v = max - min;
+	printf("vertical span read");
 }
 
-void	get_span_h(t_v_map *v_map, t_view *view)
+void	get_span_h(t_v_map *v_map, t_persp *persp)
 {
-	v_map->span_h = v_map->cols * view->col_x \
-		- v_map->rows * view->row_x;
+	v_map->span_h = v_map->cols * persp->col_x \
+		- v_map->rows * persp->row_x;
+	printf("horizontal span read");
 }
 
 void	get_max_pps(t_v_map *v_map, int img_width, int img_height)

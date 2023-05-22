@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_fdf.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aperez-m <aperez-m@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: aperez-m <aperez-m@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 18:30:39 by aperez-m          #+#    #+#             */
-/*   Updated: 2023/05/22 15:12:15 by aperez-m         ###   ########.fr       */
+/*   Updated: 2023/05/22 19:45:56 by aperez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,13 @@
  * window title
 */
 # define WIN_TITLE "FdF"
+/**
+ * event keys
+*/
+# define ESC_KEY_L 9
+# define Q_KEY_L 24
+# define ESC_KEY_M 53
+# define Q_KEY_M 12
 
 # include "mlx.h"
 # include "ft.h"
@@ -114,12 +121,14 @@ typedef struct s_v_map{
  * @brief all structs bundled
 */
 typedef struct s_bundle{
-	void	*mlx;
+	void	*mlx_inst;
 	void	*mlx_win;
 	t_persp	*persp;
 	t_img	*img;
-	t_v_map *v_map;
+	t_v_map	*v_map;
 }				t_bundle;
+// INIT
+void	init_image(t_bundle *bundle);
 
 //READ FILE INTO VERTEX MAP
 
@@ -149,7 +158,7 @@ int		hex_to_color(char *str);
  * @brief sets the values for all the factors of the
  * perspective
 */
-void	init_persp(t_persp *persp);
+void	init_persp(t_bundle *bundle);
 
 /**
  * @brief gets x and y of each vertex in the new perspective
@@ -161,7 +170,7 @@ void	to_new_perspective(t_v_map *v_map, t_persp *persp);
 void	get_span_v(t_v_map *v_map);
 
 //get the horizontal span of the vertices map, unscaled
-void	get_span_h(t_v_map *vertex_map, t_view *view);
+void	get_span_h(t_v_map *vertex_map, t_persp *persp);
 
 /**
  * @brief gets the maximum zoom(pps) for the vertices map to be shown
@@ -184,9 +193,9 @@ void	rescale_v_map(t_v_map *v_map, double zoom);
 
 // IMAGE TO WINDOW
 
-void	write_v_map_to_image(t_data *data, t_v_map *v_map);
+void	write_v_map_to_image(t_img *img, t_v_map *v_map);
 //draws lines along the axis from one vertex to the next
-void	draw_line(t_data *data, t_vertex *start, t_vertex *end);
+void	draw_line(t_img *img, t_vertex *start, t_vertex *end);
 /**
  * @brief interpolates the value between two points, bringing the 
  * origin to the first point
@@ -197,12 +206,14 @@ void	draw_line(t_data *data, t_vertex *start, t_vertex *end);
  * @note 
  */
 int		interpolate(int x, int span_x, int span_value);
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
+void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
 
 // EXIT
 void	free_t_vertex(t_v_map *v_map);
-int		exit_on_esc(int keycode, void *data, t_v_map *v_map, void *mlx, void *mlx_win);
-void	quit(t_img)
+void	free_all(t_bundle *bundle);
+int		exit_on_esc(int keycode, t_bundle *bundle);
+int		quit(t_bundle *bundle);
+
 /**
  * @brief called on errors, prints diagnostic.
  * @param error Macro for the error.

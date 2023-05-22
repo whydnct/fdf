@@ -12,13 +12,20 @@
 
 #include "ft_fdf.h"
 
-void init_image(t_img *img, int mlx_inst)
+void	init_image(t_bundle *bundle)
 {
-	img->width = WIDTH;
-	img->height = HEIGHT;
-	img->img = mlx_new_image(mlx_inst, img->width, img->height);
-	img->addr = mlx_get_data_addr(img->img, &img->bits_per_pixel,\
-		 &img->line_length, &img->endian);
+	bundle->img = malloc(sizeof(t_img));
+	bundle->img->width = WIDTH;
+	bundle->img->height = HEIGHT;
+	bundle->mlx_inst = mlx_init();
+	bundle->img->img = mlx_new_image(bundle->mlx_inst, \
+		bundle->img->width, bundle->img->height);
+	bundle->img->addr = mlx_get_data_addr(bundle->img->img, \
+		&bundle->img->bits_per_pixel, &bundle->img->line_length, \
+		&bundle->img->endian);
+	bundle->mlx_win = mlx_new_window(bundle->mlx_inst, \
+		bundle->img->width, bundle->img->height, WIN_TITLE);
+	printf("image initiated\n");
 }
 
 t_v_map	*create_v_map(char *file, t_persp *persp, t_img *img)
@@ -38,27 +45,23 @@ t_v_map	*create_v_map(char *file, t_persp *persp, t_img *img)
 	scale_v_map(ret);
 	get_offset(ret, img->width, img->height);
 	center_v_map(ret);
+	printf("v_map created\n");
 	return (ret);
 }
 
 int	main(int argc, char **argv)
 {
 	t_bundle	bundle;
-	void		*mlx;
-	void		*mlx_win;
-	t_img		img;
-	t_persp		persp;
 	t_v_map		*v_map;
 
 	(void)argc;
 	init_persp(&bundle);
-	mlx = mlx_init();
-	init_image(&img);
-	mlx_win = mlx_new_window(mlx, img.width, img.height, WIN_TITLE);
-	v_map = create_v_map(argv[1], &persp, &img);
-	write_v_map_to_image(&img, v_map);
-	mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
-	mlx_hook(mlx_win, 2, 0, exit_on_esc, &img);
-	mlx_hook(mlx_win, 17, quit, &img);
-	mlx_loop(mlx);
+	init_image(&bundle);
+	v_map = create_v_map(argv[1], bundle.persp, bundle.img);
+	write_v_map_to_image(bundle.img, v_map);
+	mlx_put_image_to_window(bundle.mlx_inst, bundle.mlx_win, \
+	bundle.img->img, 0, 0);
+	mlx_hook(bundle.mlx_win, 2, 0, exit_on_esc, &bundle);
+	mlx_hook(bundle.mlx_win, 17, 0, quit, &bundle);
+	mlx_loop(bundle.mlx_inst);
 }

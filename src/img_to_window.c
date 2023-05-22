@@ -12,7 +12,7 @@
 
 #include "ft_fdf.h"
 
-void	write_v_map_to_image(t_data *data, t_v_map *v_map)
+void	write_v_map_to_image(t_img *img, t_v_map *v_map)
 {
 	int	i;
 	int	j;
@@ -24,12 +24,12 @@ void	write_v_map_to_image(t_data *data, t_v_map *v_map)
 		while (j < v_map->cols)
 		{
 			if (j < v_map->cols - 1)
-				draw_line(data, v_map->vertices[i][j], \
+				draw_line(img, v_map->vertices[i][j], \
 					v_map->vertices[i][j + 1]);
 			if (i < v_map->rows - 1)
-				draw_line(data, v_map->vertices[i][j], \
+				draw_line(img, v_map->vertices[i][j], \
 					v_map->vertices[i + 1][j]);
-			my_mlx_pixel_put(data, v_map->vertices[i][j]->x, \
+			my_mlx_pixel_put(img, v_map->vertices[i][j]->x, \
 				v_map->vertices[i][j]->y, v_map->vertices[i][j]->color);
 			j++;
 		}
@@ -38,7 +38,7 @@ void	write_v_map_to_image(t_data *data, t_v_map *v_map)
 	}
 }
 
-void	draw_line(t_data *data, t_vertex *start, t_vertex *end)
+void	draw_line(t_img *img, t_vertex *start, t_vertex *end)
 {
 	int	x;
 	int	y;
@@ -50,7 +50,7 @@ void	draw_line(t_data *data, t_vertex *start, t_vertex *end)
 		y = start->y + interpolate(x, end->x - start->x, end->y - start->y);
 		color = start->color \
 			+ interpolate(x, end->x - start->x, end->color - start->color);
-		my_mlx_pixel_put(data, start->x + x, y, color);
+		my_mlx_pixel_put(img, start->x + x, y, color);
 	}
 }
 
@@ -62,11 +62,11 @@ int	interpolate(int x, int span_x, int span_value)
 	return (ret);
 }
 
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
+void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 {
 	char	*dst;
 
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+	dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
 	*(unsigned int *)dst = color;
 }
 /*void	plot_line(t_data *data, t_vertex *start, t_vertex *end)
