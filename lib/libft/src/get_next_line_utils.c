@@ -6,11 +6,12 @@
 /*   By: aperez-m <aperez-m@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 10:33:22 by aperez-m          #+#    #+#             */
-/*   Updated: 2023/05/03 18:49:58 by aperez-m         ###   ########.fr       */
+/*   Updated: 2023/05/24 06:10:09 by aperez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft.h"
+#include <stdio.h>
 
 char	*ft_strjoin_gnl(char *temp_stash, char *buff)
 {
@@ -109,4 +110,29 @@ char	*trim_temp_stash(char *temp_stash)
 	ret[i] = 0;
 	free(temp_stash);
 	return (ret);
+}
+
+char	*fill_temp_stash(int fd, char *temp_stash)
+{
+	char	*buff;
+	int		chars_read;
+
+	buff = malloc(BUFFER_SIZE + 1);
+	if (buff == NULL)
+		return (NULL);
+	chars_read = 1;
+	while (chars_read && !ft_strchr_gnl(temp_stash, '\n'))
+	{
+		chars_read = read(fd, buff, BUFFER_SIZE);
+		if (chars_read == -1)
+		{
+			free (buff);
+			free (temp_stash);
+			return (NULL);
+		}
+		buff[chars_read] = '\0';
+		temp_stash = ft_strjoin_gnl(temp_stash, buff);
+	}
+	free (buff);
+	return (temp_stash);
 }

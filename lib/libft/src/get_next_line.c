@@ -6,36 +6,11 @@
 /*   By: aperez-m <aperez-m@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 10:32:45 by aperez-m          #+#    #+#             */
-/*   Updated: 2023/05/03 18:50:56 by aperez-m         ###   ########.fr       */
+/*   Updated: 2023/05/23 21:44:13 by aperez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft.h"
-
-char	*fill_temp_stash(int fd, char *temp_stash)
-{
-	char	*buff;
-	int		chars_read;
-
-	buff = malloc(BUFFER_SIZE + 1);
-	if (buff == NULL)
-		return (NULL);
-	chars_read = 1;
-	while (chars_read && !ft_strchr(temp_stash, '\n'))
-	{
-		chars_read = read(fd, buff, BUFFER_SIZE);
-		if (chars_read == -1)
-		{
-			free (buff);
-			free (temp_stash);
-			return (NULL);
-		}
-		buff[chars_read] = '\0';
-		temp_stash = ft_strjoin(temp_stash, buff);
-	}
-	free (buff);
-	return (temp_stash);
-}
 
 char	*get_next_line(int fd)
 {
