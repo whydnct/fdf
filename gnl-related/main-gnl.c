@@ -28,14 +28,14 @@ int	main(int argc, char **argv)
 	}
 	lines = atoi(argv[2]);
 	i = 0;
-	if (fd = open(argv[1], O_RDONLY) == -1)
+	if ((fd = open(argv[1], O_RDONLY)) == -1)
 	{
 		printf("error abriendo");
 		exit(-1);
 	}
 	while (i < lines)
 	{
-		printf("%s\n", get_next_line(fd));
+		ft_putstr_fd(get_next_line(fd), 1);
 		i++;
 	}
 	close(fd);

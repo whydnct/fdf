@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aperez-m <aperez-m@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: aperez-m <aperez-m@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 19:47:04 by aperez-m          #+#    #+#             */
-/*   Updated: 2023/05/18 19:34:59 by aperez-m         ###   ########.fr       */
+/*   Updated: 2023/05/24 04:34:28 by aperez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <stdlib.h>
 # include <unistd.h>
+# include <fcntl.h>
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 3

@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aperez-m <aperez-m@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: aperez-m <aperez-m@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 10:33:22 by aperez-m          #+#    #+#             */
-/*   Updated: 2023/05/24 06:10:09 by aperez-m         ###   ########.fr       */
+/*   Updated: 2023/05/24 15:02:55 by aperez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft.h"
-#include <stdio.h>
 
 char	*ft_strjoin_gnl(char *temp_stash, char *buff)
 {
