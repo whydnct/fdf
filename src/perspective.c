@@ -6,7 +6,7 @@
 /*   By: aperez-m <aperez-m@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 06:06:44 by aperez-m          #+#    #+#             */
-/*   Updated: 2023/05/22 20:05:53 by aperez-m         ###   ########.fr       */
+/*   Updated: 2023/05/25 21:11:26 by aperez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,11 @@ void	to_new_perspective(t_v_map *v_map, t_persp *persp)
 	{
 		while (j < v_map->cols)
 		{
-			v_map->vertices[i][j]->x = (v_map->vertices[i][j]->col \
-				* persp->col_x + v_map->vertices[i][j]->row * persp->row_x);
-			v_map->vertices[i][j]->y = (v_map->vertices[i][j]->col \
-				* persp->col_y + v_map->vertices[i][j]->row * persp->row_y \
-				+ v_map->vertices[i][j]->height * persp->height_y);
+			v_map->vertices[i][j].x = (v_map->vertices[i][j].col \
+				* persp->col_x + v_map->vertices[i][j].row * persp->row_x);
+			v_map->vertices[i][j].y = (v_map->vertices[i][j].col \
+				* persp->col_y + v_map->vertices[i][j].row * persp->row_y \
+				+ v_map->vertices[i][j].height * persp->height_y);
 			j++;
 		}
 		j = 0;
@@ -56,30 +56,30 @@ void	get_span_v(t_v_map *v_map)
 
 	i = 0;
 	j = 0;
-	max = v_map->vertices[0][0]->y;
+	max = v_map->vertices[0][0].y;
 	min = max;
 	while (i < v_map->rows)
 	{
 		while (j < v_map->cols)
 		{
-			if (max < v_map->vertices[i][j]->y)
-				max = v_map->vertices[i][j]->y;
-			if (min > v_map->vertices[i][j]->y)
-				min = v_map->vertices[i][j]->y;
+			if (max < v_map->vertices[i][j].y)
+				max = v_map->vertices[i][j].y;
+			if (min > v_map->vertices[i][j].y)
+				min = v_map->vertices[i][j].y;
 			j++;
 		}
 		j = 0;
 		i++;
 	}
 	v_map->span_v = max - min;
-	printf("vertical span read");
+	printf("vertical span read\n");
 }
 
 void	get_span_h(t_v_map *v_map, t_persp *persp)
 {
 	v_map->span_h = v_map->cols * persp->col_x \
 		- v_map->rows * persp->row_x;
-	printf("horizontal span read");
+	printf("horizontal span read\n");
 }
 
 void	get_max_pps(t_v_map *v_map, int img_width, int img_height)
@@ -101,8 +101,8 @@ void	scale_v_map(t_v_map *v_map)
 	{
 		while (j < v_map->cols)
 		{
-			v_map->vertices[i][j]->x *= v_map->pps;
-			v_map->vertices[i][j]->y = v_map->pps;
+			v_map->vertices[i][j].x *= v_map->pps;
+			v_map->vertices[i][j].y = v_map->pps;
 			j++;
 		}
 		j = 0;
@@ -127,8 +127,8 @@ void	center_v_map(t_v_map *v_map)
 	{
 		while (j < v_map->cols)
 		{
-			v_map->vertices[i][j]->x += v_map->offset_h;
-			v_map->vertices[i][j]->y += v_map->offset_v;
+			v_map->vertices[i][j].x += v_map->offset_h;
+			v_map->vertices[i][j].y += v_map->offset_v;
 			j++;
 		}
 		j = 0;
@@ -147,10 +147,10 @@ void	re_scale_v_map(t_v_map *v_map, double zoom, int img_w, int img_h)
 	{
 		while (j < v_map->cols)
 		{
-			v_map->vertices[i][j]->x = zoom * \
-				(v_map->vertices[i][j]->x - img_w);
-			v_map->vertices[i][j]->y = zoom * \
-				(v_map->vertices[i][j]->y - img_h);
+			v_map->vertices[i][j].x = zoom * \
+				(v_map->vertices[i][j].x - img_w);
+			v_map->vertices[i][j].y = zoom * \
+				(v_map->vertices[i][j].y - img_h);
 			j++;
 		}
 		j = 0;

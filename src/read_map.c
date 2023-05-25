@@ -6,7 +6,7 @@
 /*   By: aperez-m <aperez-m@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:05:23 by aperez-m          #+#    #+#             */
-/*   Updated: 2023/05/22 20:13:53 by aperez-m         ###   ########.fr       */
+/*   Updated: 2023/05/25 21:02:46 by aperez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,12 @@ void	get_str_map_rows(char *file, t_v_map *v_map)
 	if (fd < 0)
 		error_handler(OPEN_FAILED);
 	temp = 0;
-	printf("temp initiated\n");
 	while (get_next_line(fd))
-	{
-		printf("enter gnl\n");
 		temp++;
-	}
 	if (!temp)
 		error_handler(EMPTY_FILE);
 	close(fd);
 	v_map->rows = temp;
-	printf("map rows read\n");
 }
 
 char	***get_str_map(char *file, t_v_map *v_map)
@@ -53,7 +48,7 @@ char	***get_str_map(char *file, t_v_map *v_map)
 	return (ret);
 }
 
-void	get_str_map_cols(t_v_map *v_map, char ****str_map)
+void	get_str_map_cols(t_v_map *v_map, char ***str_map)
 {
 	int	cols;
 	int	i;
@@ -66,7 +61,7 @@ void	get_str_map_cols(t_v_map *v_map, char ****str_map)
 	temp = 0;
 	while (i < v_map->rows)
 	{
-		while (*str_map[i][j][0])
+		while (str_map[i][j][0] != '\n')
 			j++;
 		temp = j;
 		if (cols < temp)
@@ -77,7 +72,7 @@ void	get_str_map_cols(t_v_map *v_map, char ****str_map)
 	v_map->cols = cols;
 }
 
-void	get_heights_colors(t_v_map *v_map, char ****str_map)
+void	get_heights_colors(t_v_map *v_map, char ***str_map)
 {
 	int	i;
 	int	j;
@@ -90,9 +85,9 @@ void	get_heights_colors(t_v_map *v_map, char ****str_map)
 		v_map->vertices[i] = malloc(v_map->cols * sizeof(t_vertex));
 		while (j < v_map->cols)
 		{
-			v_map->vertices[i][j]->height = ft_atoi((*str_map)[i][j]);
-			v_map->vertices[i][j]->color = \
-				hex_to_color(ft_strchr(*str_map[i][j], ','));
+			v_map->vertices[i][j].height = ft_atoi(str_map[i][j]);
+			v_map->vertices[i][j].color = \
+				hex_to_color(ft_strchr(str_map[i][j], ','));
 			j++;
 		}
 		j = 0;

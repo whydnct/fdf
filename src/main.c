@@ -36,8 +36,8 @@ t_v_map	*create_v_map(char *file, t_persp *persp, t_img *img)
 	ret = malloc(sizeof(t_v_map));
 	get_str_map_rows(file, ret);
 	str_map = get_str_map(file, ret);
-	get_str_map_cols(ret, &str_map);
-	get_heights_colors(ret, &str_map);
+	get_str_map_cols(ret, str_map);
+	get_heights_colors(ret, str_map);
 	to_new_perspective(ret, persp);
 	get_span_v(ret);
 	get_span_h(ret, persp);

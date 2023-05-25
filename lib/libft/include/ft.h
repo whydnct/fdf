@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aperez-m <aperez-m@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: aperez-m <aperez-m@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 19:47:04 by aperez-m          #+#    #+#             */
-/*   Updated: 2023/05/24 04:34:28 by aperez-m         ###   ########.fr       */
+/*   Updated: 2023/05/25 19:01:48 by aperez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,10 @@ t_list		*ft_lstlast(t_list *lst);
 t_list		*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 t_list		*ft_lstnew(void *content);
 int			ft_lstsize(t_list *lst);
+/**
+ * @return on success, char * of the line read.
+ * On error and at EOF, NULL.
+*/
 char		*get_next_line(int fd);
 char		*fill_temp_stash(int fd, char *temp_stash);
 char		*ft_strjoin_gnl(char *temp_stash, char *buff);

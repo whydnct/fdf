@@ -6,7 +6,7 @@
 /*   By: aperez-m <aperez-m@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 18:30:39 by aperez-m          #+#    #+#             */
-/*   Updated: 2023/05/22 19:45:56 by aperez-m         ###   ########.fr       */
+/*   Updated: 2023/05/25 21:02:11 by aperez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ typedef struct s_vertex{
  * @brief holds all the vertices
  */
 typedef struct s_v_map{
-	t_vertex	***vertices;
+	t_vertex	**vertices;
 	int			rows;
 	int			cols;
 	int			span_h;
@@ -144,10 +144,10 @@ void	get_str_map_rows(char *file, t_v_map *v_map);
 char	***get_str_map(char *file, t_v_map *v_map);
 
 //gets the maximum number of columns in the map
-void	get_str_map_cols(t_v_map *v_map, char ****str_map);
+void	get_str_map_cols(t_v_map *v_map, char ***str_map);
 
 //builds a t_vertex ** and gets height and color for each vertex
-void	get_heights_colors(t_v_map *v_map, char ****str_map);
+void	get_heights_colors(t_v_map *v_map, char ***str_map);
 
 //transforms the hexa coded color to int
 int		hex_to_color(char *str);

@@ -24,13 +24,13 @@ void	write_v_map_to_image(t_img *img, t_v_map *v_map)
 		while (j < v_map->cols)
 		{
 			if (j < v_map->cols - 1)
-				draw_line(img, v_map->vertices[i][j], \
-					v_map->vertices[i][j + 1]);
+				draw_line(img, &v_map->vertices[i][j], \
+					&v_map->vertices[i][j + 1]);
 			if (i < v_map->rows - 1)
-				draw_line(img, v_map->vertices[i][j], \
-					v_map->vertices[i + 1][j]);
-			my_mlx_pixel_put(img, v_map->vertices[i][j]->x, \
-				v_map->vertices[i][j]->y, v_map->vertices[i][j]->color);
+				draw_line(img, &v_map->vertices[i][j], \
+					&v_map->vertices[i + 1][j]);
+			my_mlx_pixel_put(img, v_map->vertices[i][j].x, \
+				v_map->vertices[i][j].y, v_map->vertices[i][j].color);
 			j++;
 		}
 		j = 0;
