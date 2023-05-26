@@ -72,6 +72,7 @@ int	main(int argc, char **argv)
 	printf("v_map written to img\n");
 	mlx_put_image_to_window(bundle.mlx_inst, bundle.mlx_win, \
 	bundle.img->img, 0, 0);
+	printf("pushed to window\n");
 	mlx_hook(bundle.mlx_win, 2, 0, exit_on_esc, &bundle);
 	mlx_hook(bundle.mlx_win, 17, 0, quit, &bundle);
 	mlx_loop(bundle.mlx_inst);

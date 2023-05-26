@@ -6,7 +6,7 @@
 /*   By: aperez-m <aperez-m@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 05:50:40 by aperez-m          #+#    #+#             */
-/*   Updated: 2023/05/22 19:47:40 by aperez-m         ###   ########.fr       */
+/*   Updated: 2023/05/27 00:19:58 by aperez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	exit_on_esc(int keycode, t_bundle *bundle)
 {
-	if (keycode == ESC_KEY_L || keycode == Q_KEY_L \
+	if (keycode == XK_ESCAPE_L || keycode == Q_KEY_L \
 		|| keycode == Q_KEY_M || keycode == ESC_KEY_M)
 		quit(bundle);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: aperez-m <aperez-m@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 18:30:39 by aperez-m          #+#    #+#             */
-/*   Updated: 2023/05/26 23:38:32 by aperez-m         ###   ########.fr       */
+/*   Updated: 2023/05/27 00:38:07 by aperez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@
 /**
  * image properties
 */
-# define WIDTH 1000
-# define HEIGHT 1000
+# define WIDTH 700
+# define HEIGHT 700
 /**
  * window title
 */
@@ -56,8 +56,8 @@
 /**
  * event keys
 */
-# define ESC_KEY_L 9
-# define Q_KEY_L 24
+# define XK_ESCAPE_L 0xff1b
+# define Q_KEY_L 0x0051
 # define ESC_KEY_M 53
 # define Q_KEY_M 12
 
