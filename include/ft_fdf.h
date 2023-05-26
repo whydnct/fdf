@@ -6,7 +6,7 @@
 /*   By: aperez-m <aperez-m@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 18:30:39 by aperez-m          #+#    #+#             */
-/*   Updated: 2023/05/25 21:02:11 by aperez-m         ###   ########.fr       */
+/*   Updated: 2023/05/26 23:38:32 by aperez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,19 @@
 /**
  * parametres for isometric perspective
  * col_2_x = cos^2(30)
+ * x = col'*Sen(a) - row'*Sen(b)
+ * y = row'*Sen(180 - b) col'*Cos(180-a) - height'
  * row_2_x = -sen(30)cos(30)
  * col_2_y = sen(30)cos(30)
  * row_2_y = sen^2(30)
  * height_2_y = -cos(30)
 */
-# define COL_2_X 0.75
-# define ROW_2_X -0.433012701892
-# define COL_2_Y 0.433012701892
-# define ROW_2_Y 0.25
-# define HEIGHT_2_Y -0.866025403785
+# define COL_2_X 0.7084087
+# define ROW_2_X -0.7084087
+# define COL_2_Y 0.48
+# define ROW_2_Y 0.48
+# define HEIGHT_2_Y -0.8616
+
 /**
  * image properties
 */
@@ -165,7 +168,8 @@ void	init_persp(t_bundle *bundle);
  * @note doesn't scale or move the vertices map
 */
 void	to_new_perspective(t_v_map *v_map, t_persp *persp);
-
+int		get_y_max(t_v_map *v_map);
+int		get_y_min(t_v_map *v_map);
 //get the vertical span of the vertices map, unscaled
 void	get_span_v(t_v_map *v_map);
 

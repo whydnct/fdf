@@ -13,7 +13,7 @@
 #include <stdio.h>
 #include <fcntl.h>
 #include <stdlib.h>
-#include "lib/libft/include/ft.h"
+#include "../lib/libft/include/ft.h"
 
 int	main(int argc, char **argv)
 {
