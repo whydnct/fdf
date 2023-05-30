@@ -23,13 +23,13 @@ void	write_v_map_to_image(t_img *img, t_v_map *v_map)
 	{
 		while (j < v_map->cols)
 		{
-			if (j < v_map->cols - 1)
+/**			if (j < v_map->cols - 1)
 				draw_line(img, &v_map->vertices[i][j], \
 					&v_map->vertices[i][j + 1]);
 			if (i < v_map->rows - 1)
 				draw_line(img, &v_map->vertices[i][j], \
 					&v_map->vertices[i + 1][j]);
-			my_mlx_pixel_put(img, v_map->vertices[i][j].x, \
+*/			my_mlx_pixel_put(img, v_map->vertices[i][j].x, \
 				v_map->vertices[i][j].y, v_map->vertices[i][j].color);
 			j++;
 		}
@@ -82,20 +82,20 @@ int	interpolate(int x, int span_x, int span_value)
 	return (ret);
 }
 
-void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
+void	my_mlx_pixel_put(t_img *img, double x, double y, int color)
 {
 	char	*dst;
 
 	if (xy_within_limits(img, x, y))
 	{
 		dst = img->addr \
-			+ (y * img->line_length \
-			+ x * (img->bits_per_pixel / 8));
+			+ ((int)y * img->line_length \
+			+ (int)x * (img->bits_per_pixel / 8));
 		*(unsigned int *)dst = color;
 	}
 }
 
-int	xy_within_limits(t_img *img, int x, int y)
+int	xy_within_limits(t_img *img, double x, double y)
 {
 	if (x < 0 || y < 0)
 		return (0);

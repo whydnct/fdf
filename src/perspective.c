@@ -6,7 +6,7 @@
 /*   By: aperez-m <aperez-m@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 06:06:44 by aperez-m          #+#    #+#             */
-/*   Updated: 2023/05/26 23:51:49 by aperez-m         ###   ########.fr       */
+/*   Updated: 2023/05/30 20:49:44 by aperez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,11 @@ void	get_span_v(t_v_map *v_map)
 	printf("vertical span: %d\n", v_map->span_v);
 }
 
-int	get_y_max(t_v_map *v_map)
+double	get_y_max(t_v_map *v_map)
 {
-	int	ret;
-	int	i;
-	int	j;
+	double	ret;
+	int		i;
+	int		j;
 
 	i = 0;
 	j = 0;
@@ -75,11 +75,11 @@ int	get_y_max(t_v_map *v_map)
 	return (ret);
 }
 
-int	get_y_min(t_v_map *v_map)
+double	get_y_min(t_v_map *v_map)
 {
-	int	ret;
-	int	i;
-	int	j;
+	double	ret;
+	int		i;
+	int		j;
 
 	i = 0;
 	j = 0;
@@ -138,19 +138,19 @@ void	scale_v_map(t_v_map *v_map)
 
 void	get_offset(t_v_map *v_map, int img_width, int img_height)
 {
-	int	x_max;
-	int	x_min;
+	double	x_max;
+	double	x_min;
 
 	x_max = v_map->vertices[0][v_map->cols - 1].x;
 	x_min = v_map->vertices[v_map->rows - 1][0].x;
-	v_map->offset_h = round(0.5 * \
-		(img_width - x_max - x_min));
-	v_map->offset_v = round(0.5 * \
+	v_map->offset_h = 0.5 * \
+		(img_width - x_max - x_min);
+	v_map->offset_v = 0.5 * \
 		(img_height \
 		- get_y_min(v_map) \
-		- get_y_max(v_map)));
-	printf("y_max: %d\ny_min: %d\n", get_y_max(v_map), get_y_min(v_map));
-	printf("x_max: %d\nx_min: %d\n", x_max, x_min);
+		- get_y_max(v_map));
+	printf("y_max: %f\ny_min: %f\n", get_y_max(v_map), get_y_min(v_map));
+	printf("x_max: %f\nx_min: %f\n", x_max, x_min);
 }
 
 void	center_v_map(t_v_map *v_map)
@@ -171,8 +171,8 @@ void	center_v_map(t_v_map *v_map)
 		j = 0;
 		i++;
 	}
-	printf("y_max: %d\ny_min: %d\n", get_y_max(v_map), get_y_min(v_map));
-	printf("x_max: %d\nx_min: %d\n", v_map->vertices[0][v_map->cols - 1].x,
+	printf("y_max: %f\ny_min: %f\n", get_y_max(v_map), get_y_min(v_map));
+	printf("x_max: %f\nx_min: %f\n", v_map->vertices[0][v_map->cols - 1].x,
 		v_map->vertices[v_map->rows - 1][0].x);
 }
 

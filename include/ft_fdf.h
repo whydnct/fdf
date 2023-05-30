@@ -6,7 +6,7 @@
 /*   By: aperez-m <aperez-m@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 18:30:39 by aperez-m          #+#    #+#             */
-/*   Updated: 2023/05/28 09:58:05 by aperez-m         ###   ########.fr       */
+/*   Updated: 2023/05/30 20:50:41 by aperez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,8 @@ typedef struct s_vertex{
 	int				col;
 	int				row;
 	int				height;
-	int				x;
-	int				y;
+	double			x;
+	double			y;
 	unsigned int	color;
 }				t_vertex;
 
@@ -168,8 +168,8 @@ void	init_persp(t_bundle *bundle);
  * @note doesn't scale or move the vertices map
 */
 void	to_new_perspective(t_v_map *v_map, t_persp *persp);
-int		get_y_max(t_v_map *v_map);
-int		get_y_min(t_v_map *v_map);
+double	get_y_max(t_v_map *v_map);
+double	get_y_min(t_v_map *v_map);
 //get the vertical span of the vertices map, unscaled
 void	get_span_v(t_v_map *v_map);
 
@@ -211,8 +211,8 @@ void	draw_line(t_img *img, t_vertex *start, t_vertex *end);
  * @note 
  */
 int		interpolate(int x, int span_x, int span_value);
-int		xy_within_limits(t_img *img, int x, int y);
-void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
+int		xy_within_limits(t_img *img, double x, double y);
+void	my_mlx_pixel_put(t_img *img, double x, double y, int color);
 
 // EXIT
 void	free_t_vertex(t_v_map *v_map);
