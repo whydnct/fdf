@@ -6,7 +6,7 @@
 /*   By: aperez-m <aperez-m@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 18:30:39 by aperez-m          #+#    #+#             */
-/*   Updated: 2023/05/27 00:38:07 by aperez-m         ###   ########.fr       */
+/*   Updated: 2023/05/28 09:58:05 by aperez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@
  * event keys
 */
 # define XK_ESCAPE_L 0xff1b
-# define Q_KEY_L 0x0051
+# define Q_KEY_L 0x0071
 # define ESC_KEY_M 53
 # define Q_KEY_M 12
 
@@ -198,6 +198,7 @@ void	rescale_v_map(t_v_map *v_map, double zoom);
 // IMAGE TO WINDOW
 
 void	write_v_map_to_image(t_img *img, t_v_map *v_map);
+void	write_vertices_to_image(t_img *img, t_v_map *v_map);
 //draws lines along the axis from one vertex to the next
 void	draw_line(t_img *img, t_vertex *start, t_vertex *end);
 /**
@@ -210,6 +211,7 @@ void	draw_line(t_img *img, t_vertex *start, t_vertex *end);
  * @note 
  */
 int		interpolate(int x, int span_x, int span_value);
+int		xy_within_limits(t_img *img, int x, int y);
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
 
 // EXIT

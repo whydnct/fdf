@@ -38,6 +38,26 @@ void	write_v_map_to_image(t_img *img, t_v_map *v_map)
 	}
 }
 
+void	write_vertices_to_image(t_img *img, t_v_map *v_map)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (i < v_map->rows)
+	{
+		while (j < v_map->cols)
+		{
+			my_mlx_pixel_put(img, v_map->vertices[i][j].x, \
+				v_map->vertices[i][j].y, v_map->vertices[i][j].color);
+			j++;
+		}
+		j = 0;
+		i++;
+	}
+}
+
 void	draw_line(t_img *img, t_vertex *start, t_vertex *end)
 {
 	int	x;
@@ -66,8 +86,22 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 {
 	char	*dst;
 
-	dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
-	*(unsigned int *)dst = color;
+	if (xy_within_limits(img, x, y))
+	{
+		dst = img->addr \
+			+ (y * img->line_length \
+			+ x * (img->bits_per_pixel / 8));
+		*(unsigned int *)dst = color;
+	}
+}
+
+int	xy_within_limits(t_img *img, int x, int y)
+{
+	if (x < 0 || y < 0)
+		return (0);
+	if (x > img->width || y > img->height)
+		return (0);
+	return (1);
 }
 /*void	plot_line(t_data *data, t_vertex *start, t_vertex *end)
 {
