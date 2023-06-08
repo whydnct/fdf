@@ -6,7 +6,7 @@
 /*   By: aperez-m <aperez-m@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 18:30:39 by aperez-m          #+#    #+#             */
-/*   Updated: 2023/05/30 20:50:41 by aperez-m         ###   ########.fr       */
+/*   Updated: 2023/06/08 18:43:38by aperez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,7 @@ void	init_image(t_bundle *bundle);
 
 //READ FILE INTO VERTEX MAP
 
+t_v_map	*create_v_map(char *file, t_bundle *bundle);
 //gets the number of rows in the file
 void	get_str_map_rows(char *file, t_v_map *v_map);
 
@@ -151,6 +152,9 @@ void	get_str_map_cols(t_v_map *v_map, char ***str_map);
 
 //builds a t_vertex ** and gets height and color for each vertex
 void	get_heights_colors(t_v_map *v_map, char ***str_map);
+
+void	print_heights_colors(t_bundle *bundle);
+void	print_x_y(t_bundle *bundle);
 
 //transforms the hexa coded color to int
 int		hex_to_color(char *str);
@@ -197,8 +201,8 @@ void	rescale_v_map(t_v_map *v_map, double zoom);
 
 // IMAGE TO WINDOW
 
-void	write_v_map_to_image(t_img *img, t_v_map *v_map);
-void	write_vertices_to_image(t_img *img, t_v_map *v_map);
+void	write_v_map_to_image(t_bundle *bundle);
+void	write_vertices_to_image(t_bundle *bundle);
 //draws lines along the axis from one vertex to the next
 void	draw_line(t_img *img, t_vertex *start, t_vertex *end);
 /**

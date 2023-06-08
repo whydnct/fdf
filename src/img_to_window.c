@@ -12,16 +12,16 @@
 
 #include "ft_fdf.h"
 
-void	write_v_map_to_image(t_img *img, t_v_map *v_map)
+void	write_v_map_to_image(t_bundle *bundle)
 {
 	int	i;
 	int	j;
 
 	i = 0;
 	j = 0;
-	while (i < v_map->rows)
+	while (i < bundle->v_map->rows)
 	{
-		while (j < v_map->cols)
+		while (j < bundle->v_map->cols)
 		{
 /**			if (j < v_map->cols - 1)
 				draw_line(img, &v_map->vertices[i][j], \
@@ -29,8 +29,14 @@ void	write_v_map_to_image(t_img *img, t_v_map *v_map)
 			if (i < v_map->rows - 1)
 				draw_line(img, &v_map->vertices[i][j], \
 					&v_map->vertices[i + 1][j]);
-*/			my_mlx_pixel_put(img, v_map->vertices[i][j].x, \
-				v_map->vertices[i][j].y, v_map->vertices[i][j].color);
+*/
+			my_mlx_pixel_put(bundle->img,\
+				bundle->v_map->vertices[i][j].x, \
+				bundle->v_map->vertices[i][j].y, \
+				bundle->v_map->vertices[i][j].color);
+			printf("%c", \
+				'\n'*(j == bundle->v_map->cols - 1 ) + \
+				'\t'*(j != bundle->v_map->cols));
 			j++;
 		}
 		j = 0;
@@ -38,19 +44,21 @@ void	write_v_map_to_image(t_img *img, t_v_map *v_map)
 	}
 }
 
-void	write_vertices_to_image(t_img *img, t_v_map *v_map)
+void	write_vertices_to_image(t_bundle *bundle)
 {
 	int	i;
 	int	j;
 
 	i = 0;
 	j = 0;
-	while (i < v_map->rows)
+	while (i < bundle->v_map->rows)
 	{
-		while (j < v_map->cols)
+		while (j < bundle->v_map->cols)
 		{
-			my_mlx_pixel_put(img, v_map->vertices[i][j].x, \
-				v_map->vertices[i][j].y, v_map->vertices[i][j].color);
+			my_mlx_pixel_put(bundle->img, \
+				bundle->v_map->vertices[i][j].x, \
+				bundle->v_map->vertices[i][j].y, \
+				bundle->v_map->vertices[i][j].color);
 			j++;
 		}
 		j = 0;
@@ -89,9 +97,10 @@ void	my_mlx_pixel_put(t_img *img, double x, double y, int color)
 	if (xy_within_limits(img, x, y))
 	{
 		dst = img->addr \
-			+ ((int)y * img->line_length \
-			+ (int)x * (img->bits_per_pixel / 8));
+			+ (int)(y * img->line_length \
+			+ x * (img->bits_per_pixel / 8));
 		*(unsigned int *)dst = color;
+		printf("%f,%f\t", x, y);
 	}
 }
 
