@@ -93,12 +93,13 @@ int	interpolate(int x, int span_x, int span_value)
 void	my_mlx_pixel_put(t_img *img, double x, double y, int color)
 {
 	char	*dst;
+	int		offset;
 
 	if (xy_within_limits(img, x, y))
 	{
-		dst = img->addr \
-			+ (int)(y * img->line_length \
+		offset = (int)(y * img->line_length \
 			+ x * (img->bits_per_pixel / 8));
+		dst = img->addr + offset;
 		*(unsigned int *)dst = color;
 		printf("%f,%f\t", x, y);
 	}
