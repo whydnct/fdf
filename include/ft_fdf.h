@@ -135,7 +135,7 @@ void	init_image(t_bundle *bundle);
 
 //READ FILE INTO VERTEX MAP
 
-t_v_map	*create_v_map(char *file, t_bundle *bundle);
+void	create_v_map(char *file, t_bundle *bundle);
 //gets the number of rows in the file
 void	get_str_map_rows(char *file, t_v_map *v_map);
 
@@ -191,7 +191,7 @@ void	get_max_pps(t_v_map *v_map, int img_width, int img_height);
 void	scale_v_map(t_v_map *v_map);
 
 //get vector from scaled v_map to image center
-void	get_offset(t_v_map *v_map, int img_width, int img_height);
+void	get_offset(t_bundle *bundle);
 
 //move the v_map to the center of the window
 void	center_v_map(t_v_map *v_map);

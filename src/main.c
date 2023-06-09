@@ -29,27 +29,25 @@ void	init_image(t_bundle *bundle)
 		bundle->img->width, bundle->img->height, WIN_TITLE);
 }
 
-t_v_map	*create_v_map(char *file, t_bundle *bundle)
+void	create_v_map(char *file, t_bundle *bundle)
 {
-	t_v_map	*ret;
 	char	***str_map;
 
-	ret = malloc(sizeof(t_v_map));
-	get_str_map_rows(file, ret);
-	str_map = get_str_map(file, ret);
-	get_str_map_cols(ret, str_map);
-	get_heights_colors(ret, str_map);
+	bundle->v_map = malloc(sizeof(t_v_map));
+	get_str_map_rows(file, bundle->v_map);
+	str_map = get_str_map(file, bundle->v_map);
+	get_str_map_cols(bundle->v_map, str_map);
+	get_heights_colors(bundle->v_map, str_map);
 	printf("got height and colors\n");
-	to_new_perspective(ret, bundle->persp);
+	to_new_perspective(bundle->v_map, bundle->persp);
 	printf("transformed to new perspective\n");
-	get_span_v(ret);
-	get_span_h(ret, bundle->persp);
-	get_max_pps(ret, bundle->img->width, bundle->img->height);
-	scale_v_map(ret);
-	get_offset(ret, bundle->img->width, bundle->img->height);
-	center_v_map(ret);
+	get_span_v(bundle->v_map);
+	get_span_h(bundle->v_map, bundle->persp);
+	get_max_pps(bundle->v_map, bundle->img->width, bundle->img->height);
+	scale_v_map(bundle->v_map);
+	get_offset(bundle);
+	center_v_map(bundle->v_map);
 	printf("v_map centered\n");
-	return (ret);
 }
 
 int	main(int argc, char **argv)
@@ -59,7 +57,7 @@ int	main(int argc, char **argv)
 	(void)argc;
 	init_persp(&bundle);
 	init_image(&bundle);
-	bundle.v_map = create_v_map(argv[1], &bundle);
+	create_v_map(argv[1], &bundle);
 	//write_v_map_to_image(bundle.img, v_map);
 	print_heights_colors(&bundle);
 	print_x_y(&bundle);

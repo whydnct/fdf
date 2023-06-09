@@ -6,7 +6,7 @@
 /*   By: aperez-m <aperez-m@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 06:06:44 by aperez-m          #+#    #+#             */
-/*   Updated: 2023/05/30 20:49:44 by aperez-m         ###   ########.fr       */
+/*   Updated: 2023/06/09 17:31:04 by aperez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,20 +136,22 @@ void	scale_v_map(t_v_map *v_map)
 	printf("map scaled, new vertical span: %d\n", v_map->span_v);
 }
 
-void	get_offset(t_v_map *v_map, int img_width, int img_height)
+void	get_offset(t_bundle *bundle)
 {
 	double	x_max;
 	double	x_min;
 
-	x_max = v_map->vertices[0][v_map->cols - 1].x;
-	x_min = v_map->vertices[v_map->rows - 1][0].x;
-	v_map->offset_h = 0.5 * \
-		(img_width - x_max - x_min);
-	v_map->offset_v = 0.5 * \
-		(img_height \
-		- get_y_min(v_map) \
-		- get_y_max(v_map));
-	printf("y_max: %f\ny_min: %f\n", get_y_max(v_map), get_y_min(v_map));
+	x_max = bundle->v_map->vertices[0][bundle->v_map->cols - 1].x;
+	x_min = bundle->v_map->vertices[bundle->v_map->rows - 1][0].x;
+	bundle->v_map->offset_h = 0.5 * \
+		(bundle->img->width - x_max - x_min);
+	bundle->v_map->offset_v = 0.5 * \
+		(bundle->img->height \
+		- get_y_min(bundle->v_map) \
+		- get_y_max(bundle->v_map));
+	printf("y_max: %f\ny_min: %f\n", \
+		get_y_max(bundle->v_map), \
+		get_y_min(bundle->v_map));
 	printf("x_max: %f\nx_min: %f\n", x_max, x_min);
 }
 
