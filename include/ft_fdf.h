@@ -153,9 +153,6 @@ void	get_str_map_cols(t_v_map *v_map, char ***str_map);
 //builds a t_vertex ** and gets height and color for each vertex
 void	get_heights_colors(t_v_map *v_map, char ***str_map);
 
-void	print_heights_colors(t_bundle *bundle);
-void	print_x_y(t_bundle *bundle);
-
 //transforms the hexa coded color to int
 int		hex_to_color(char *str);
 
@@ -202,7 +199,6 @@ void	rescale_v_map(t_v_map *v_map, double zoom);
 // IMAGE TO WINDOW
 
 void	write_v_map_to_image(t_bundle *bundle);
-void	write_vertices_to_image(t_bundle *bundle);
 //draws lines along the axis from one vertex to the next
 void	draw_line(t_img *img, t_vertex *start, t_vertex *end);
 /**
@@ -231,4 +227,8 @@ int		quit(t_bundle *bundle);
  */
 void	error_handler(int error);
 
+// DEBUGGERS
+void	print_heights_colors(t_bundle *bundle);
+void	print_x_y(t_bundle *bundle);
+void	write_vertices_to_image(t_bundle *bundle);
 #endif

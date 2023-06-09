@@ -44,28 +44,6 @@ void	write_v_map_to_image(t_bundle *bundle)
 	}
 }
 
-void	write_vertices_to_image(t_bundle *bundle)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	while (i < bundle->v_map->rows)
-	{
-		while (j < bundle->v_map->cols)
-		{
-			my_mlx_pixel_put(bundle->img, \
-				bundle->v_map->vertices[i][j].x, \
-				bundle->v_map->vertices[i][j].y, \
-				bundle->v_map->vertices[i][j].color);
-			j++;
-		}
-		j = 0;
-		i++;
-	}
-}
-
 void	draw_line(t_img *img, t_vertex *start, t_vertex *end)
 {
 	int	x;

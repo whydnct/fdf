@@ -38,16 +38,13 @@ void	create_v_map(char *file, t_bundle *bundle)
 	str_map = get_str_map(file, bundle->v_map);
 	get_str_map_cols(bundle->v_map, str_map);
 	get_heights_colors(bundle->v_map, str_map);
-	printf("got height and colors\n");
 	to_new_perspective(bundle->v_map, bundle->persp);
-	printf("transformed to new perspective\n");
 	get_span_v(bundle->v_map);
 	get_span_h(bundle->v_map, bundle->persp);
 	get_max_pps(bundle->v_map, bundle->img->width, bundle->img->height);
 	scale_v_map(bundle->v_map);
 	get_offset(bundle);
 	center_v_map(bundle->v_map);
-	printf("v_map centered\n");
 }
 
 int	main(int argc, char **argv)

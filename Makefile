@@ -6,7 +6,7 @@
 #    By: aperez-m <aperez-m@student.42urduliz.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/02 13:31:05 by aperez-m          #+#    #+#              #
-#    Updated: 2023/05/22 19:53:20 by aperez-m         ###   ########.fr        #
+#    Updated: 2023/06/09 22:57:57 by aperez-m         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,7 +57,8 @@ SRCS			:= \
 				free_memory.c \
 				img_to_window.c \
 				perspective.c \
-				read_map.c
+				read_map.c \
+				debuggers.c
 SRCS			:= $(SRCS:%=$(SRC_DIR)/%)
 
 BUILD_DIR   := .build
