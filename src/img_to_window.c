@@ -79,7 +79,9 @@ void	my_mlx_pixel_put(t_img *img, double x, double y, int color)
 			+ x * (img->bits_per_pixel / 8));
 		dst = img->addr + offset;
 		*(unsigned int *)dst = color;
-		printf("%f,%f\t", x, y);
+		//printf("%d,%d\t", (int)x, (int)y);
+		//printf("%d " , offset);
+		printf("%p ", dst);
 	}
 }
 
