@@ -55,7 +55,7 @@ int	main(int argc, char **argv)
 	init_persp(&bundle);
 	init_image(&bundle);
 	create_v_map(argv[1], &bundle);
-	//write_v_map_to_image(bundle.img, v_map);
+	//write_v_map_to_image(&bundle);
 	print_heights_colors(&bundle);
 	print_x_y(&bundle);
 	write_vertices_to_image(&bundle);
