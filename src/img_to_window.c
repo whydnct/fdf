@@ -72,17 +72,24 @@ void	my_mlx_pixel_put(t_img *img, double x, double y, int color)
 {
 	char	*dst;
 	int		offset;
-
+	int		img_size;
+	char	*last_bit;
+	
 	if (xy_within_limits(img, x, y))
 	{
+		img_size = get_last_bit_of_img(img);
+		last_bit = img->addr + img_size;
 		offset = (int)(y * img->line_length \
 			+ x * (img->bits_per_pixel / 8));
 		dst = img->addr + offset;
 		*(unsigned int *)dst = color;
 		//printf("%d,%d\t", (int)x, (int)y);
 		//printf("%d " , offset);
-		printf("%p ", dst);
+		if (dst > last_bit)
+			printf("dst > last_bit");
 	}
+	else
+		printf("you're out of bounds\n");
 }
 
 int	xy_within_limits(t_img *img, double x, double y)

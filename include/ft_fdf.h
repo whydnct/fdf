@@ -231,4 +231,5 @@ void	error_handler(int error);
 void	print_heights_colors(t_bundle *bundle);
 void	print_x_y(t_bundle *bundle);
 void	write_vertices_to_image(t_bundle *bundle);
+int		get_last_bit_of_img(t_img *img);
 #endif

@@ -6,7 +6,7 @@
 /*   By: aperez-m <aperez-m@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 17:37:16 by aperez-m          #+#    #+#             */
-/*   Updated: 2023/06/10 10:07:00 by aperez-m         ###   ########.fr       */
+/*   Updated: 2023/06/10 22:02:58 by aperez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,16 +60,16 @@ void	write_vertices_to_image(t_bundle *bundle)
 	{
 		while (j < bundle->v_map->cols)
 		{
-		/*	my_mlx_pixel_put(bundle->img, \
+			my_mlx_pixel_put(bundle->img, \
 				bundle->v_map->vertices[i][j].x, \
 				bundle->v_map->vertices[i][j].y, \
 				//bundle->v_map->vertices[i][j].color);
 				0x00FF0000);
-		*/	my_mlx_pixel_put(bundle->img, \
+		/*	my_mlx_pixel_put(bundle->img, \
 				5, \
 				5, \
 				0x00FF0000);
-			j++;
+		*/	j++;
 		}
 		j = 0;
 		i++;
@@ -109,4 +109,9 @@ void	print_x_y(t_bundle *bundle)
 		j = 0;
 		i++;
 	}
+}
+
+int	get_last_bit_of_img(t_img *img)
+{
+	return((img->width + 32) * img->height * 4);
 }
