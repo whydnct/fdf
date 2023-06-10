@@ -16,10 +16,10 @@
 */
 void	init_image(t_bundle *bundle)
 {
+	bundle->mlx_inst = mlx_init();
 	bundle->img = malloc(sizeof(t_img));
 	bundle->img->width = WIDTH;
 	bundle->img->height = HEIGHT;
-	bundle->mlx_inst = mlx_init();
 	bundle->img->img = mlx_new_image(bundle->mlx_inst, \
 		bundle->img->width, bundle->img->height);
 	bundle->img->addr = mlx_get_data_addr(bundle->img->img, \

@@ -6,7 +6,7 @@
 /*   By: aperez-m <aperez-m@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 17:37:16 by aperez-m          #+#    #+#             */
-/*   Updated: 2023/06/09 22:50:53 by aperez-m         ###   ########.fr       */
+/*   Updated: 2023/06/10 09:37:21 by aperez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ void	write_vertices_to_image(t_bundle *bundle)
 			my_mlx_pixel_put(bundle->img, \
 				bundle->v_map->vertices[i][j].x, \
 				bundle->v_map->vertices[i][j].y, \
-				bundle->v_map->vertices[i][j].color);
+				//bundle->v_map->vertices[i][j].color);
+				0x00FF0000);
 			j++;
 		}
 		j = 0;
