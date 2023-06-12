@@ -36,6 +36,7 @@ void	create_v_map(char *file, t_bundle *bundle)
 	bundle->v_map = malloc(sizeof(t_v_map));
 	get_str_map_rows(file, bundle->v_map);
 	str_map = get_str_map(file, bundle->v_map);
+	//print_str_map(bundle, str_map);
 	get_str_map_cols(bundle->v_map, str_map);
 	get_heights_colors(bundle->v_map, str_map);
 	to_new_perspective(bundle->v_map, bundle->persp);
@@ -52,6 +53,7 @@ int	main(int argc, char **argv)
 	t_bundle	bundle;
 
 	(void)argc;
+	split_unit_test(ft_split("uno dos tres cuatro", ' '));
 	init_persp(&bundle);
 	init_image(&bundle);
 	create_v_map(argv[1], &bundle);

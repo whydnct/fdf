@@ -6,7 +6,7 @@
 /*   By: aperez-m <aperez-m@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 17:37:16 by aperez-m          #+#    #+#             */
-/*   Updated: 2023/06/11 14:06:55 by aperez-m         ###   ########.fr       */
+/*   Updated: 2023/06/12 22:37:00 by aperez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,3 +133,49 @@ void	print_img_to_file(t_bundle *bundle)
 	}
 	close(fid);
 }	
+
+void	print_str_map(t_bundle *bundle, char ***str_map)
+{
+	int	i;
+	int	j;
+
+	i = -1;
+	j= 0;
+	while (++i < bundle->v_map->rows)
+	{
+		while (str_map[i][j][0] != '\0')
+		{
+			printf("str_map[%d][%d]: %s\n", i, j, str_map[i][j]);
+			j++;
+		}
+		j = 0;
+	}
+}
+
+void	split_unit_test(char **string)
+{
+	int	i;
+	int	j;
+	char *null_str;
+	
+	null_str = "\0";	
+	i = 0;
+	j = 0;
+	if (string[4][0] == 0)
+		printf("null_str[0] != 0");
+	printf("%s", null_str);
+	printf("%ld\n", sizeof(string));
+	while (i < 5)
+	{
+		while (string[i][j])
+		{
+			printf("%d\n", string[i][j]);	
+			j++;
+		}
+		printf("%d\n", string[i][j]);
+		j = 0;
+		i++;
+	}
+	printf("%d\n", i);
+	printf("%s\n", string[i]);	
+}

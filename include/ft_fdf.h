@@ -233,4 +233,6 @@ void	print_x_y(t_bundle *bundle);
 void	write_vertices_to_image(t_bundle *bundle);
 int		get_last_bit_of_img(t_img *img);
 void	print_img_to_file(t_bundle *bundle);
+void	print_str_map(t_bundle *bundle, char ***str_map);
+void	split_unit_test(char **string);
 #endif
