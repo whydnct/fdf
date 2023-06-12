@@ -6,7 +6,7 @@
 /*   By: aperez-m <aperez-m@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 17:37:16 by aperez-m          #+#    #+#             */
-/*   Updated: 2023/06/10 22:02:58 by aperez-m         ###   ########.fr       */
+/*   Updated: 2023/06/11 14:06:55 by aperez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,3 +115,21 @@ int	get_last_bit_of_img(t_img *img)
 {
 	return((img->width + 32) * img->height * 4);
 }
+
+void	print_img_to_file(t_bundle *bundle)
+{
+	int	i;
+	int fid;
+	int	i_limit;
+	
+	fid = open("./img_report", O_CREAT || O_WRONLY, 0664);
+	i = -1;
+	i_limit = 15000;
+	while (++i < i_limit)	
+	{
+		ft_putnbr_fd(*((unsigned int *)bundle->img->img + i), fid);
+		write(fid, "\t", 1);
+		i++;
+	}
+	close(fid);
+}	

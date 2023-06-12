@@ -59,6 +59,7 @@ int	main(int argc, char **argv)
 	print_heights_colors(&bundle);
 	print_x_y(&bundle);
 	write_vertices_to_image(&bundle);
+	print_img_to_file(&bundle);
 	mlx_put_image_to_window(bundle.mlx_inst, bundle.mlx_win, \
 	bundle.img->img, 0, 0);
 	printf("pushed to window\n");
