@@ -6,7 +6,7 @@
 /*   By: aperez-m <aperez-m@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 06:06:44 by aperez-m          #+#    #+#             */
-/*   Updated: 2023/06/09 17:31:04 by aperez-m         ###   ########.fr       */
+/*   Updated: 2023/06/16 19:02:48 by aperez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,6 @@ void	scale_v_map(t_v_map *v_map)
 		i++;
 	}
 	get_span_v(v_map);
-	printf("map scaled, new vertical span: %d\n", v_map->span_v);
 }
 
 void	get_offset(t_bundle *bundle)

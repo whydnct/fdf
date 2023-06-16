@@ -6,7 +6,7 @@
 /*   By: aperez-m <aperez-m@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 17:37:16 by aperez-m          #+#    #+#             */
-/*   Updated: 2023/06/12 22:37:00 by aperez-m         ###   ########.fr       */
+/*   Updated: 2023/06/16 19:56:39 by aperez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	print_heights_colors(t_bundle *bundle)
 
 	i = 0;
 	j = 0;
+	printf("printing heights\n");
 	while (i < bundle->v_map->rows)
 	{
 		while (j < bundle->v_map->cols)
@@ -33,7 +34,7 @@ void	print_heights_colors(t_bundle *bundle)
 		i++;
 	}
 	i = 0;
-	printf("\n");
+	printf("\npriting colors\n");
 	while (i < bundle->v_map->rows)
 	{
 		while (j < bundle->v_map->cols)
@@ -63,8 +64,8 @@ void	write_vertices_to_image(t_bundle *bundle)
 			my_mlx_pixel_put(bundle->img, \
 				bundle->v_map->vertices[i][j].x, \
 				bundle->v_map->vertices[i][j].y, \
-				//bundle->v_map->vertices[i][j].color);
-				0x00FF0000);
+				bundle->v_map->vertices[i][j].color);
+				//0x00FF0000);
 		/*	my_mlx_pixel_put(bundle->img, \
 				5, \
 				5, \
@@ -83,6 +84,7 @@ void	print_x_y(t_bundle *bundle)
 
 	i = 0;
 	j = 0;
+	printf("printing x values \n");
 	while (i < bundle->v_map->rows)
 	{
 		while (j < bundle->v_map->cols)
@@ -96,7 +98,7 @@ void	print_x_y(t_bundle *bundle)
 		i++;
 	}
 	i = 0;
-	printf("\n");
+	printf("\nprinting y values\n");
 	while (i < bundle->v_map->rows)
 	{
 		while (j < bundle->v_map->cols)
@@ -109,6 +111,7 @@ void	print_x_y(t_bundle *bundle)
 		j = 0;
 		i++;
 	}
+	printf("\n");
 }
 
 int	get_last_bit_of_img(t_img *img)
@@ -143,7 +146,7 @@ void	print_str_map(t_bundle *bundle, char ***str_map)
 	j= 0;
 	while (++i < bundle->v_map->rows)
 	{
-		while (str_map[i][j][0] != '\0')
+		while (str_map[i][i] && str_map[i][j][0] != '\0')
 		{
 			printf("str_map[%d][%d]: %s\n", i, j, str_map[i][j]);
 			j++;
@@ -156,16 +159,11 @@ void	split_unit_test(char **string)
 {
 	int	i;
 	int	j;
-	char *null_str;
 	
-	null_str = "\0";	
 	i = 0;
 	j = 0;
-	if (string[4][0] == 0)
-		printf("null_str[0] != 0");
-	printf("%s", null_str);
-	printf("%ld\n", sizeof(string));
-	while (i < 5)
+	printf("size of the string: %ld\n", sizeof(string));
+	while (string[i])
 	{
 		while (string[i][j])
 		{
@@ -177,5 +175,4 @@ void	split_unit_test(char **string)
 		i++;
 	}
 	printf("%d\n", i);
-	printf("%s\n", string[i]);	
 }

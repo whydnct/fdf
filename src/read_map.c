@@ -6,7 +6,7 @@
 /*   By: aperez-m <aperez-m@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:05:23 by aperez-m          #+#    #+#             */
-/*   Updated: 2023/06/09 22:40:28 by aperez-m         ###   ########.fr       */
+/*   Updated: 2023/06/16 19:50:19 by aperez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	get_str_map_cols(t_v_map *v_map, char ***str_map)
 	temp = 0;
 	while (i < v_map->rows)
 	{
-		while (str_map[i][j][0] != '\n')
+		while (str_map[i] && str_map[i][j] && str_map[i][j][0] != '\n')
 			j++;
 		temp = j;
 		if (cols < temp)
@@ -71,6 +71,7 @@ void	get_str_map_cols(t_v_map *v_map, char ***str_map)
 		i++;
 	}
 	v_map->cols = cols;
+	printf("cols: %d\n", v_map->cols);
 }
 
 void	get_heights_colors(t_v_map *v_map, char ***str_map)
@@ -109,7 +110,7 @@ int	hex_to_color(char *str)
 	j = 0;
 	if (!str)
 		return (16777215);
-	str++;
+	str = str + 3;
 	while (i < 6 && *(str + i))
 	{
 		while (base[j] != ft_tolower(*(str + i)))
