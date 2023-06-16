@@ -6,7 +6,7 @@
 /*   By: aperez-m <aperez-m@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:05:23 by aperez-m          #+#    #+#             */
-/*   Updated: 2023/06/16 19:50:19 by aperez-m         ###   ########.fr       */
+/*   Updated: 2023/06/16 20:25:58 by aperez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,14 +104,14 @@ int	hex_to_color(char *str)
 	int				i;
 	int				j;
 
+	if (!str)
+		return (16777215);
 	ret = 0;
 	base = "123456789abcdef";
 	i = 0;
 	j = 0;
-	if (!str)
-		return (16777215);
 	str = str + 3;
-	while (i < 6 && *(str + i))
+	while (i < 6 && ft_strchr(base,*(str + i)))
 	{
 		while (base[j] != ft_tolower(*(str + i)))
 		{
