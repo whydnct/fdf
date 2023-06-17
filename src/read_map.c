@@ -6,7 +6,7 @@
 /*   By: aperez-m <aperez-m@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:05:23 by aperez-m          #+#    #+#             */
-/*   Updated: 2023/06/16 20:25:58 by aperez-m         ###   ########.fr       */
+/*   Updated: 2023/06/17 10:21:23 by aperez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,31 @@
 
 void	get_str_map_rows(char *file, t_v_map *v_map)
 {
-	int	fd;
-	int	temp;
+	int		fd;
+	int		temp;
+	char	*line;
+	int		line_cols;
 
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
 		error_handler(OPEN_FAILED);
-	temp = 0;
-	while (get_next_line(fd))
-		temp++;
-	if (!temp)
+	line = get_next_line(fd);
+	if (!line)
 		error_handler(EMPTY_FILE);
+	temp = 0;
+	while (line)
+	{
+		line_cols = get_line_cols(line, ' ');
+		free(line);
+		temp++;
+		line = get_next_line(fd);
+		if (line_cols != get_line_cols(line, ' '))
+			break ;
+	}
+	free(line);
 	close(fd);
 	v_map->rows = temp;
-	printf("rows: %d\n", v_map->rows);
+	v_map->cols = line_cols;
 }
 
 char	***get_str_map(char *file, t_v_map *v_map)
@@ -111,7 +122,7 @@ int	hex_to_color(char *str)
 	i = 0;
 	j = 0;
 	str = str + 3;
-	while (i < 6 && ft_strchr(base,*(str + i)))
+	while (i < 6 && ft_strchr(base, ft_tolower(*(str + i))))
 	{
 		while (base[j] != ft_tolower(*(str + i)))
 		{

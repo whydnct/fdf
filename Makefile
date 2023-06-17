@@ -6,7 +6,7 @@
 #    By: aperez-m <aperez-m@student.42urduliz.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/02 13:31:05 by aperez-m          #+#    #+#              #
-#    Updated: 2023/06/09 22:57:57 by aperez-m         ###   ########.fr        #
+#    Updated: 2023/06/17 10:12:18 by aperez-m         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,6 +58,7 @@ SRCS			:= \
 				img_to_window.c \
 				perspective.c \
 				read_map.c \
+				param_validators.c \
 				debuggers.c
 SRCS			:= $(SRCS:%=$(SRC_DIR)/%)
 

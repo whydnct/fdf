@@ -227,6 +227,10 @@ int		quit(t_bundle *bundle);
  */
 void	error_handler(int error);
 
+// PARAM VALIDATORS
+
+int		get_line_cols(char *line, char c);
+
 // DEBUGGERS
 void	print_heights_colors(t_bundle *bundle);
 void	print_x_y(t_bundle *bundle);
