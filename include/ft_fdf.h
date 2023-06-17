@@ -215,6 +215,7 @@ int		xy_within_limits(t_img *img, double x, double y);
 void	my_mlx_pixel_put(t_img *img, double x, double y, int color);
 
 // EXIT
+void	free_str_map(char ***str, t_bundle *bundle);
 void	free_t_vertex(t_v_map *v_map);
 void	free_all(t_bundle *bundle);
 int		exit_on_esc(int keycode, t_bundle *bundle);

@@ -39,6 +39,7 @@ void	create_v_map(char *file, t_bundle *bundle)
 	//print_str_map(bundle, str_map);
 	//get_str_map_cols(bundle->v_map, str_map);
 	get_heights_colors(bundle->v_map, str_map);
+	free_str_map(str_map, bundle);
 	to_new_perspective(bundle->v_map, bundle->persp);
 	get_span_v(bundle->v_map);
 	get_span_h(bundle->v_map, bundle->persp);

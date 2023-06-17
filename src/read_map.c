@@ -6,7 +6,7 @@
 /*   By: aperez-m <aperez-m@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:05:23 by aperez-m          #+#    #+#             */
-/*   Updated: 2023/06/17 10:21:23 by aperez-m         ###   ########.fr       */
+/*   Updated: 2023/06/17 18:33:26 by aperez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	get_str_map_rows(char *file, t_v_map *v_map)
 		free(line);
 		temp++;
 		line = get_next_line(fd);
-		if (line_cols != get_line_cols(line, ' '))
+		if (line && line_cols != get_line_cols(line, ' '))
 			break ;
 	}
 	free(line);
@@ -46,6 +46,7 @@ char	***get_str_map(char *file, t_v_map *v_map)
 	char	***ret;
 	int		fd;
 	int		i;
+	char	*line;
 
 	i = -1;
 	fd = open(file, O_RDONLY);
@@ -55,7 +56,11 @@ char	***get_str_map(char *file, t_v_map *v_map)
 	if (!ret)
 		error_handler(MALLOC_FAILED);
 	while (++i < v_map->rows)
-		ret[i] = ft_split(get_next_line(fd), ' ');
+	{
+		line = get_next_line(fd);
+		ret[i] = ft_split(line, ' ');
+		free(line);
+	}
 	close(fd);
 	return (ret);
 }
@@ -87,8 +92,8 @@ void	get_str_map_cols(t_v_map *v_map, char ***str_map)
 
 void	get_heights_colors(t_v_map *v_map, char ***str_map)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 
 	i = 0;
 	j = 0;
