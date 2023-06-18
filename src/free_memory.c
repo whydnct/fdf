@@ -6,7 +6,7 @@
 /*   By: aperez-m <aperez-m@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 13:03:30 by aperez-m          #+#    #+#             */
-/*   Updated: 2023/06/17 20:05:12 by aperez-m         ###   ########.fr       */
+/*   Updated: 2023/06/18 09:15:58 by aperez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	free_all(t_bundle *bundle)
 	//free(bundle->img->addr);
 	//free(bundle->img);
 	free_v_map(bundle->v_map);
-	printf("memory freed");
+	printf("memory freed\n");
 	//free(bundle->mlx_inst);
 	//free(bundle->mlx_win);
 }

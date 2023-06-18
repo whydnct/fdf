@@ -6,7 +6,7 @@
 /*   By: aperez-m <aperez-m@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 06:06:44 by aperez-m          #+#    #+#             */
-/*   Updated: 2023/06/16 19:02:48 by aperez-m         ###   ########.fr       */
+/*   Updated: 2023/06/18 10:54:56 by aperez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,21 +27,19 @@ void	to_new_perspective(t_v_map *v_map, t_persp *persp)
 	int	i;
 	int	j;
 
-	i = 0;
-	j = 0;
-	while (i < v_map->rows)
+	i = -1;
+	j = -1;
+	while (++i < v_map->rows)
 	{
-		while (j < v_map->cols)
+		while (++j < v_map->cols)
 		{
-			v_map->vertices[i][j].x = round((j \
-				* persp->col_x + i * persp->row_x));
-			v_map->vertices[i][j].y = round((j \
-				* persp->col_y + i * persp->row_y \
-				+ v_map->vertices[i][j].height * persp->height_y));
-			j++;
+			v_map->vertices[i][j].x = \
+				j * persp->col_x + i * persp->row_x;
+			v_map->vertices[i][j].y = \
+				j * persp->col_y + i * persp->row_y \
+				+ v_map->vertices[i][j].height * persp->height_y;
 		}
-		j = 0;
-		i++;
+		j = -1;
 	}
 	printf("transformed to new perspective \n");
 }
@@ -58,19 +56,17 @@ double	get_y_max(t_v_map *v_map)
 	int		i;
 	int		j;
 
-	i = 0;
-	j = 0;
+	i = -1;
+	j = -1;
 	ret = v_map->vertices[0][0].y;
-	while (i < v_map->rows)
+	while (++i < v_map->rows)
 	{
-		while (j < v_map->cols)
+		while (++j < v_map->cols)
 		{
 			if (ret < v_map->vertices[i][j].y)
 				ret = v_map->vertices[i][j].y;
-			j++;
 		}
-		j = 0;
-		i++;
+		j = -1;
 	}
 	return (ret);
 }
@@ -81,36 +77,40 @@ double	get_y_min(t_v_map *v_map)
 	int		i;
 	int		j;
 
-	i = 0;
-	j = 0;
+	i = -1;
+	j = -1;
 	ret = v_map->vertices[0][0].y;
-	while (i < v_map->rows)
+	while (++i < v_map->rows)
 	{
-		while (j < v_map->cols)
+		while (++j < v_map->cols)
 		{
 			if (ret > v_map->vertices[i][j].y)
 				ret = v_map->vertices[i][j].y;
-			j++;
 		}
-		j = 0;
-		i++;
+		j = -1;
 	}
 	return (ret);
 }
 
-void	get_span_h(t_v_map *v_map, t_persp *persp)
+void	get_span_h(t_v_map *v_map)
 {
-	v_map->span_h = v_map->cols * persp->col_x \
-		- v_map->rows * persp->row_x;
+	v_map->span_h = \
+		v_map->vertices[0][v_map->cols - 1].x \
+		- v_map->vertices[v_map->rows - 1][0].x;
 	printf("horizontal: %d\n", v_map->span_h);
 }
 
-void	get_max_pps(t_v_map *v_map, int img_width, int img_height)
+void	get_max_pps(t_v_map *v_map, t_img * img)
 {
-	if (v_map->span_h * img_height < img_width * v_map->span_v)
-		v_map->pps = img_height / v_map->span_v;
+	double	slenderness_map;
+	double	slenderness_img;
+
+	slenderness_map = v_map->span_h / v_map->span_v;
+	slenderness_img = img->width / img->height;
+	if (slenderness_map >= slenderness_img)
+		v_map->pps = img->height / v_map->span_v;
 	else
-		v_map->pps = img_width / v_map->span_h;
+		v_map->pps = img->width / v_map->span_h;
 	printf("max_pps: %d\n", v_map->pps);
 }
 
@@ -119,18 +119,16 @@ void	scale_v_map(t_v_map *v_map)
 	int	i;
 	int	j;
 
-	i = 0;
-	j = 0;
-	while (i < v_map->rows)
+	i = -1;
+	j = -1;
+	while (++i < v_map->rows)
 	{
-		while (j < v_map->cols)
+		while (++j < v_map->cols)
 		{
-			v_map->vertices[i][j].x *= v_map->pps;
-			v_map->vertices[i][j].y *= v_map->pps;
-			j++;
+			v_map->vertices[i][j].x *= 0.5 * v_map->pps;
+			v_map->vertices[i][j].y *= 0.5 * v_map->pps;
 		}
-		j = 0;
-		i++;
+		j = -1;
 	}
 	get_span_v(v_map);
 }

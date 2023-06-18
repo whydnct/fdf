@@ -17,25 +17,17 @@ void	write_v_map_to_image(t_bundle *bundle)
 	int	i;
 	int	j;
 
-	i = 0;
-	j = 0;
-	while (i < bundle->v_map->rows)
+	i = -1;
+	j = -1;
+	while (++i < bundle->v_map->rows)
 	{
-		while (j < bundle->v_map->cols)
-		{
-			draw_lines(bundle, i, j);
-		/*   	my_mlx_pixel_put(bundle->img,\
-	    		bundle->v_map->vertices[i][j].x, \
-	    		bundle->v_map->vertices[i][j].y, \
-	    		bundle->v_map->vertices[i][j].color);
-		*/	j++;
-		}
-		j = 0;
-		i++;
+		while (++j < bundle->v_map->cols)
+			choose_lines(bundle, i, j);
+		j = -1;
 	}
 }
 
-void	draw_lines(t_bundle *bundle, int i, int j)
+void	choose_lines(t_bundle *bundle, int i, int j)
 {
 	if (i < bundle->v_map->rows - 1)
 		draw_line(bundle, i, j, 0);
@@ -69,13 +61,6 @@ void	draw_line(t_bundle *bundle, int i, int j, int dir)
 		plot_lineV(bundle, start, deltas, sense);
 }
 
-int	interpolate(int x, int span_x, int span_value)
-{
-	int	ret;
-
-	ret = (span_value / span_x) * x;
-	return (ret);
-}
 
 void	my_mlx_pixel_put(t_img *img, double x, double y, int color)
 {
@@ -89,6 +74,8 @@ void	my_mlx_pixel_put(t_img *img, double x, double y, int color)
 		dst = img->addr + offset;
 		*(unsigned int *)dst = color;
 	}
+	else
+		printf("out of bounds\n");
 }
 
 int	xy_within_limits(t_img *img, double x, double y)
@@ -112,7 +99,6 @@ void	plot_lineH(t_bundle *bundle, t_vertex *start, int *deltas, int dir)
 	deltas_x2 = deltas[0] * 2;
 	deltas_y2 = deltas[1] * 2;
 	error = deltas_y2 - deltas[0];
-
 	while (deltas[0]--)
 	{
 		if (error >= 0)
@@ -150,4 +136,11 @@ void	plot_lineV(t_bundle *bundle, t_vertex *start, int *deltas, int dir)
 		my_mlx_pixel_put(bundle->img, pixel[0], pixel[1], start->color);
 	}
 }
- 
+
+int	interpolate(int x, int span_x, int span_value)
+{
+	int	ret;
+
+	ret = (span_value / span_x) * x;
+	return (ret);
+}

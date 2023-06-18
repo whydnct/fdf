@@ -172,14 +172,14 @@ double	get_y_min(t_v_map *v_map);
 void	get_span_v(t_v_map *v_map);
 
 //get the horizontal span of the vertices map, unscaled
-void	get_span_h(t_v_map *vertex_map, t_persp *persp);
+void	get_span_h(t_v_map *v_map);
 
 /**
- * @brief gets the maximum zoom(pps) for the vertices map to be shown
+ * @brief gets the maximum Pixels Per grid Side (zoom) for the vertices map to be shown
  * completely in the window
  * @note pps = pixels per grid side
 */
-void	get_max_pps(t_v_map *v_map, int img_width, int img_height);
+void	get_max_pps(t_v_map *v_map, t_img *img);
 
 //scale v_map_around 0,0
 void	scale_v_map(t_v_map *v_map);
@@ -197,7 +197,7 @@ void	rescale_v_map(t_v_map *v_map, double zoom);
 
 void	write_v_map_to_image(t_bundle *bundle);
 //choses what lines to draw from each vertex
-void	draw_lines(t_bundle *bundle, int i, int j);
+void	choose_lines(t_bundle *bundle, int i, int j);
 /**
  * @brief interpolates the value between two points, bringing the 
  * origin to the first point
@@ -209,7 +209,6 @@ void	draw_lines(t_bundle *bundle, int i, int j);
  */
 int		interpolate(int x, int span_x, int span_value);
 
-void	draw_lines(t_bundle *bundle, int i, int j);
 /**
  * @param dir 1 draws line to vertex to the right, 0 draws line to vertex below
 */
@@ -241,8 +240,7 @@ int		get_line_cols(char *line, char c);
 void	print_heights_colors(t_bundle *bundle);
 void	print_x_y(t_bundle *bundle);
 void	write_vertices_to_image(t_bundle *bundle);
-int		get_last_bit_of_img(t_img *img);
-void	print_img_to_file(t_bundle *bundle);
 void	print_str_map(t_bundle *bundle, char ***str_map);
 void	split_unit_test(char **string);
+
 #endif

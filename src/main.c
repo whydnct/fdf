@@ -12,7 +12,7 @@
 
 #include "ft_fdf.h"
 /**
- * NEXT: v_map is created but not displayed. 
+ * NEXT: fix perspective. 
 */
 void	init_image(t_bundle *bundle)
 {
@@ -36,13 +36,13 @@ void	create_v_map(char *file, t_bundle *bundle)
 	bundle->v_map = malloc(sizeof(t_v_map));
 	get_str_map_rows(file, bundle->v_map);
 	str_map = get_str_map(file, bundle->v_map);
-	//print_str_map(bundle, str_map);
+	print_str_map(bundle, str_map);
 	get_heights_colors(bundle->v_map, str_map);
 	free_str_map(str_map, bundle);
 	to_new_perspective(bundle->v_map, bundle->persp);
 	get_span_v(bundle->v_map);
-	get_span_h(bundle->v_map, bundle->persp);
-	get_max_pps(bundle->v_map, bundle->img->width, bundle->img->height);
+	get_span_h(bundle->v_map);
+	get_max_pps(bundle->v_map, bundle->img);
 	scale_v_map(bundle->v_map);
 	get_offset(bundle);
 	center_v_map(bundle->v_map);
@@ -53,15 +53,13 @@ int	main(int argc, char **argv)
 	t_bundle	bundle;
 
 	(void)argc;
-	//split_unit_test(ft_split("uno dos tres cuatro", ' '));
 	init_persp(&bundle);
 	init_image(&bundle);
 	create_v_map(argv[1], &bundle);
-	write_v_map_to_image(&bundle);
 	print_heights_colors(&bundle);
 	print_x_y(&bundle);
-	//write_vertices_to_image(&bundle);
-	//print_img_to_file(&bundle);
+	//write_v_map_to_image(&bundle);
+	write_vertices_to_image(&bundle);
 	mlx_put_image_to_window(bundle.mlx_inst, bundle.mlx_win, \
 	bundle.img->img, 0, 0);
 	printf("pushed to window\n");
