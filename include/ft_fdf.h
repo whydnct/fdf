@@ -117,7 +117,7 @@ typedef struct s_v_map{
 	int			span_v;
 	int			offset_h;
 	int			offset_v;
-	int			pps;
+	double		pps;
 }				t_v_map;
 
 /**

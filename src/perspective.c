@@ -6,7 +6,7 @@
 /*   By: aperez-m <aperez-m@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 06:06:44 by aperez-m          #+#    #+#             */
-/*   Updated: 2023/06/18 11:16:24 by aperez-m         ###   ########.fr       */
+/*   Updated: 2023/06/18 16:54:17 by aperez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ void	get_max_pps(t_v_map *v_map, t_img * img)
 		v_map->pps = img->height / v_map->span_v;
 	else
 		v_map->pps = img->width / v_map->span_h;
-	printf("max_pps: %d\n", v_map->pps);
+	printf("max_pps: %f\n", v_map->pps);
 }
 
 void	scale_v_map(t_v_map *v_map)
@@ -125,8 +125,8 @@ void	scale_v_map(t_v_map *v_map)
 	{
 		while (++j < v_map->cols)
 		{
-			v_map->vertices[i][j].x *= 0.5 * v_map->pps;
-			v_map->vertices[i][j].y *= 0.5 * v_map->pps;
+			v_map->vertices[i][j].x *= 0.9 * v_map->pps;
+			v_map->vertices[i][j].y *= 0.9 * v_map->pps;
 		}
 		j = -1;
 	}
