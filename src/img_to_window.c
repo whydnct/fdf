@@ -23,41 +23,50 @@ void	write_v_map_to_image(t_bundle *bundle)
 	{
 		while (j < bundle->v_map->cols)
 		{
-/**			if (j < v_map->cols - 1)
-				draw_line(img, &v_map->vertices[i][j], \
-					&v_map->vertices[i][j + 1]);
-			if (i < v_map->rows - 1)
-				draw_line(img, &v_map->vertices[i][j], \
-					&v_map->vertices[i + 1][j]);
-*/
-			my_mlx_pixel_put(bundle->img,\
-				bundle->v_map->vertices[i][j].x, \
-				bundle->v_map->vertices[i][j].y, \
-				bundle->v_map->vertices[i][j].color);
-			printf("%c", \
-				'\n'*(j == bundle->v_map->cols - 1 ) + \
-				'\t'*(j != bundle->v_map->cols));
-			j++;
+			draw_lines(bundle, i, j);
+		/*   	my_mlx_pixel_put(bundle->img,\
+	    		bundle->v_map->vertices[i][j].x, \
+	    		bundle->v_map->vertices[i][j].y, \
+	    		bundle->v_map->vertices[i][j].color);
+		*/	j++;
 		}
 		j = 0;
 		i++;
 	}
 }
 
-void	draw_line(t_img *img, t_vertex *start, t_vertex *end)
+void	draw_lines(t_bundle *bundle, int i, int j)
 {
-	int	x;
-	int	y;
-	int	color;
+	if (i < bundle->v_map->rows - 1)
+		draw_line(bundle, i, j, 0);
+	if (j < bundle->v_map->cols - 1)
+		draw_line(bundle, i, j, 1);
+}
 
-	x = 0;
-	while (++x < end->x - start->x)
+void	draw_line(t_bundle *bundle, int i, int j, int dir)
+{
+	t_vertex	*start;
+	t_vertex	*end;
+	t_vertex	*swap;
+	int			deltas[2];
+	int			sense;
+
+	start = &bundle->v_map->vertices[i][j];
+	end = &bundle->v_map->vertices[i + (dir == 0)][j + (dir == 1)];
+	if (start->y > end->y)
 	{
-		y = start->y + interpolate(x, end->x - start->x, end->y - start->y);
-		color = start->color \
-			+ interpolate(x, end->x - start->x, end->color - start->color);
-		my_mlx_pixel_put(img, start->x + x, y, color);
+		swap = start;
+		start = end;
+		end = swap;
 	}
+	deltas[0] = end->x - start->x;
+	deltas[1] = end->y - start->y;
+	sense = (deltas[0] > 0) - (deltas[0] < 0);
+	deltas[0] *= sense;
+	if (deltas[0] > deltas[1])
+		plot_lineH(bundle, start, deltas, sense);
+	else
+		plot_lineV(bundle, start, deltas, sense);
 }
 
 int	interpolate(int x, int span_x, int span_value)
@@ -72,24 +81,14 @@ void	my_mlx_pixel_put(t_img *img, double x, double y, int color)
 {
 	char	*dst;
 	int		offset;
-	int		img_size;
-	char	*last_bit;
-	
+
 	if (xy_within_limits(img, x, y))
 	{
-		img_size = get_last_bit_of_img(img);
-		last_bit = img->addr + img_size;
 		offset = (int)(y * img->line_length \
 			+ x * (img->bits_per_pixel / 8));
 		dst = img->addr + offset;
 		*(unsigned int *)dst = color;
-		//printf("%d,%d\t", (int)x, (int)y);
-		//printf("%d " , offset);
-		if (dst > last_bit)
-			printf("dst > last_bit");
 	}
-	else
-		printf("you're out of bounds\n");
 }
 
 int	xy_within_limits(t_img *img, double x, double y)
@@ -100,37 +99,8 @@ int	xy_within_limits(t_img *img, double x, double y)
 		return (0);
 	return (1);
 }
-/*void	plot_line(t_data *data, t_vertex *start, t_vertex *end)
-{
-	t_vertex	*swap;
-	int			deltas[2];
 
-	if (start->y > end->y)
-	{
-		swap = start;
-		start = end;
-		end = swap;
-	}
-	deltas[0] = end->x - start->x;
-	deltas[1] = end->y - start->y;
-	if (deltas[0] > 0)
-	{
-		if (deltas[0] > deltas[1])
-			plot_lineH(data, start, deltas, 1);
-		else
-			plot_lineV(data, start, deltas, 1);
-	}
-	else
-	{
-		deltas[0] = -deltas[0];
-		if (deltas[0] > deltas[1])
-			plot_lineH(data, start, deltas, -1);
-		else
-			plot_lineV(data, start, deltas, -1);
-	}
-}
-
-void	plot_lineH(t_data *data, t_vertex *start, int *deltas, int dir)
+void	plot_lineH(t_bundle *bundle, t_vertex *start, int *deltas, int dir)
 {
 	int	pixel[2];
 	int	deltas_x2;
@@ -152,11 +122,11 @@ void	plot_lineH(t_data *data, t_vertex *start, int *deltas, int dir)
 		}
 		error += deltas_y2;
 		pixel[0] += dir;
-		my_mlx_pixel_put(data, pixel[0], pixel[1], start->color);
+		my_mlx_pixel_put(bundle->img, pixel[0], pixel[1], start->color);
 	}
 }
 
-void	plot_lineV(t_data *data, t_vertex *start, int *deltas, int const dir)
+void	plot_lineV(t_bundle *bundle, t_vertex *start, int *deltas, int dir)
 {
 	int	pixel[2];
 	int	deltas_x2;
@@ -177,7 +147,7 @@ void	plot_lineV(t_data *data, t_vertex *start, int *deltas, int const dir)
 		}
 		error += deltas_x2;
 		pixel[1]++;
-		my_mlx_pixel_put(data, pixel[0], pixel[1], start->color);
+		my_mlx_pixel_put(bundle->img, pixel[0], pixel[1], start->color);
 	}
 }
-*/
+ 

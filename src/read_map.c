@@ -6,7 +6,7 @@
 /*   By: aperez-m <aperez-m@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:05:23 by aperez-m          #+#    #+#             */
-/*   Updated: 2023/06/17 18:33:26 by aperez-m         ###   ########.fr       */
+/*   Updated: 2023/06/17 19:57:42 by aperez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,31 +63,6 @@ char	***get_str_map(char *file, t_v_map *v_map)
 	}
 	close(fd);
 	return (ret);
-}
-
-void	get_str_map_cols(t_v_map *v_map, char ***str_map)
-{
-	int	cols;
-	int	i;
-	int	j;
-	int	temp;
-
-	cols = 0;
-	i = 0;
-	j = 0;
-	temp = 0;
-	while (i < v_map->rows)
-	{
-		while (str_map[i] && str_map[i][j] && str_map[i][j][0] != '\n')
-			j++;
-		temp = j;
-		if (cols < temp)
-			cols = temp;
-		j = 0;
-		i++;
-	}
-	v_map->cols = cols;
-	printf("cols: %d\n", v_map->cols);
 }
 
 void	get_heights_colors(t_v_map *v_map, char ***str_map)

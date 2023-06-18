@@ -147,9 +147,6 @@ void	get_str_map_rows(char *file, t_v_map *v_map);
  */
 char	***get_str_map(char *file, t_v_map *v_map);
 
-//gets the maximum number of columns in the map
-void	get_str_map_cols(t_v_map *v_map, char ***str_map);
-
 //builds a t_vertex ** and gets height and color for each vertex
 void	get_heights_colors(t_v_map *v_map, char ***str_map);
 
@@ -199,8 +196,8 @@ void	rescale_v_map(t_v_map *v_map, double zoom);
 // IMAGE TO WINDOW
 
 void	write_v_map_to_image(t_bundle *bundle);
-//draws lines along the axis from one vertex to the next
-void	draw_line(t_img *img, t_vertex *start, t_vertex *end);
+//choses what lines to draw from each vertex
+void	draw_lines(t_bundle *bundle, int i, int j);
 /**
  * @brief interpolates the value between two points, bringing the 
  * origin to the first point
@@ -211,6 +208,14 @@ void	draw_line(t_img *img, t_vertex *start, t_vertex *end);
  * @note 
  */
 int		interpolate(int x, int span_x, int span_value);
+
+void	draw_lines(t_bundle *bundle, int i, int j);
+/**
+ * @param dir 1 draws line to vertex to the right, 0 draws line to vertex below
+*/
+void	draw_line(t_bundle *bundle, int i, int j, int dir);
+void	plot_lineH(t_bundle *bundle, t_vertex *start, int *deltas, int dir);
+void	plot_lineV(t_bundle *bundle, t_vertex *start, int *deltas, int dir);
 int		xy_within_limits(t_img *img, double x, double y);
 void	my_mlx_pixel_put(t_img *img, double x, double y, int color);
 
