@@ -47,6 +47,12 @@ void	create_v_map(char *file, t_bundle *bundle)
 	get_offset(bundle);
 	center_v_map(bundle->v_map);
 }
+void	debug(t_bundle *bundle)
+{
+	print_heights_colors(bundle);
+	print_x_y(bundle);
+	write_vertices_to_image(bundle);
+}
 
 int	main(int argc, char **argv)
 {
@@ -56,10 +62,8 @@ int	main(int argc, char **argv)
 	init_persp(&bundle);
 	init_image(&bundle);
 	create_v_map(argv[1], &bundle);
-	print_heights_colors(&bundle);
-	print_x_y(&bundle);
 	//write_v_map_to_image(&bundle);
-	write_vertices_to_image(&bundle);
+	debug(&bundle);
 	mlx_put_image_to_window(bundle.mlx_inst, bundle.mlx_win, \
 	bundle.img->img, 0, 0);
 	printf("pushed to window\n");

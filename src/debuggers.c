@@ -6,7 +6,7 @@
 /*   By: aperez-m <aperez-m@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 17:37:16 by aperez-m          #+#    #+#             */
-/*   Updated: 2023/06/18 09:42:18 by aperez-m         ###   ########.fr       */
+/*   Updated: 2023/06/18 11:14:46 by aperez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,8 @@ void	print_x_y(t_bundle *bundle)
 	while (++i < bundle->v_map->rows)
 	{
 		while (++j < bundle->v_map->cols)
-		{
 			printf("%d\t", (int)bundle->v_map->vertices[i][j].x);
-			if (j == bundle->v_map->cols - 1)
-				printf("\n");
-		}
+		printf("\n");
 		j = -1;
 	}
 	i = -1;
@@ -81,11 +78,8 @@ void	print_x_y(t_bundle *bundle)
 	while (++i < bundle->v_map->rows)
 	{
 		while (++j < bundle->v_map->cols)
-		{
 			printf("%d\t", (int)bundle->v_map->vertices[i][j].y);
-			if (j == bundle->v_map->cols - 1)
-				printf("\n");
-		}
+		printf("\n");
 		j = -1;
 	}
 }
@@ -104,24 +98,6 @@ void	print_str_map(t_bundle *bundle, char ***str_map)
 			printf("str_map[%d][%d]: %s\n", i, j, str_map[i][j]);
 		j = -1;
 	}
-}
-
-void	split_unit_test(char **string)
-{
-	int		i;
-	int		j;
-
-	i = -1;
-	j = -1;
-	printf("size of the string: %ld\n", sizeof(string));
-	while (string[++i])
-	{
-		while (string[i][++j])
-			printf("%d\n", string[i][j]);	
-		printf("%d\n", string[i][j]);
-		j = -1;
-	}
-	printf("%d\n", i);
 }
 
 /*

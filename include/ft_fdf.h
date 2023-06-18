@@ -190,8 +190,10 @@ void	get_offset(t_bundle *bundle);
 //move the v_map to the center of the window
 void	center_v_map(t_v_map *v_map);
 
-//scale v_map_around image_center
-void	rescale_v_map(t_v_map *v_map, double zoom);
+/**
+ * scale v_map_around image_center
+ * void	rescale_v_map(t_v_map *v_map, double zoom);
+*/
 
 // IMAGE TO WINDOW
 
@@ -237,10 +239,10 @@ void	error_handler(int error);
 int		get_line_cols(char *line, char c);
 
 // DEBUGGERS
+void	debug(t_bundle *bundle);
 void	print_heights_colors(t_bundle *bundle);
 void	print_x_y(t_bundle *bundle);
 void	write_vertices_to_image(t_bundle *bundle);
 void	print_str_map(t_bundle *bundle, char ***str_map);
-void	split_unit_test(char **string);
 
 #endif

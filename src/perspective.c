@@ -6,7 +6,7 @@
 /*   By: aperez-m <aperez-m@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 06:06:44 by aperez-m          #+#    #+#             */
-/*   Updated: 2023/06/18 10:54:56 by aperez-m         ###   ########.fr       */
+/*   Updated: 2023/06/18 11:16:24 by aperez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,6 +175,7 @@ void	center_v_map(t_v_map *v_map)
 		v_map->vertices[v_map->rows - 1][0].x);
 }
 
+/*
 void	re_scale_v_map(t_v_map *v_map, double zoom, int img_w, int img_h)
 {
 	int	i;
@@ -196,3 +197,4 @@ void	re_scale_v_map(t_v_map *v_map, double zoom, int img_w, int img_h)
 		i++;
 	}
 }
+*/
