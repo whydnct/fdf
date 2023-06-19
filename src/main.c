@@ -62,8 +62,8 @@ int	main(int argc, char **argv)
 	init_persp(&bundle);
 	init_image(&bundle);
 	create_v_map(argv[1], &bundle);
-	//write_v_map_to_image(&bundle);
-	debug(&bundle);
+	write_v_map_to_image(&bundle);
+	//debug(&bundle);
 	mlx_put_image_to_window(bundle.mlx_inst, bundle.mlx_win, \
 	bundle.img->img, 0, 0);
 	printf("pushed to window\n");

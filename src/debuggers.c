@@ -6,7 +6,7 @@
 /*   By: aperez-m <aperez-m@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 17:37:16 by aperez-m          #+#    #+#             */
-/*   Updated: 2023/06/18 16:55:26 by aperez-m         ###   ########.fr       */
+/*   Updated: 2023/06/18 17:24:21 by aperez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	print_x_y(t_bundle *bundle)
 	while (++i < bundle->v_map->rows)
 	{
 		while (++j < bundle->v_map->cols)
-			printf("%d\t", (int)bundle->v_map->vertices[i][j].x);
+			printf("%f\t", bundle->v_map->vertices[i][j].x);
 		printf("\n");
 		j = -1;
 	}

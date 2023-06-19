@@ -113,8 +113,8 @@ typedef struct s_v_map{
 	t_vertex	**vertices;
 	int			rows;
 	int			cols;
-	int			span_h;
-	int			span_v;
+	double		span_h;
+	double		span_v;
 	int			offset_h;
 	int			offset_v;
 	double		pps;

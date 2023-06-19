@@ -6,7 +6,7 @@
 /*   By: aperez-m <aperez-m@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 06:06:44 by aperez-m          #+#    #+#             */
-/*   Updated: 2023/06/18 16:54:17 by aperez-m         ###   ########.fr       */
+/*   Updated: 2023/06/18 17:06:45by aperez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	to_new_perspective(t_v_map *v_map, t_persp *persp)
 void	get_span_v(t_v_map *v_map)
 {
 	v_map->span_v = get_y_max(v_map) - get_y_min(v_map);
-	printf("vertical span: %d\n", v_map->span_v);
+	printf("vertical span: %f\n", v_map->span_v);
 }
 
 double	get_y_max(t_v_map *v_map)
@@ -97,7 +97,7 @@ void	get_span_h(t_v_map *v_map)
 	v_map->span_h = \
 		v_map->vertices[0][v_map->cols - 1].x \
 		- v_map->vertices[v_map->rows - 1][0].x;
-	printf("horizontal: %d\n", v_map->span_h);
+	printf("horizontal: %f\n", v_map->span_h);
 }
 
 void	get_max_pps(t_v_map *v_map, t_img * img)
@@ -105,12 +105,12 @@ void	get_max_pps(t_v_map *v_map, t_img * img)
 	double	slenderness_map;
 	double	slenderness_img;
 
-	slenderness_map = v_map->span_h / v_map->span_v;
-	slenderness_img = img->width / img->height;
+	slenderness_map = v_map->span_v / v_map->span_h;
+	slenderness_img = img->height / img->width ;
 	if (slenderness_map >= slenderness_img)
-		v_map->pps = img->height / v_map->span_v;
+		v_map->pps = (double)img->height / v_map->span_v;
 	else
-		v_map->pps = img->width / v_map->span_h;
+		v_map->pps = (double)img->width / v_map->span_h;
 	printf("max_pps: %f\n", v_map->pps);
 }
 
