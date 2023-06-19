@@ -44,76 +44,6 @@ void	to_new_perspective(t_v_map *v_map, t_persp *persp)
 	printf("transformed to new perspective \n");
 }
 
-void	get_span_v(t_v_map *v_map)
-{
-	v_map->span_v = get_y_max(v_map) - get_y_min(v_map);
-	printf("vertical span: %f\n", v_map->span_v);
-}
-
-double	get_y_max(t_v_map *v_map)
-{
-	double	ret;
-	int		i;
-	int		j;
-
-	i = -1;
-	j = -1;
-	ret = v_map->vertices[0][0].y;
-	while (++i < v_map->rows)
-	{
-		while (++j < v_map->cols)
-		{
-			if (ret < v_map->vertices[i][j].y)
-				ret = v_map->vertices[i][j].y;
-		}
-		j = -1;
-	}
-	return (ret);
-}
-
-double	get_y_min(t_v_map *v_map)
-{
-	double	ret;
-	int		i;
-	int		j;
-
-	i = -1;
-	j = -1;
-	ret = v_map->vertices[0][0].y;
-	while (++i < v_map->rows)
-	{
-		while (++j < v_map->cols)
-		{
-			if (ret > v_map->vertices[i][j].y)
-				ret = v_map->vertices[i][j].y;
-		}
-		j = -1;
-	}
-	return (ret);
-}
-
-void	get_span_h(t_v_map *v_map)
-{
-	v_map->span_h = \
-		v_map->vertices[0][v_map->cols - 1].x \
-		- v_map->vertices[v_map->rows - 1][0].x;
-	printf("horizontal: %f\n", v_map->span_h);
-}
-
-void	get_max_pps(t_v_map *v_map, t_img * img)
-{
-	double	slenderness_map;
-	double	slenderness_img;
-
-	slenderness_map = v_map->span_v / v_map->span_h;
-	slenderness_img = img->height / img->width ;
-	if (slenderness_map >= slenderness_img)
-		v_map->pps = (double)img->height / v_map->span_v;
-	else
-		v_map->pps = (double)img->width / v_map->span_h;
-	printf("max_pps: %f\n", v_map->pps);
-}
-
 void	scale_v_map(t_v_map *v_map)
 {
 	int	i;
@@ -133,6 +63,41 @@ void	scale_v_map(t_v_map *v_map)
 	get_span_v(v_map);
 }
 
+void	get_max_pps(t_v_map *v_map, t_img * img)
+{
+	double	slenderness_map;
+	double	slenderness_img;
+
+	slenderness_map = v_map->span_v / v_map->span_h;
+	slenderness_img = img->height / img->width ;
+	if (slenderness_map >= slenderness_img)
+		v_map->pps = (double)img->height / v_map->span_v;
+	else
+		v_map->pps = (double)img->width / v_map->span_h;
+	printf("max_pps: %f\n", v_map->pps);
+}
+
+void	center_v_map(t_v_map *v_map)
+{
+	int	i;
+	int	j;
+
+	i = -1;
+	j = -1;
+	while (++i < v_map->rows)
+	{
+		while (++j < v_map->cols)
+		{
+			v_map->vertices[i][j].x += v_map->offset_h;
+			v_map->vertices[i][j].y += v_map->offset_v;
+		}
+		j = -1;
+	}
+	printf("y_max: %f\ny_min: %f\n", get_y_max(v_map), get_y_min(v_map));
+	printf("x_max: %f\nx_min: %f\n", v_map->vertices[0][v_map->cols - 1].x,
+		v_map->vertices[v_map->rows - 1][0].x);
+}
+
 void	get_offset(t_bundle *bundle)
 {
 	double	x_max;
@@ -150,29 +115,6 @@ void	get_offset(t_bundle *bundle)
 		get_y_max(bundle->v_map), \
 		get_y_min(bundle->v_map));
 	printf("x_max: %f\nx_min: %f\n", x_max, x_min);
-}
-
-void	center_v_map(t_v_map *v_map)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	while (i < v_map->rows)
-	{
-		while (j < v_map->cols)
-		{
-			v_map->vertices[i][j].x += v_map->offset_h;
-			v_map->vertices[i][j].y += v_map->offset_v;
-			j++;
-		}
-		j = 0;
-		i++;
-	}
-	printf("y_max: %f\ny_min: %f\n", get_y_max(v_map), get_y_min(v_map));
-	printf("x_max: %f\nx_min: %f\n", v_map->vertices[0][v_map->cols - 1].x,
-		v_map->vertices[v_map->rows - 1][0].x);
 }
 
 /*

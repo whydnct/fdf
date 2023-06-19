@@ -29,7 +29,7 @@ void	init_image(t_bundle *bundle)
 		bundle->img->width, bundle->img->height, WIN_TITLE);
 }
 
-void	create_v_map(char *file, t_bundle *bundle)
+void	read_map(char *file, t_bundle *bundle)
 {
 	char	***str_map;
 
@@ -39,6 +39,11 @@ void	create_v_map(char *file, t_bundle *bundle)
 	print_str_map(bundle, str_map);
 	get_heights_colors(bundle->v_map, str_map);
 	free_str_map(str_map, bundle);
+}
+
+void	project_v_map(t_bundle *bundle)
+{
+	init_persp(bundle);
 	to_new_perspective(bundle->v_map, bundle->persp);
 	get_span_v(bundle->v_map);
 	get_span_h(bundle->v_map);
@@ -47,21 +52,15 @@ void	create_v_map(char *file, t_bundle *bundle)
 	get_offset(bundle);
 	center_v_map(bundle->v_map);
 }
-void	debug(t_bundle *bundle)
-{
-	print_heights_colors(bundle);
-	print_x_y(bundle);
-	write_vertices_to_image(bundle);
-}
 
 int	main(int argc, char **argv)
 {
 	t_bundle	bundle;
 
 	(void)argc;
-	init_persp(&bundle);
 	init_image(&bundle);
-	create_v_map(argv[1], &bundle);
+	read_map(argv[1], &bundle);
+	project_v_map(&bundle);
 	write_v_map_to_image(&bundle);
 	//debug(&bundle);
 	mlx_put_image_to_window(bundle.mlx_inst, bundle.mlx_win, \

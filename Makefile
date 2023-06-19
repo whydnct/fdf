@@ -56,7 +56,8 @@ SRCS			:= \
 				events_handlers.c \
 				free_memory.c \
 				img_to_window.c \
-				perspective.c \
+				project_v_map.c \
+				project_v_map_spans.c
 				read_map.c \
 				param_validators.c \
 				debuggers.c

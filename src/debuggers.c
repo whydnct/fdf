@@ -12,6 +12,13 @@
 
 #include "ft_fdf.h"
 
+void	debug(t_bundle *bundle)
+{
+	print_heights_colors(bundle);
+	print_x_y(bundle);
+	write_vertices_to_image(bundle);
+}
+
 void	write_vertices_to_image(t_bundle *bundle)
 {
 	int	i;

@@ -135,8 +135,9 @@ void	init_image(t_bundle *bundle);
 
 //READ FILE INTO VERTEX MAP
 
-void	create_v_map(char *file, t_bundle *bundle);
-//gets the number of rows in the file
+void	read_map(char *file, t_bundle *bundle);
+
+//gets the number of rows and colums in the file
 void	get_str_map_rows(char *file, t_v_map *v_map);
 
 /**
@@ -153,7 +154,12 @@ void	get_heights_colors(t_v_map *v_map, char ***str_map);
 //transforms the hexa coded color to int
 int		hex_to_color(char *str);
 
-//GENERATE PERSPECTIVE
+// PROJECT V_MAP
+
+/**
+ * @brief fills x and y values of the v_map
+ */
+void	project_v_map(t_bundle *bundle);
 
 /**
  * @brief sets the values for all the factors of the
@@ -166,8 +172,10 @@ void	init_persp(t_bundle *bundle);
  * @note doesn't scale or move the vertices map
 */
 void	to_new_perspective(t_v_map *v_map, t_persp *persp);
+
 double	get_y_max(t_v_map *v_map);
 double	get_y_min(t_v_map *v_map);
+
 //get the vertical span of the vertices map, unscaled
 void	get_span_v(t_v_map *v_map);
 
@@ -189,11 +197,6 @@ void	get_offset(t_bundle *bundle);
 
 //move the v_map to the center of the window
 void	center_v_map(t_v_map *v_map);
-
-/**
- * scale v_map_around image_center
- * void	rescale_v_map(t_v_map *v_map, double zoom);
-*/
 
 // IMAGE TO WINDOW
 
@@ -246,3 +249,7 @@ void	write_vertices_to_image(t_bundle *bundle);
 void	print_str_map(t_bundle *bundle, char ***str_map);
 
 #endif
+/**
+ * scale v_map_around image_center
+ * void	rescale_v_map(t_v_map *v_map, double zoom);
+*/
