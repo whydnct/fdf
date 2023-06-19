@@ -218,8 +218,8 @@ int		interpolate(int x, int span_x, int span_value);
  * @param dir 1 draws line to vertex to the right, 0 draws line to vertex below
 */
 void	draw_line(t_bundle *bundle, int i, int j, int dir);
-void	plot_lineH(t_bundle *bundle, t_vertex *start, int *deltas, int dir);
-void	plot_lineV(t_bundle *bundle, t_vertex *start, int *deltas, int dir);
+void	plot_lineH(t_bundle *bundle, t_vertex *start, int *deltas, int sense);
+void	plot_lineV(t_bundle *bundle, t_vertex *start, int *deltas, int sense);
 int		xy_within_limits(t_img *img, double x, double y);
 void	my_mlx_pixel_put(t_img *img, double x, double y, int color);
 

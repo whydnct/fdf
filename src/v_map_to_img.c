@@ -87,51 +87,49 @@ int	xy_within_limits(t_img *img, double x, double y)
 	return (1);
 }
 
-void	plot_lineH(t_bundle *bundle, t_vertex *start, int *deltas, int dir)
+void	plot_lineH(t_bundle *bundle, t_vertex *start, int *deltas, int sense)
 {
 	int	pixel[2];
-	int	deltas_x2;
-	int	deltas_y2;
+	int	deltas_2[2];
 	int	error;
 
 	pixel[0] = start->x;
 	pixel[1] = start->y;
-	deltas_x2 = deltas[0] * 2;
-	deltas_y2 = deltas[1] * 2;
-	error = deltas_y2 - deltas[0];
+	deltas_2[0] = deltas[0] * 2;
+	deltas_2[1] = deltas[1] * 2;
+	error = deltas_2[1] - deltas[0];
 	while (deltas[0]--)
 	{
 		if (error >= 0)
 		{
 			pixel[1]++;
-			error -= deltas_x2;
+			error -= deltas_2[0];
 		}
-		error += deltas_y2;
-		pixel[0] += dir;
+		error += deltas_2[1];
+		pixel[0] += sense;
 		my_mlx_pixel_put(bundle->img, pixel[0], pixel[1], start->color);
 	}
 }
 
-void	plot_lineV(t_bundle *bundle, t_vertex *start, int *deltas, int dir)
+void	plot_lineV(t_bundle *bundle, t_vertex *start, int *deltas, int sense)
 {
 	int	pixel[2];
-	int	deltas_x2;
-	int	deltas_y2;
+	int	deltas_2[2];
 	int	error;
 
 	pixel[0] = start->x;
 	pixel[1] = start->y;
-	deltas_x2 = deltas[0] * 2;
-	deltas_y2 = deltas[1] * 2;
-	error = deltas_x2 - deltas[1];
+	deltas_2[0] = deltas[0] * 2;
+	deltas_2[1] = deltas[1] * 2;
+	error = deltas_2[0] - deltas[1];
 	while (deltas[1]--)
 	{
 		if (error >= 0)
 		{
-			pixel[0] += dir;
-			error -= deltas_y2;
+			pixel[0] += sense;
+			error -= deltas_2[1];
 		}
-		error += deltas_x2;
+		error += deltas_2[0];
 		pixel[1]++;
 		my_mlx_pixel_put(bundle->img, pixel[0], pixel[1], start->color);
 	}
