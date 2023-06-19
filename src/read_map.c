@@ -6,7 +6,7 @@
 /*   By: aperez-m <aperez-m@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:05:23 by aperez-m          #+#    #+#             */
-/*   Updated: 2023/06/17 19:57:42 by aperez-m         ###   ########.fr       */
+/*   Updated: 2023/06/19 22:09:42 by aperez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,21 +70,19 @@ void	get_heights_colors(t_v_map *v_map, char ***str_map)
 	int		i;
 	int		j;
 
-	i = 0;
-	j = 0;
+	i = -1;
+	j = -1;
 	v_map->vertices = malloc(v_map->rows * sizeof(t_vertex *));
-	while (i < v_map->rows)
+	while (++i < v_map->rows)
 	{
 		v_map->vertices[i] = malloc(v_map->cols * sizeof(t_vertex));
-		while (j < v_map->cols)
+		while (++j < v_map->cols)
 		{
 			v_map->vertices[i][j].height = ft_atoi(str_map[i][j]);
 			v_map->vertices[i][j].color = \
 				hex_to_color(ft_strchr(str_map[i][j], ','));
-			j++;
 		}
-		j = 0;
-		i++;
+		j = -1;
 	}
 }
 

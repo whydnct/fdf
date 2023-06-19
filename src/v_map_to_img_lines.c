@@ -95,8 +95,3 @@ void	plot_line_v(t_bundle *bundle, t_vertex **nodes, int *deltas, int sense)
 	}
 }
 
-int	get_color(t_vertex **nodes, int *deltas)
-{
-	(void)deltas;
-	return (nodes[0]->color);
-}

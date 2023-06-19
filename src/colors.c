@@ -12,10 +12,8 @@
 
 #include "ft_fdf.h"
 
-int	get_color(t_vertex *start, t_vertex *end, int *deltas)
+int	get_color(t_vertex **nodes, int *deltas)
 {
 	(void)deltas;
-	(void)start;
-	(void)end;
-	return (start->color);
+	return (nodes[0]->color);
 }
