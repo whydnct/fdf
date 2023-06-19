@@ -6,7 +6,7 @@
 /*   By: aperez-m <aperez-m@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 16:12:32 by aperez-m          #+#    #+#             */
-/*   Updated: 2023/06/19 18:40:31 by aperez-m         ###   ########.fr       */
+/*   Updated: 2023/06/19 19:42:41 by aperez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	plot_line_h(t_bundle *bundle, t_vertex **nodes, int *deltas, int sense)
 	int	error;
 
 	pixel[0] = nodes[0]->x;
-	pixel[1] = nodes[1]->y;
+	pixel[1] = nodes[0]->y;
 	deltas_2[0] = deltas[0] * 2;
 	deltas_2[1] = deltas[1] * 2;
 	error = deltas_2[1] - deltas[0];
@@ -66,7 +66,7 @@ void	plot_line_h(t_bundle *bundle, t_vertex **nodes, int *deltas, int sense)
 		error += deltas_2[1];
 		pixel[0] += sense;
 		my_mlx_pixel_put(bundle->img, pixel[0], pixel[1], \
-			get_color(nodes[0], nodes[1], deltas));
+			get_color(nodes, deltas));
 	}
 }
 
@@ -91,6 +91,12 @@ void	plot_line_v(t_bundle *bundle, t_vertex **nodes, int *deltas, int sense)
 		error += deltas_2[0];
 		pixel[1]++;
 		my_mlx_pixel_put(bundle->img, pixel[0], pixel[1], \
-			get_color(nodes[0], nodes[1], deltas));
+			get_color(nodes, deltas));
 	}
+}
+
+int	get_color(t_vertex **nodes, int *deltas)
+{
+	(void)deltas;
+	return (nodes[0]->color);
 }

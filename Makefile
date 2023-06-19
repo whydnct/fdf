@@ -6,7 +6,7 @@
 #    By: aperez-m <aperez-m@student.42urduliz.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/02 13:31:05 by aperez-m          #+#    #+#              #
-#    Updated: 2023/06/19 18:50:11 by aperez-m         ###   ########.fr        #
+#    Updated: 2023/06/19 19:45:21 by aperez-m         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,10 +56,12 @@ SRCS			:= \
 				events_handlers.c \
 				free_memory.c \
 				v_map_to_img.c \
+				v_map_to_img_lines.c \
 				project_v_map.c \
 				project_v_map_spans.c \
 				read_map.c \
 				param_validators.c \
+				colors.c \
 				debuggers.c
 SRCS			:= $(SRCS:%=$(SRC_DIR)/%)
 
