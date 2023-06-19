@@ -6,7 +6,7 @@
 #    By: aperez-m <aperez-m@student.42urduliz.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/02 13:31:05 by aperez-m          #+#    #+#              #
-#    Updated: 2023/06/17 10:12:18 by aperez-m         ###   ########.fr        #
+#    Updated: 2023/06/19 18:50:11 by aperez-m         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,9 +55,9 @@ SRCS			:= \
 				errors.c \
 				events_handlers.c \
 				free_memory.c \
-				img_to_window.c \
+				v_map_to_img.c \
 				project_v_map.c \
-				project_v_map_spans.c
+				project_v_map_spans.c \
 				read_map.c \
 				param_validators.c \
 				debuggers.c
