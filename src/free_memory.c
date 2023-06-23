@@ -6,7 +6,7 @@
 /*   By: aperez-m <aperez-m@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 13:03:30 by aperez-m          #+#    #+#             */
-/*   Updated: 2023/06/18 09:15:58 by aperez-m         ###   ########.fr       */
+/*   Updated: 2023/06/23 18:33:24 by aperez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	free_str_map(char ***str, t_bundle *bundle)
 		while (++j <= bundle->v_map->cols)
 			free(str[i][j]);
 		free(str[i]);
-		j = 0;
+		j = -1;
 	}
 	free(str);
 }

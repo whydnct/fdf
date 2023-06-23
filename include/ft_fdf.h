@@ -129,7 +129,8 @@ typedef struct s_bundle{
 	t_persp	*persp;
 	t_img	*img;
 	t_v_map	*v_map;
-}				t_bundle;
+}			t_bundle;
+
 // INIT
 void	init_image(t_bundle *bundle);
 
@@ -153,6 +154,7 @@ void	get_heights_colors(t_v_map *v_map, char ***str_map);
 
 //transforms the hexa coded color to int
 int		hex_to_color(char *str);
+char	*sanitize_line(char *line);
 
 // PROJECT V_MAP
 
@@ -252,6 +254,7 @@ void	print_x_y(t_bundle *bundle);
 void	write_vertices_to_image(t_bundle *bundle);
 void	print_str_map(t_bundle *bundle, char ***str_map);
 void	print_x_y_file(t_bundle *bundle);
+void	print_height_file(t_bundle *bundle);
 #endif
 /**
  * scale v_map_around image_center

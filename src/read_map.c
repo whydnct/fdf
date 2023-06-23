@@ -6,7 +6,7 @@
 /*   By: aperez-m <aperez-m@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:05:23 by aperez-m          #+#    #+#             */
-/*   Updated: 2023/06/20 22:48:59 by aperez-m         ###   ########.fr       */
+/*   Updated: 2023/06/23 17:15:29by aperez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	get_str_map_rows(char *file, t_v_map *v_map)
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
 		error_handler(OPEN_FAILED);
-	line = get_next_line(fd);
+	line = sanitize_line(get_next_line(fd));
 	printf("%s\n", line);
 	if (!line)
 		error_handler(EMPTY_FILE);
@@ -33,7 +33,7 @@ void	get_str_map_rows(char *file, t_v_map *v_map)
 		line_cols = get_line_cols(line, ' ');
 		free(line);
 		temp++;
-		line = get_next_line(fd);
+		line = sanitize_line(get_next_line(fd));
 		if (line && line_cols != get_line_cols(line, ' '))
 			break ;
 	}
@@ -60,7 +60,7 @@ char	***get_str_map(char *file, t_v_map *v_map)
 		error_handler(MALLOC_FAILED);
 	while (++i < v_map->rows)
 	{
-		line = get_next_line(fd);
+		line = sanitize_line(get_next_line(fd));
 		ret[i] = ft_split(line, ' ');
 		free(line);
 	}
@@ -118,4 +118,22 @@ int	hex_to_color(char *str)
 		i++;
 	}
 	return (ret);
+}
+
+char	*sanitize_line(char *line)
+{
+	int		i;
+	char	*valid_chars;
+
+	valid_chars = "0123456789abcdefxABCDEFX ,";
+	i = -1;
+	if (line)
+	{
+		while (line[++i])
+		{
+			if (!ft_strchr(valid_chars, line[i]))
+				line[i] = ' ';
+		}
+	}
+	return (line);
 }

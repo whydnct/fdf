@@ -6,7 +6,7 @@
 /*   By: aperez-m <aperez-m@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 17:37:16 by aperez-m          #+#    #+#             */
-/*   Updated: 2023/06/20 21:52:38 by aperez-m         ###   ########.fr       */
+/*   Updated: 2023/06/23 18:12:57y aperez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	debug(t_bundle *bundle)
 {
-	print_heights_colors(bundle);
 	print_x_y_file(bundle);
+	print_height_file(bundle);
 	write_vertices_to_image(bundle);
 }
 
@@ -75,7 +75,7 @@ void	print_x_y_file(t_bundle *bundle)
 	i = -1;
 	j = -1;
 	printf("print_x_y_file()\n");
-	fd = open("logs/x_y", O_CREAT | O_WRONLY, 0777);
+	fd = open("logs/x_y", O_CREAT | O_WRONLY | O_TRUNC, 0777);
 	if (fd < 0)
 		perror("fallo de apertura");
 	while (++i < bundle->v_map->rows)
@@ -85,7 +85,34 @@ void	print_x_y_file(t_bundle *bundle)
 			ft_putnbr_fd((int)bundle->v_map->vertices[i][j].x, fd);
 			write(fd, ";", 1);
 			ft_putnbr_fd((int)bundle->v_map->vertices[i][j].y, fd);
-			write(fd, "\t", 1);
+			if (j < bundle->v_map->cols - 1)
+				write(fd, "\t", 1);
+		}
+		write(fd, "\n", 1);
+		j = -1;
+	}
+	close(fd);
+}
+
+void	print_height_file(t_bundle *bundle)
+{
+	int	i;
+	int	j;
+	int	fd;
+
+	i = -1;
+	j = -1;
+	printf("print_height_file()\n");
+	fd = open("logs/heights", O_CREAT | O_WRONLY | O_TRUNC, 0777);
+	if (fd < 0)
+		perror("fallo de apertura");
+	while (++i < bundle->v_map->rows)
+	{
+		while (++j < bundle->v_map->cols)
+		{
+			ft_putnbr_fd((int)bundle->v_map->vertices[i][j].height, fd);
+			if (j < bundle->v_map->cols - 1)
+				write(fd, " ", 1);
 		}
 		write(fd, "\n", 1);
 		j = -1;
@@ -126,7 +153,7 @@ void	print_str_map(t_bundle *bundle, char ***str_map)
 
 	i = -1;
 	j = -1;
-	printf("prit_str_map\n");
+	printf("print_str_map\n");
 	while (++i < bundle->v_map->rows)
 	{
 		while (str_map[i][++j] && str_map[i][j][0] != '\0')
