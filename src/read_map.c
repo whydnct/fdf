@@ -6,7 +6,7 @@
 /*   By: aperez-m <aperez-m@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 13:05:23 by aperez-m          #+#    #+#             */
-/*   Updated: 2023/06/19 22:09:42 by aperez-m         ###   ########.fr       */
+/*   Updated: 2023/06/20 22:48:59 by aperez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,12 @@ void	get_str_map_rows(char *file, t_v_map *v_map)
 	char	*line;
 	int		line_cols;
 
+	printf("get_str_map_rows()\n");
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
 		error_handler(OPEN_FAILED);
 	line = get_next_line(fd);
+	printf("%s\n", line);
 	if (!line)
 		error_handler(EMPTY_FILE);
 	temp = 0;
@@ -35,10 +37,10 @@ void	get_str_map_rows(char *file, t_v_map *v_map)
 		if (line && line_cols != get_line_cols(line, ' '))
 			break ;
 	}
-	free(line);
 	close(fd);
 	v_map->rows = temp;
 	v_map->cols = line_cols;
+	printf("rows:%d - cols:%d\n", v_map->rows, v_map->cols);
 }
 
 char	***get_str_map(char *file, t_v_map *v_map)
@@ -48,6 +50,7 @@ char	***get_str_map(char *file, t_v_map *v_map)
 	int		i;
 	char	*line;
 
+	printf("get_str_map()\n");
 	i = -1;
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
@@ -70,6 +73,7 @@ void	get_heights_colors(t_v_map *v_map, char ***str_map)
 	int		i;
 	int		j;
 
+	printf("get_height_colors\n");
 	i = -1;
 	j = -1;
 	v_map->vertices = malloc(v_map->rows * sizeof(t_vertex *));
@@ -93,6 +97,7 @@ int	hex_to_color(char *str)
 	int				i;
 	int				j;
 
+	printf("hex_to_color()\n");
 	if (!str)
 		return (16777215);
 	ret = 0;

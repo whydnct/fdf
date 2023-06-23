@@ -251,7 +251,7 @@ void	print_heights_colors(t_bundle *bundle);
 void	print_x_y(t_bundle *bundle);
 void	write_vertices_to_image(t_bundle *bundle);
 void	print_str_map(t_bundle *bundle, char ***str_map);
-
+void	print_x_y_file(t_bundle *bundle);
 #endif
 /**
  * scale v_map_around image_center
