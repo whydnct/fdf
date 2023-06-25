@@ -6,7 +6,7 @@
 /*   By: aperez-m <aperez-m@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 16:12:32 by aperez-m          #+#    #+#             */
-/*   Updated: 2023/06/19 19:42:41 by aperez-m         ###   ########.fr       */
+/*   Updated: 2023/06/25 17:36:15 by aperez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	plot_line_h(t_bundle *bundle, t_vertex **nodes, int *deltas, int sense)
 		error += deltas_2[1];
 		pixel[0] += sense;
 		my_mlx_pixel_put(bundle->img, pixel[0], pixel[1], \
-			get_color(nodes, deltas));
+			get_color(nodes, deltas, pixel));
 	}
 }
 
@@ -91,7 +91,7 @@ void	plot_line_v(t_bundle *bundle, t_vertex **nodes, int *deltas, int sense)
 		error += deltas_2[0];
 		pixel[1]++;
 		my_mlx_pixel_put(bundle->img, pixel[0], pixel[1], \
-			get_color(nodes, deltas));
+			get_color(nodes, deltas, pixel));
 	}
 }
 

@@ -31,14 +31,10 @@ void	init_image(t_bundle *bundle)
 
 void	read_map(char *file, t_bundle *bundle)
 {
-	char	***str_map;
-
 	bundle->v_map = malloc(sizeof(t_v_map));
-	get_str_map_rows(file, bundle->v_map);
-	str_map = get_str_map(file, bundle->v_map);
-	print_str_map(bundle, str_map);
-	get_heights_colors(bundle->v_map, str_map);
-	free_str_map(str_map, bundle);
+	get_str_map_rows(file, bundle);
+	get_str_map(file, bundle);
+	get_heights_colors(bundle);
 }
 
 void	project_v_map(t_bundle *bundle)
@@ -58,11 +54,12 @@ int	main(int argc, char **argv)
 	t_bundle	bundle;
 
 	(void)argc;
+	ft_bzero(&bundle, sizeof(bundle));
 	init_image(&bundle);
 	read_map(argv[1], &bundle);
 	project_v_map(&bundle);
-	//write_v_map_to_image(&bundle);
-	debug(&bundle);
+	write_v_map_to_image(&bundle);
+	//debug(&bundle);
 	mlx_put_image_to_window(bundle.mlx_inst, bundle.mlx_win, \
 	bundle.img->img, 0, 0);
 	printf("pushed to window\n");

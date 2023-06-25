@@ -51,10 +51,3 @@ int	xy_within_limits(t_img *img, double x, double y)
 		return (0);
 	return (1);
 }
-int	interpolate(int x, int span_x, int span_value)
-{
-	int	ret;
-
-	ret = (span_value / span_x) * x;
-	return (ret);
-}

@@ -24,6 +24,7 @@
 # define WRONG_COLOR_CODE 2
 # define OPEN_FAILED 3
 # define MALLOC_FAILED 4
+# define VARIABLE_ROW_LENGTH 5
 # define R_OFFSET 2
 # define G_OFFSET 4
 # define B_OFFSET 6
@@ -129,6 +130,7 @@ typedef struct s_bundle{
 	t_persp	*persp;
 	t_img	*img;
 	t_v_map	*v_map;
+	char	***str_map;
 }			t_bundle;
 
 // INIT
@@ -139,7 +141,7 @@ void	init_image(t_bundle *bundle);
 void	read_map(char *file, t_bundle *bundle);
 
 //gets the number of rows and colums in the file
-void	get_str_map_rows(char *file, t_v_map *v_map);
+void	get_str_map_rows(char *file, t_bundle *bundle);
 
 /**
  * @brief reads the file into a char ***. Every row is a char **
@@ -147,10 +149,10 @@ void	get_str_map_rows(char *file, t_v_map *v_map);
  * @return char *** that stores all strings in the map
  * @note 
  */
-char	***get_str_map(char *file, t_v_map *v_map);
+void	get_str_map(char *file, t_bundle *bundle);
 
 //builds a t_vertex ** and gets height and color for each vertex
-void	get_heights_colors(t_v_map *v_map, char ***str_map);
+void	get_heights_colors(t_bundle *bundle);
 
 //transforms the hexa coded color to int
 int		hex_to_color(char *str);
@@ -185,8 +187,8 @@ void	get_span_v(t_v_map *v_map);
 void	get_span_h(t_v_map *v_map);
 
 /**
- * @brief gets the maximum Pixels Per grid Side (zoom) for the vertices map to be shown
- * completely in the window
+ * @brief gets the maximum Pixels Per grid Side (zoom) for the vertices 
+ * map to be shown completely in the window
  * @note pps = pixels per grid side
 */
 void	get_max_pps(t_v_map *v_map, t_img *img);
@@ -205,16 +207,6 @@ void	center_v_map(t_v_map *v_map);
 void	write_v_map_to_image(t_bundle *bundle);
 //choses what lines to draw from each vertex
 void	choose_lines(t_bundle *bundle, int i, int j);
-/**
- * @brief interpolates the value between two points, bringing the 
- * origin to the first point
- * @param x increment of x from start for which you want to get the value
- * @param span_x end_x - start_x
- * @param span_value end_value - start_value
- * @return increment of value at x
- * @note 
- */
-int		interpolate(int x, int span_x, int span_value);
 
 /**
  * @param dir 1 draws line to vertex to the right, 0 draws line to vertex below
@@ -227,10 +219,11 @@ void	my_mlx_pixel_put(t_img *img, double x, double y, int color);
 
 // COLORS
 
-int		get_color(t_vertex **nodes, int *deltas);
+int		get_color(t_vertex **nodes, int *deltas, int *pixel);
+double	percent(int start, int end, int current);
 
 // EXIT
-void	free_str_map(char ***str, t_bundle *bundle);
+void	free_str_map(t_bundle *bundle);
 void	free_t_vertex(t_v_map *v_map);
 void	free_all(t_bundle *bundle);
 int		exit_on_esc(int keycode, t_bundle *bundle);
@@ -241,7 +234,7 @@ int		quit(t_bundle *bundle);
  * @param error Macro for the error.
  * @note 
  */
-void	error_handler(int error);
+void	error_handler(int error, t_bundle *bundle);
 
 // PARAM VALIDATORS
 
@@ -255,6 +248,7 @@ void	write_vertices_to_image(t_bundle *bundle);
 void	print_str_map(t_bundle *bundle, char ***str_map);
 void	print_x_y_file(t_bundle *bundle);
 void	print_height_file(t_bundle *bundle);
+void	print_color_file(t_bundle *bundle);
 #endif
 /**
  * scale v_map_around image_center

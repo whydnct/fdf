@@ -16,6 +16,7 @@ void	debug(t_bundle *bundle)
 {
 	print_x_y_file(bundle);
 	print_height_file(bundle);
+	print_color_file(bundle);
 	write_vertices_to_image(bundle);
 }
 
@@ -120,6 +121,31 @@ void	print_height_file(t_bundle *bundle)
 	close(fd);
 }
 
+void	print_color_file(t_bundle *bundle)
+{
+	int	i;
+	int	j;
+	int	fd;
+
+	i = -1;
+	j = -1;
+	printf("print_color_file()\n");
+	fd = open("logs/colors", O_CREAT | O_WRONLY | O_TRUNC, 0777);
+	if (fd < 0)
+		perror("fallo de apertura");
+	while (++i < bundle->v_map->rows)
+	{
+		while (++j < bundle->v_map->cols)
+		{
+			ft_putnbr_fd((int)bundle->v_map->vertices[i][j].color, fd);
+			if (j < bundle->v_map->cols - 1)
+				write(fd, " ", 1);
+		}
+		write(fd, "\n", 1);
+		j = -1;
+	}
+	close(fd);
+}
 void	print_x_y(t_bundle *bundle)
 {
 	int	i;

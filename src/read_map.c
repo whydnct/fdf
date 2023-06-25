@@ -12,63 +12,61 @@
 
 #include "ft_fdf.h"
 
-void	get_str_map_rows(char *file, t_v_map *v_map)
+void	get_str_map_rows(char *file, t_bundle *bundle)
 {
 	int		fd;
-	int		temp;
 	char	*line;
-	int		line_cols;
 
 	printf("get_str_map_rows()\n");
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
-		error_handler(OPEN_FAILED);
+		error_handler(OPEN_FAILED, bundle);
 	line = sanitize_line(get_next_line(fd));
-	printf("%s\n", line);
 	if (!line)
-		error_handler(EMPTY_FILE);
-	temp = 0;
+		error_handler(EMPTY_FILE, bundle);
+	bundle->v_map->rows = 0;
 	while (line)
 	{
-		line_cols = get_line_cols(line, ' ');
+		bundle->v_map->rows++;
+		bundle->v_map->cols = get_line_cols(line, ' ');
 		free(line);
-		temp++;
 		line = sanitize_line(get_next_line(fd));
-		if (line && line_cols != get_line_cols(line, ' '))
+		if (line && (bundle->v_map->cols != get_line_cols(line, ' ')))
+		{
+			ft_putstr_fd("VARIABLE_ROW_LENGTH\n", 2);
 			break ;
+		}
 	}
+	free(line);
 	close(fd);
-	v_map->rows = temp;
-	v_map->cols = line_cols;
-	printf("rows:%d - cols:%d\n", v_map->rows, v_map->cols);
 }
 
-char	***get_str_map(char *file, t_v_map *v_map)
+void	get_str_map(char *file, t_bundle *bundle)
 {
-	char	***ret;
 	int		fd;
 	int		i;
 	char	*line;
 
 	printf("get_str_map()\n");
-	i = -1;
+	bundle->str_map = NULL;
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
-		error_handler(OPEN_FAILED);
-	ret = malloc(v_map->rows * sizeof(char **));
-	if (!ret)
-		error_handler(MALLOC_FAILED);
-	while (++i < v_map->rows)
+		error_handler(OPEN_FAILED, bundle);
+	bundle->str_map = malloc((bundle->v_map->rows + 1) * sizeof(char **));
+	if (!bundle->str_map)
+		error_handler(MALLOC_FAILED, bundle);
+	i = -1;
+	while (++i < bundle->v_map->rows)
 	{
 		line = sanitize_line(get_next_line(fd));
-		ret[i] = ft_split(line, ' ');
+		bundle->str_map[i] = ft_split(line, ' ');
 		free(line);
 	}
 	close(fd);
-	return (ret);
+	bundle->str_map[bundle->v_map->rows] = NULL;
 }
 
-void	get_heights_colors(t_v_map *v_map, char ***str_map)
+void	get_heights_colors(t_bundle *bundle)
 {
 	int		i;
 	int		j;
@@ -76,15 +74,17 @@ void	get_heights_colors(t_v_map *v_map, char ***str_map)
 	printf("get_height_colors\n");
 	i = -1;
 	j = -1;
-	v_map->vertices = malloc(v_map->rows * sizeof(t_vertex *));
-	while (++i < v_map->rows)
+	bundle->v_map->vertices = malloc(bundle->v_map->rows * sizeof(t_vertex *));
+	while (++i < bundle->v_map->rows)
 	{
-		v_map->vertices[i] = malloc(v_map->cols * sizeof(t_vertex));
-		while (++j < v_map->cols)
+		bundle->v_map->vertices[i] = \
+			malloc(bundle->v_map->cols * sizeof(t_vertex));
+		while (++j < bundle->v_map->cols)
 		{
-			v_map->vertices[i][j].height = ft_atoi(str_map[i][j]);
-			v_map->vertices[i][j].color = \
-				hex_to_color(ft_strchr(str_map[i][j], ','));
+			bundle->v_map->vertices[i][j].height = \
+				ft_atoi(bundle->str_map[i][j]);
+			bundle->v_map->vertices[i][j].color = \
+				hex_to_color(ft_strchr(bundle->str_map[i][j], ','));
 		}
 		j = -1;
 	}
@@ -97,7 +97,6 @@ int	hex_to_color(char *str)
 	int				i;
 	int				j;
 
-	printf("hex_to_color()\n");
 	if (!str)
 		return (16777215);
 	ret = 0;
@@ -105,14 +104,10 @@ int	hex_to_color(char *str)
 	i = 0;
 	j = 0;
 	str = str + 3;
-	while (i < 6 && ft_strchr(base, ft_tolower(*(str + i))))
+	while (i < 6 && ft_strchr(base, str[i]))
 	{
-		while (base[j] != ft_tolower(*(str + i)))
-		{
+		while (base[j] != str[i])
 			j++;
-			if (j == 16)
-				error_handler(WRONG_COLOR_CODE);
-		}
 		ret = ret * 16 + j;
 		j = 0;
 		i++;
@@ -125,15 +120,15 @@ char	*sanitize_line(char *line)
 	int		i;
 	char	*valid_chars;
 
-	valid_chars = "0123456789abcdefxABCDEFX ,";
+	if (!line)
+		return (NULL);
+	valid_chars = "abcdefx ,-";
 	i = -1;
-	if (line)
+	while (line[++i])
 	{
-		while (line[++i])
-		{
-			if (!ft_strchr(valid_chars, line[i]))
-				line[i] = ' ';
-		}
+		line[i] = ft_tolower(line[i]);
+		if (!ft_isdigit(line[i]) && !ft_strchr(valid_chars, line[i]))
+			line[i] = ' ';
 	}
 	return (line);
 }
