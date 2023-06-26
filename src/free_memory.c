@@ -17,10 +17,12 @@ void	free_v_map(t_v_map *v_map)
 	int	i;
 
 	i = -1;
-	while (++i < v_map->rows)
-		free(v_map->vertices[i]);
+	if (bundle->allocs >= VERTICES_ALLOCD)
+	{
+		while (++i < v_map->rows)
+			free(v_map->vertices[i]);
 	free(v_map->vertices);
-	free(v_map);
+	}
 }
 
 void	free_str_map(t_bundle *bundle)
@@ -40,12 +42,16 @@ void	free_str_map(t_bundle *bundle)
 
 void	free_all(t_bundle *bundle)
 {
-	free(bundle->persp);
-	free(bundle->img);
-	if (bundle->str_map)
-		free_str_map(bundle);
-	if (bundle->v_map)
+	if (bundle->allocs >= VERTICES_ALLOCD)
 		free_v_map(bundle->v_map);
-	printf("memory freed\n");
+	if (bundle->allocs >= PERSP_ALLOCD)
+		free(bundle->persp);
+	if (bundle->allocs >= STR_MAP_ALLOCD)
+		free_str_map(bundle);
+	if (bundle->allocs >= V_MAP_ALLOCD)
+		free(bundle->v_map);
+	if (bundle->allocs >= IMG_ALLOCD)
+		free(bundle->img);
 	free(bundle->mlx_inst);
+	printf("memory freed\n");
 }

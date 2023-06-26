@@ -18,17 +18,14 @@
 # define FT_FDF_H
 
 /**
- * error macros
+ * free helpers
 */
-# define EMPTY_FILE 1
-# define WRONG_COLOR_CODE 2
-# define OPEN_FAILED 3
-# define MALLOC_FAILED 4
-# define VARIABLE_ROW_LENGTH 5
-# define R_OFFSET 2
-# define G_OFFSET 4
-# define B_OFFSET 6
-# define A_OFFSET 8
+# define IMG_ALLOCD 1
+# define V_MAP_ALLOCD 2
+# define STR_MAP_ALLOCD 3
+# define PERSP_ALLOCD 4
+# define VERTICES_ALLOCD 5
+
 /**
  * parametres for isometric perspective
  * col_2_x = cos^2(30)
@@ -131,6 +128,7 @@ typedef struct s_bundle{
 	t_img	*img;
 	t_v_map	*v_map;
 	char	***str_map;
+	int		allocs
 }			t_bundle;
 
 // INIT
@@ -227,14 +225,7 @@ void	free_str_map(t_bundle *bundle);
 void	free_t_vertex(t_v_map *v_map);
 void	free_all(t_bundle *bundle);
 int		exit_on_esc(int keycode, t_bundle *bundle);
-int		quit(t_bundle *bundle);
-
-/**
- * @brief called on errors, prints diagnostic.
- * @param error Macro for the error.
- * @note 
- */
-void	error_handler(int error, t_bundle *bundle);
+int		quit(t_bundle *bundle, int status);
 
 // PARAM VALIDATORS
 

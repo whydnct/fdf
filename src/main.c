@@ -18,6 +18,7 @@ void	init_image(t_bundle *bundle)
 {
 	bundle->mlx_inst = mlx_init();
 	bundle->img = malloc(sizeof(t_img));
+	bundle->allocs = IMG_ALLOCD;
 	bundle->img->width = WIDTH;
 	bundle->img->height = HEIGHT;
 	bundle->img->img = mlx_new_image(bundle->mlx_inst, \
