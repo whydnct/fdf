@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: aperez-m <aperez-m@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/10 13:26:58 by aperez-m          #+#    #+#             */
-/*   Updated: 2023/05/16 20:01:44by aperez-m         ###   ########.fr       */
+/*   Created: 2023/06/26 18:32:42 by aperez-m          #+#    #+#             */
+/*   Updated: 2023/06/26 18:32:44 by aperez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ int	main(int argc, char **argv)
 	read_map(argv[1], &bundle);
 	project_v_map(&bundle);
 	write_v_map_to_image(&bundle);
-	//debug(&bundle);
 	mlx_put_image_to_window(bundle.mlx_inst, bundle.mlx_win, \
 	bundle.img->img, 0, 0);
 	printf("pushed to window\n");

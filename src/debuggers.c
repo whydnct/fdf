@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: aperez-m <aperez-m@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/09 17:37:16 by aperez-m          #+#    #+#             */
-/*   Updated: 2023/06/23 18:12:57y aperez-m         ###   ########.fr       */
+/*   Created: 2023/06/26 18:31:59 by aperez-m          #+#    #+#             */
+/*   Updated: 2023/06/26 18:32:00 by aperez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,25 +17,25 @@ void	debug(t_bundle *bundle)
 	print_x_y_file(bundle);
 	print_height_file(bundle);
 	print_color_file(bundle);
-	write_vertices_to_image(bundle);
+	write_vtx_to_image(bundle);
 }
 
-void	write_vertices_to_image(t_bundle *bundle)
+void	write_vtx_to_image(t_bundle *bundle)
 {
 	int	i;
 	int	j;
 
 	i = -1;
 	j = -1;
-	printf("write_vertices_to_image\n");
+	printf("write_vtx_to_image\n");
 	while (++i < bundle->v_map->rows)
 	{
 		while (++j < bundle->v_map->cols)
 		{
 			my_mlx_pixel_put(bundle->img, \
-				(int)bundle->v_map->vertices[i][j].x, \
-				(int)bundle->v_map->vertices[i][j].y, \
-				bundle->v_map->vertices[i][j].color);
+				(int)bundle->v_map->vtx[i][j].x, \
+				(int)bundle->v_map->vtx[i][j].y, \
+				bundle->v_map->vtx[i][j].color);
 		}
 		j = -1;
 	}
@@ -52,7 +52,7 @@ void	print_heights_colors(t_bundle *bundle)
 	while (++i < bundle->v_map->rows)
 	{
 		while (++j < bundle->v_map->cols)
-			printf("%d\t", bundle->v_map->vertices[i][j].height);
+			printf("%d\t", bundle->v_map->vtx[i][j].height);
 		printf("\n");
 		j = -1;
 	}
@@ -61,7 +61,7 @@ void	print_heights_colors(t_bundle *bundle)
 	while (++i < bundle->v_map->rows)
 	{
 		while (++j < bundle->v_map->cols)
-			printf("%d ", bundle->v_map->vertices[i][j].color);
+			printf("%d ", bundle->v_map->vtx[i][j].color);
 		printf("\n");
 		j = -1;
 	}
@@ -83,9 +83,9 @@ void	print_x_y_file(t_bundle *bundle)
 	{
 		while (++j < bundle->v_map->cols)
 		{
-			ft_putnbr_fd((int)bundle->v_map->vertices[i][j].x, fd);
+			ft_putnbr_fd((int)bundle->v_map->vtx[i][j].x, fd);
 			write(fd, ";", 1);
-			ft_putnbr_fd((int)bundle->v_map->vertices[i][j].y, fd);
+			ft_putnbr_fd((int)bundle->v_map->vtx[i][j].y, fd);
 			if (j < bundle->v_map->cols - 1)
 				write(fd, "\t", 1);
 		}
@@ -111,7 +111,7 @@ void	print_height_file(t_bundle *bundle)
 	{
 		while (++j < bundle->v_map->cols)
 		{
-			ft_putnbr_fd((int)bundle->v_map->vertices[i][j].height, fd);
+			ft_putnbr_fd((int)bundle->v_map->vtx[i][j].height, fd);
 			if (j < bundle->v_map->cols - 1)
 				write(fd, " ", 1);
 		}
@@ -137,7 +137,7 @@ void	print_color_file(t_bundle *bundle)
 	{
 		while (++j < bundle->v_map->cols)
 		{
-			ft_putnbr_fd((int)bundle->v_map->vertices[i][j].color, fd);
+			ft_putnbr_fd((int)bundle->v_map->vtx[i][j].color, fd);
 			if (j < bundle->v_map->cols - 1)
 				write(fd, " ", 1);
 		}
@@ -158,7 +158,7 @@ void	print_x_y(t_bundle *bundle)
 	while (++i < bundle->v_map->rows)
 	{
 		while (++j < bundle->v_map->cols)
-			printf("%f\t", bundle->v_map->vertices[i][j].x);
+			printf("%f\t", bundle->v_map->vtx[i][j].x);
 		printf("\n");
 		j = -1;
 	}
@@ -167,7 +167,7 @@ void	print_x_y(t_bundle *bundle)
 	while (++i < bundle->v_map->rows)
 	{
 		while (++j < bundle->v_map->cols)
-			printf("%d\t", (int)bundle->v_map->vertices[i][j].y);
+			printf("%d\t", (int)bundle->v_map->vtx[i][j].y);
 		printf("\n");
 		j = -1;
 	}

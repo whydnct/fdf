@@ -6,7 +6,7 @@
 /*   By: aperez-m <aperez-m@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 10:09:39 by aperez-m          #+#    #+#             */
-/*   Updated: 2023/06/17 10:09:58 by aperez-m         ###   ########.fr       */
+/*   Updated: 2023/06/26 18:47:19 by aperez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,18 @@ int	get_line_cols(char *line, char c)
 			i++;
 	}
 	return (ret);
+}
+
+char	*purge_gnl(int fd, char **line)
+{
+	char	*garbage;
+
+	free(*line);
+	garbage = get_next_line(fd);
+	while (garbage)
+	{
+		free(garbage);
+		garbage = get_next_line(fd);
+	}
+	return (NULL);
 }

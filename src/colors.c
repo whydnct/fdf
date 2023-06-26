@@ -6,7 +6,7 @@
 /*   By: aperez-m <aperez-m@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 16:38:01 by aperez-m          #+#    #+#             */
-/*   Updated: 2023/06/25 17:44:29 by aperez-m         ###   ########.fr       */
+/*   Updated: 2023/06/26 17:42:37 by aperez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ int	get_color(t_vertex **nodes, int *deltas, int *pixel)
 		+ ((nodes[1]->color >> 16) & 0xFF) * percentaje;
 	green = ((nodes[0]->color >> 8) & 0xFF) * (1 - percentaje) \
 		+ ((nodes[1]->color >> 8) & 0xFF) * percentaje;
-	blue = ((nodes[0]->color) & 0xFF) * (1 - percentaje) \
-		+ ((nodes[1]->color) & 0xFF) * percentaje;
-	return ((red << 16) | (green << 8) | blue);
+	blue = ((nodes[0]->color >> 0) & 0xFF) * (1 - percentaje) \
+		+ ((nodes[1]->color >> 0) & 0xFF) * percentaje;
+	return ((red << 16) | (green << 8) | blue << 0);
 }
 
 double	percent(int start, int end, int current)

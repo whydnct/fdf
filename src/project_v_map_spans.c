@@ -6,7 +6,7 @@
 /*   By: aperez-m <aperez-m@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 18:52:42 by aperez-m          #+#    #+#             */
-/*   Updated: 2023/06/19 18:52:43 by aperez-m         ###   ########.fr       */
+/*   Updated: 2023/06/26 17:26:07 by aperez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ double	get_y_max(t_v_map *v_map)
 
 	i = -1;
 	j = -1;
-	ret = v_map->vertices[0][0].y;
+	ret = v_map->vtx[0][0].y;
 	while (++i < v_map->rows)
 	{
 		while (++j < v_map->cols)
 		{
-			if (ret < v_map->vertices[i][j].y)
-				ret = v_map->vertices[i][j].y;
+			if (ret < v_map->vtx[i][j].y)
+				ret = v_map->vtx[i][j].y;
 		}
 		j = -1;
 	}
@@ -47,13 +47,13 @@ double	get_y_min(t_v_map *v_map)
 
 	i = -1;
 	j = -1;
-	ret = v_map->vertices[0][0].y;
+	ret = v_map->vtx[0][0].y;
 	while (++i < v_map->rows)
 	{
 		while (++j < v_map->cols)
 		{
-			if (ret > v_map->vertices[i][j].y)
-				ret = v_map->vertices[i][j].y;
+			if (ret > v_map->vtx[i][j].y)
+				ret = v_map->vtx[i][j].y;
 		}
 		j = -1;
 	}
@@ -63,7 +63,7 @@ double	get_y_min(t_v_map *v_map)
 void	get_span_h(t_v_map *v_map)
 {
 	v_map->span_h = \
-		v_map->vertices[0][v_map->cols - 1].x \
-		- v_map->vertices[v_map->rows - 1][0].x;
+		v_map->vtx[0][v_map->cols - 1].x \
+		- v_map->vtx[v_map->rows - 1][0].x;
 	printf("horizontal: %f\n", v_map->span_h);
 }

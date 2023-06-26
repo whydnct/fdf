@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   events_handlers.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aperez-m <aperez-m@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: aperez-m <aperez-m@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 05:50:40 by aperez-m          #+#    #+#             */
-/*   Updated: 2023/06/26 14:51:05 by aperez-m         ###   ########.fr       */
+/*   Updated: 2023/06/26 18:28:57 by aperez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,3 @@ int	quit(t_bundle *bundle, int status)
 	free_all(bundle);
 	exit(status);
 }
-

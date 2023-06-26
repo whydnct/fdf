@@ -6,7 +6,7 @@
 /*   By: aperez-m <aperez-m@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 16:12:32 by aperez-m          #+#    #+#             */
-/*   Updated: 2023/06/25 17:36:15 by aperez-m         ###   ########.fr       */
+/*   Updated: 2023/06/26 18:54:18 by aperez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ void	draw_line(t_bundle *bundle, int i, int j, int dir)
 	int			deltas[2];
 	int			sense;
 
-	nodes[0] = &bundle->v_map->vertices[i][j];
-	nodes[1] = &bundle->v_map->vertices[i + (dir == 0)][j + (dir == 1)];
+	nodes[0] = &bundle->v_map->vtx[i][j];
+	nodes[1] = &bundle->v_map->vtx[i + (dir == 0)][j + (dir == 1)];
 	if (nodes[0]->y > nodes[1]->y)
 	{
 		swap = nodes[0];
@@ -94,4 +94,3 @@ void	plot_line_v(t_bundle *bundle, t_vertex **nodes, int *deltas, int sense)
 			get_color(nodes, deltas, pixel));
 	}
 }
-

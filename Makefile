@@ -6,7 +6,7 @@
 #    By: aperez-m <aperez-m@student.42urduliz.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/02 13:31:05 by aperez-m          #+#    #+#              #
-#    Updated: 2023/06/19 19:45:21 by aperez-m         ###   ########.fr        #
+#    Updated: 2023/06/26 19:10:27 by aperez-m         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,26 +43,27 @@ ifeq ($(OS), Linux)
 LIBS		:= ft mlx_Linux X11 Xext m z
 INCS		:= $(INCS) lib/mlx_linux /usr/include
 LIBS_TARGET := $(LIBS_TARGET) lib/mlx_linux/mlx_Linux.a
+MFLAGS		:=
 else ifeq ($(OS), Darwin)
 LIBS		:= ft mlx
 INCS		:= $(INCS) lib/mlx
 LIBS_TARGET := $(LIBS_TARGET) lib/mlx/mlx.a
+MFLAGS		:= -framework OpenGL -framework AppKit
 endif
 
 SRC_DIR     	:= src
 SRCS			:= \
 				main.c \
-				errors.c \
 				events_handlers.c \
 				free_memory.c \
 				v_map_to_img.c \
 				v_map_to_img_lines.c \
 				project_v_map.c \
+				project_v_map_trans.c \
 				project_v_map_spans.c \
 				read_map.c \
 				param_validators.c \
-				colors.c \
-				debuggers.c
+				colors.c
 SRCS			:= $(SRCS:%=$(SRC_DIR)/%)
 
 BUILD_DIR   := .build
@@ -102,7 +103,7 @@ DIR_DUP     = mkdir -p $(@D)
 all: $(NAME)
 
 $(NAME): $(OBJS) $(LIBS_TARGET)
-	$(CC) $(LDFLAGS) $(OBJS) $(LDLIBS) -o $(NAME).out
+	$(CC) $(LDFLAGS) $(OBJS) $(LDLIBS) $(MFLAGS) -o $(NAME).out
 	$(info CREATED $(NAME))
 
 $(LIBS_TARGET):

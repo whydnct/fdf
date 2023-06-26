@@ -10,10 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-/**
- * NEXT: ver si el "retorno de my_pixel_put" es correcto.
-*/
-
 #ifndef FT_FDF_H
 # define FT_FDF_H
 
@@ -24,7 +20,7 @@
 # define V_MAP_ALLOCD 2
 # define STR_MAP_ALLOCD 3
 # define PERSP_ALLOCD 4
-# define VERTICES_ALLOCD 5
+# define VTX_ALLOCD 5
 
 /**
  * parametres for isometric perspective
@@ -45,8 +41,8 @@
 /**
  * image properties
 */
-# define WIDTH 700
-# define HEIGHT 700
+# define WIDTH 900
+# define HEIGHT 900
 /**
  * window title
 */
@@ -93,7 +89,7 @@ typedef struct s_persp{
 }				t_persp;
 
 /**
- * @brief each of the vertices o the vertex map
+ * @brief each of the vtx o the vertex map
  */
 typedef struct s_vertex{
 	int				col;
@@ -105,10 +101,10 @@ typedef struct s_vertex{
 }				t_vertex;
 
 /**
- * @brief holds all the vertices
+ * @brief holds all the vtx
  */
 typedef struct s_v_map{
-	t_vertex	**vertices;
+	t_vertex	**vtx;
 	int			rows;
 	int			cols;
 	double		span_h;
@@ -128,7 +124,7 @@ typedef struct s_bundle{
 	t_img	*img;
 	t_v_map	*v_map;
 	char	***str_map;
-	int		allocs
+	int		allocs;
 }			t_bundle;
 
 // INIT
@@ -171,21 +167,21 @@ void	init_persp(t_bundle *bundle);
 
 /**
  * @brief gets x and y of each vertex in the new perspective
- * @note doesn't scale or move the vertices map
+ * @note doesn't scale or move the vtx map
 */
 void	to_new_perspective(t_v_map *v_map, t_persp *persp);
 
 double	get_y_max(t_v_map *v_map);
 double	get_y_min(t_v_map *v_map);
 
-//get the vertical span of the vertices map, unscaled
+//get the vertical span of the vtx map, unscaled
 void	get_span_v(t_v_map *v_map);
 
-//get the horizontal span of the vertices map, unscaled
+//get the horizontal span of the vtx map, unscaled
 void	get_span_h(t_v_map *v_map);
 
 /**
- * @brief gets the maximum Pixels Per grid Side (zoom) for the vertices 
+ * @brief gets the maximum Pixels Per grid Side (zoom) for the vtx 
  * map to be shown completely in the window
  * @note pps = pixels per grid side
 */
@@ -222,7 +218,7 @@ double	percent(int start, int end, int current);
 
 // EXIT
 void	free_str_map(t_bundle *bundle);
-void	free_t_vertex(t_v_map *v_map);
+void	free_v_map(t_bundle *bundle);
 void	free_all(t_bundle *bundle);
 int		exit_on_esc(int keycode, t_bundle *bundle);
 int		quit(t_bundle *bundle, int status);
@@ -230,18 +226,17 @@ int		quit(t_bundle *bundle, int status);
 // PARAM VALIDATORS
 
 int		get_line_cols(char *line, char c);
+char	*purge_gnl(int fd, char **line);
 
+#endif
+/**
 // DEBUGGERS
 void	debug(t_bundle *bundle);
 void	print_heights_colors(t_bundle *bundle);
 void	print_x_y(t_bundle *bundle);
-void	write_vertices_to_image(t_bundle *bundle);
+void	write_vtx_to_image(t_bundle *bundle);
 void	print_str_map(t_bundle *bundle, char ***str_map);
 void	print_x_y_file(t_bundle *bundle);
 void	print_height_file(t_bundle *bundle);
 void	print_color_file(t_bundle *bundle);
-#endif
-/**
- * scale v_map_around image_center
- * void	rescale_v_map(t_v_map *v_map, double zoom);
 */

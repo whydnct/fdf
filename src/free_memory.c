@@ -6,22 +6,22 @@
 /*   By: aperez-m <aperez-m@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 13:03:30 by aperez-m          #+#    #+#             */
-/*   Updated: 2023/06/25 20:20:27 by aperez-m         ###   ########.fr       */
+/*   Updated: 2023/06/26 17:24:17 by aperez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_fdf.h"
 
-void	free_v_map(t_v_map *v_map)
+void	free_v_map(t_bundle *bundle)
 {
 	int	i;
 
 	i = -1;
-	if (bundle->allocs >= VERTICES_ALLOCD)
+	if (bundle->allocs >= VTX_ALLOCD)
 	{
-		while (++i < v_map->rows)
-			free(v_map->vertices[i]);
-	free(v_map->vertices);
+		while (++i < bundle->v_map->rows)
+			free(bundle->v_map->vtx[i]);
+		free(bundle->v_map->vtx);
 	}
 }
 
@@ -42,8 +42,8 @@ void	free_str_map(t_bundle *bundle)
 
 void	free_all(t_bundle *bundle)
 {
-	if (bundle->allocs >= VERTICES_ALLOCD)
-		free_v_map(bundle->v_map);
+	if (bundle->allocs >= VTX_ALLOCD)
+		free_v_map(bundle);
 	if (bundle->allocs >= PERSP_ALLOCD)
 		free(bundle->persp);
 	if (bundle->allocs >= STR_MAP_ALLOCD)
