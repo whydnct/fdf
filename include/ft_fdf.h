@@ -33,8 +33,8 @@
  * height_2_y = -cos(30)
 */
 # define COL_2_X 0.7084087
-# define ROW_2_X -0.7084087
-# define COL_2_Y 0.48
+# define ROW_2_X 0.7084087
+# define COL_2_Y -0.48
 # define ROW_2_Y 0.48
 # define HEIGHT_2_Y -0.8616
 
