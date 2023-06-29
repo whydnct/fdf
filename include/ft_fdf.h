@@ -41,8 +41,8 @@
 /**
  * image properties
 */
-# define WIDTH 900
-# define HEIGHT 900
+# define WIDTH 1000
+# define HEIGHT 1000
 /**
  * window title
 */
@@ -210,7 +210,6 @@ void	plot_line_h(t_bundle *bundle, t_vertex **nodes, int *deltas, int sense);
 void	plot_line_v(t_bundle *bundle, t_vertex **nodes, int *deltas, int sense);
 int		xy_within_limits(t_img *img, double x, double y);
 void	my_mlx_pixel_put(t_img *img, double x, double y, int color);
-
 // COLORS
 
 int		get_color(t_vertex **nodes, int *deltas, int *pixel);

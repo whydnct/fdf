@@ -6,7 +6,7 @@
 /*   By: aperez-m <aperez-m@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 18:51:30 by aperez-m          #+#    #+#             */
-/*   Updated: 2023/06/26 18:51:33 by aperez-m         ###   ########.fr       */
+/*   Updated: 2023/06/29 17:53:30 by aperez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,13 @@ void	write_v_map_to_image(t_bundle *bundle)
 	while (++i < bundle->v_map->rows)
 	{
 		while (++j < bundle->v_map->cols)
+		{
+			my_mlx_pixel_put(bundle->img, \
+				(int)bundle->v_map->vtx[i][j].x, \
+				(int)bundle->v_map->vtx[i][j].y, \
+				bundle->v_map->vtx[i][j].color);
 			choose_lines(bundle, i, j);
+		}
 		j = -1;
 	}
 }
