@@ -6,7 +6,7 @@
 /*   By: aperez-m <aperez-m@student.42urduliz.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 18:31:14 by aperez-m          #+#    #+#             */
-/*   Updated: 2023/06/26 19:00:51 by aperez-m         ###   ########.fr       */
+/*   Updated: 2023/06/27 17:20:20 by aperez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,9 @@ void	get_offset(t_bundle *bundle)
 	double	x_max;
 	double	x_min;
 
-	x_max = bundle->v_map->vtx[0][bundle->v_map->cols - 1].x;
-	x_min = bundle->v_map->vtx[bundle->v_map->rows - 1][0].x;
+	x_max = bundle->v_map->\
+		vtx[bundle->v_map->rows - 1][bundle->v_map->cols - 1].x;
+	x_min = bundle->v_map->vtx[0][0].x;
 	bundle->v_map->offset_h = 0.5 * \
 		(bundle->img->width - x_max - x_min);
 	bundle->v_map->offset_v = 0.5 * \
