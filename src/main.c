@@ -6,7 +6,7 @@
 /*   By: aperez-m <aperez-m@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 18:32:42 by aperez-m          #+#    #+#             */
-/*   Updated: 2023/07/06 16:57:58 by aperez-m         ###   ########.fr       */
+/*   Updated: 2023/07/06 19:06:46 by aperez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,15 +54,17 @@ int	main(int argc, char **argv)
 {
 	t_bundle	bundle;
 
-	(void)argc;
-	ft_bzero(&bundle, sizeof(bundle));
-	init_image(&bundle);
-	read_map(argv[1], &bundle);
-	project_v_map(&bundle);
-	write_v_map_to_image(&bundle);
-	mlx_put_image_to_window(bundle.mlx_inst, bundle.mlx_win, \
-	bundle.img->img, 0, 0);
-	mlx_hook(bundle.mlx_win, 2, 1L << 0, exit_on_esc, &bundle);
-	mlx_hook(bundle.mlx_win, 17, 0, quit, &bundle);
-	mlx_loop(bundle.mlx_inst);
+	if (argc == 2)
+	{
+		ft_bzero(&bundle, sizeof(bundle));
+		init_image(&bundle);
+		read_map(argv[1], &bundle);
+		project_v_map(&bundle);
+		write_v_map_to_image(&bundle);
+		mlx_put_image_to_window(bundle.mlx_inst, bundle.mlx_win, \
+		bundle.img->img, 0, 0);
+		mlx_hook(bundle.mlx_win, 2, 1L << 0, exit_on_esc, &bundle);
+		mlx_hook(bundle.mlx_win, 17, 0, quit, &bundle);
+		mlx_loop(bundle.mlx_inst);
+	}
 }
