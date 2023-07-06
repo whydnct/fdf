@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   project_v_map.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aperez-m <aperez-m@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: aperez-m <aperez-m@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 18:31:14 by aperez-m          #+#    #+#             */
-/*   Updated: 2023/06/26 19:00:22 by aperez-m         ###   ########.fr       */
+/*   Updated: 2023/07/06 16:57:52 by aperez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ void	to_new_perspective(t_v_map *v_map, t_persp *persp)
 		}
 		j = -1;
 	}
-	printf("transformed to new perspective \n");
 }
 
 void	scale_v_map(t_v_map *v_map)
@@ -74,5 +73,4 @@ void	get_max_pps(t_v_map *v_map, t_img *img)
 		v_map->pps = (double)img->height / v_map->span_v;
 	else
 		v_map->pps = (double)img->width / v_map->span_h;
-	printf("max_pps: %f\n", v_map->pps);
 }

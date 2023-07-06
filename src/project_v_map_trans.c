@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   project_v_map_trans.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aperez-m <aperez-m@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: aperez-m <aperez-m@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 18:31:14 by aperez-m          #+#    #+#             */
-/*   Updated: 2023/06/27 17:20:20 by aperez-m         ###   ########.fr       */
+/*   Updated: 2023/07/06 16:57:44 by aperez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,6 @@ void	center_v_map(t_v_map *v_map)
 		}
 		j = -1;
 	}
-	printf("y_max: %f\ny_min: %f\n", get_y_max(v_map), get_y_min(v_map));
-	printf("x_max: %f\nx_min: %f\n", v_map->vtx[0][v_map->cols - 1].x,
-		v_map->vtx[v_map->rows - 1][0].x);
 }
 
 void	get_offset(t_bundle *bundle)
@@ -47,8 +44,4 @@ void	get_offset(t_bundle *bundle)
 		(bundle->img->height \
 		- get_y_min(bundle->v_map) \
 		- get_y_max(bundle->v_map));
-	printf("y_max: %f\ny_min: %f\n", \
-		get_y_max(bundle->v_map), \
-		get_y_min(bundle->v_map));
-	printf("x_max: %f\nx_min: %f\n", x_max, x_min);
 }

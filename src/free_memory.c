@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_memory.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aperez-m <aperez-m@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: aperez-m <aperez-m@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 13:03:30 by aperez-m          #+#    #+#             */
-/*   Updated: 2023/06/26 17:24:17 by aperez-m         ###   ########.fr       */
+/*   Updated: 2023/07/06 16:57:07 by aperez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,4 @@ void	free_all(t_bundle *bundle)
 	if (bundle->allocs >= IMG_ALLOCD)
 		free(bundle->img);
 	free(bundle->mlx_inst);
-	printf("memory freed\n");
 }

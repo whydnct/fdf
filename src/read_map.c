@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aperez-m <aperez-m@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: aperez-m <aperez-m@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 18:53:11 by aperez-m          #+#    #+#             */
-/*   Updated: 2023/06/26 22:56:28 by aperez-m         ###   ########.fr       */
+/*   Updated: 2023/07/06 16:58:01 by aperez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ void	get_str_map(char *file, t_bundle *bundle)
 	int		i;
 	char	*line;
 
-	printf("get_str_map()\n");
 	bundle->str_map = NULL;
 	fd = open(file, O_RDONLY);
 	if (fd < 0)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   project_v_map_spans.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aperez-m <aperez-m@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: aperez-m <aperez-m@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 18:52:42 by aperez-m          #+#    #+#             */
-/*   Updated: 2023/06/29 16:35:55 by aperez-m         ###   ########.fr       */
+/*   Updated: 2023/07/06 16:57:16 by aperez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	get_span_v(t_v_map *v_map)
 {
 	v_map->span_v = get_y_max(v_map) - get_y_min(v_map);
-	printf("vertical span: %f\n", v_map->span_v);
 }
 
 double	get_y_max(t_v_map *v_map)
@@ -65,5 +64,4 @@ void	get_span_h(t_v_map *v_map)
 	v_map->span_h = \
 		- v_map->vtx[0][0].x \
 		+ v_map->vtx[v_map->rows - 1][v_map->cols - 1].x;
-	printf("horizontal: %f\n", v_map->span_h);
 }

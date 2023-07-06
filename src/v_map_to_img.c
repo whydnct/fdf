@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   v_map_to_img.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aperez-m <aperez-m@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: aperez-m <aperez-m@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 18:51:30 by aperez-m          #+#    #+#             */
-/*   Updated: 2023/06/29 17:53:30 by aperez-m         ###   ########.fr       */
+/*   Updated: 2023/07/06 16:58:10 by aperez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,6 @@ void	my_mlx_pixel_put(t_img *img, double x, double y, int color)
 		dst = img->addr + offset;
 		*(unsigned int *)dst = color;
 	}
-	else
-		printf("out of bounds\n");
 }
 
 int	xy_within_limits(t_img *img, double x, double y)

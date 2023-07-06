@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   events_handlers.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aperez-m <aperez-m@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: aperez-m <aperez-m@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 05:50:40 by aperez-m          #+#    #+#             */
-/*   Updated: 2023/06/26 18:28:57 by aperez-m         ###   ########.fr       */
+/*   Updated: 2023/07/06 17:20:27 by aperez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,6 @@ int	quit(t_bundle *bundle, int status)
 	mlx_destroy_image(bundle->mlx_inst, bundle->img->img);
 	mlx_destroy_window(bundle->mlx_inst, bundle->mlx_win);
 	free_all(bundle);
+	system("leaks fdf_al.out");
 	exit(status);
 }
