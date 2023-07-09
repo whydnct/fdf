@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_fdf.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aperez-m <aperez-m@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: aperez-m <aperez-m@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 18:30:39 by aperez-m          #+#    #+#             */
-/*   Updated: 2023/06/08 18:43:38by aperez-m         ###   ########.fr       */
+/*   Updated: 2023/07/09 10:07:41 by aperez-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@
 
 # include "mlx.h"
 # include "ft.h"
-# include <stdio.h>
 # include <math.h>
 # include <fcntl.h>
 # include <limits.h>

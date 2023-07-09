@@ -6,13 +6,13 @@
 #    By: aperez-m <aperez-m@student.42urduliz.co    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/02 13:31:05 by aperez-m          #+#    #+#              #
-#    Updated: 2023/07/06 19:20:49 by aperez-m         ###   ########.fr        #
+#    Updated: 2023/07/09 10:09:18 by aperez-m         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 OS := $(shell uname -s)
 
-NAME := fdf_al
+NAME := fdf
 
 #------------------------------------------------#
 #   INGREDIENTS                                  #
@@ -70,7 +70,7 @@ BUILD_DIR   := .build
 OBJS		:= $(SRCS:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
 DEPS		:= $(OBJS:.o=.d)
 
-CC          := gcc
+CC          := cc
 CFLAGS      := -Wall -Wextra -Werror #-g -O0
 CPPFLAGS    := $(addprefix -I,$(INCS)) -MMD -MP
 LDFLAGS     := $(addprefix -L,$(dir $(LIBS_TARGET)))
@@ -103,7 +103,7 @@ DIR_DUP     = mkdir -p $(@D)
 all: $(NAME)
 
 $(NAME): $(OBJS) $(LIBS_TARGET)
-	$(CC) $(LDFLAGS) $(OBJS) $(LDLIBS) $(MFLAGS) -g -o $(NAME).out
+	$(CC) $(LDFLAGS) $(OBJS) $(LDLIBS) $(MFLAGS) -o $(NAME)
 	$(info CREATED $(NAME))
 
 $(LIBS_TARGET):
